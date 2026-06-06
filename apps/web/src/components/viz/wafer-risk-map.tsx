@@ -10,6 +10,9 @@ interface WaferRiskMapProps {
   selectedTileId?: string | null;
   highlightTileId?: string | null;
   onSelectTile?: (tileId: string) => void;
+  /** Show only inspected tiles as scored/clickable; render the rest as a
+   *  neutral "not inspected" die outline instead of fabricated heat scores. */
+  emphasizeInspected?: boolean;
   className?: string;
 }
 
@@ -24,94 +27,112 @@ export function WaferRiskMap({
   selectedTileId,
   highlightTileId,
   onSelectTile,
+  emphasizeInspected = false,
   className,
 }: WaferRiskMapProps) {
   const { cols, rows, tiles } = riskMap;
   const [hovered, setHovered] = useState<RiskTile | null>(null);
-  const cx = (cols - 1) / 2 + 0.5;
-  const cy = (rows - 1) / 2 + 0.5;
-  const r = Math.min(cols, rows) / 2 + 0.1;
+
+  // The die field is a cols×rows grid (cells span 0..cols, 0..rows). The wafer
+  // disc is sized to sit *around* that field with margin so no die ever spills
+  // past the edge, then the viewBox is fit to the disc (+ room for the notch).
+  const cx = cols / 2;
+  const cy = rows / 2;
+  const r = Math.SQRT2 * (Math.max(cols, rows) / 2 - 0.08) + 0.6;
+  const vbX = cx - r - 0.25;
+  const vbY = cy - r - 0.25;
+  const vbW = 2 * r + 0.5;
+  const vbH = 2 * r + 0.55;
+  const notch = 0.42;
 
   const active = hovered;
+  const inspectedCount = tiles.filter((t) => t.has_result).length;
+  const fieldCount = tiles.filter((t) => t.in_wafer && !t.has_result).length;
+
+  // Map grid/SVG coordinates to container-relative percentages for the click overlay.
+  const pctX = (sx: number) => ((sx - vbX) / vbW) * 100;
+  const pctY = (sy: number) => ((sy - vbY) / vbH) * 100;
 
   return (
     <div className={cn("flex flex-col gap-3", className)}>
       <div className="relative aspect-square w-full">
         <svg
-          viewBox={`-0.5 -0.5 ${cols + 1} ${rows + 1}`}
+          viewBox={`${vbX} ${vbY} ${vbW} ${vbH}`}
           className="size-full"
           role="img"
-          aria-label="Wafer risk map"
+          aria-label="Wafer inspection field"
         >
-          <title>Wafer risk map</title>
+          <title>Wafer inspection field</title>
           <defs>
-            <radialGradient id="wafer-sheen" cx="40%" cy="32%" r="80%">
-              <stop offset="0%" stopColor="oklch(0.4 0.02 255 / 0.25)" />
+            <radialGradient id="wafer-sheen" cx="38%" cy="30%" r="78%">
+              <stop offset="0%" stopColor="oklch(0.42 0.02 255 / 0.18)" />
               <stop offset="100%" stopColor="oklch(0.1 0.01 255 / 0)" />
             </radialGradient>
           </defs>
 
-          {/* wafer disc */}
+          {/* wafer disc + bottom notch */}
           <circle
             cx={cx}
             cy={cy}
             r={r}
             fill="var(--canvas)"
-            stroke="var(--border)"
-            strokeWidth={0.08}
+            stroke="var(--plate-frame)"
+            strokeWidth={0.05}
           />
           <circle cx={cx} cy={cy} r={r} fill="url(#wafer-sheen)" />
+          <path
+            d={`M ${cx - 0.24} ${cy + r} L ${cx} ${cy + r - notch} L ${cx + 0.24} ${cy + r} Z`}
+            fill="var(--background)"
+          />
 
           {tiles.map((t) => {
             if (!t.in_wafer) return null;
-            const isSelected = t.has_result && t.tile_id === selectedTileId;
-            const isHighlight = t.has_result && t.tile_id === highlightTileId;
-            const fill = heatColor(t.anomaly_score, 0.85);
-            const hot = t.verdict !== "PASS";
+            const inspected = t.has_result;
+            const dim = emphasizeInspected && !inspected;
+            const isSelected = inspected && t.tile_id === selectedTileId;
+            const isHighlight = inspected && t.tile_id === highlightTileId;
+            const isDimmed = active && active !== t && active.in_wafer && !dim;
             return (
               <g key={`${t.col}-${t.row}`}>
                 <rect
-                  x={t.col + 0.08}
-                  y={t.row + 0.08}
-                  width={0.84}
-                  height={0.84}
-                  rx={0.16}
-                  fill={fill}
+                  x={t.col + 0.09}
+                  y={t.row + 0.09}
+                  width={0.82}
+                  height={0.82}
+                  rx={0.07}
+                  fill={dim ? "none" : heatColor(t.anomaly_score, 0.85)}
                   stroke={
                     isSelected
                       ? "oklch(1 0 0 / 0.95)"
-                      : t.has_result
-                        ? "oklch(0.95 0 0 / 0.5)"
-                        : "oklch(0 0 0 / 0.25)"
+                      : inspected
+                        ? "oklch(0.97 0 0 / 0.55)"
+                        : dim
+                          ? "oklch(0.92 0.01 255 / 0.22)"
+                          : "oklch(0 0 0 / 0.22)"
                   }
-                  strokeWidth={isSelected ? 0.09 : t.has_result ? 0.05 : 0.02}
-                  className={cn("transition-[opacity,transform] duration-150")}
-                  style={{
-                    filter: hot
-                      ? `drop-shadow(0 0 ${0.12 + t.anomaly_score * 0.3}px ${heatColor(t.anomaly_score)})`
-                      : undefined,
-                    opacity: active && active !== t && active.in_wafer ? 0.55 : 1,
-                  }}
+                  strokeWidth={isSelected ? 0.07 : inspected ? 0.045 : 0.032}
+                  className="transition-opacity duration-150"
+                  style={{ opacity: isDimmed ? 0.45 : 1 }}
                 />
-                {t.has_result && (
+                {!emphasizeInspected && inspected && (
                   <circle
                     cx={t.col + 0.5}
                     cy={t.row + 0.5}
-                    r={0.09}
-                    fill="oklch(1 0 0 / 0.92)"
+                    r={0.08}
+                    fill="oklch(1 0 0 / 0.9)"
                     pointerEvents="none"
                   />
                 )}
                 {isHighlight && (
                   <rect
-                    x={t.col + 0.02}
-                    y={t.row + 0.02}
-                    width={0.96}
-                    height={0.96}
-                    rx={0.2}
+                    x={t.col + 0.03}
+                    y={t.row + 0.03}
+                    width={0.94}
+                    height={0.94}
+                    rx={0.1}
                     fill="none"
                     stroke={VERDICT_RING[t.verdict]}
-                    strokeWidth={0.1}
+                    strokeWidth={0.09}
                     className="animate-pulse-ring origin-center"
                     style={{ transformBox: "fill-box" }}
                     pointerEvents="none"
@@ -124,9 +145,7 @@ export function WaferRiskMap({
         <div className="absolute inset-0">
           {tiles.map((t) => {
             if (!t.in_wafer) return null;
-            const left = ((t.col + 0.08 + 0.5) / (cols + 1)) * 100;
-            const top = ((t.row + 0.08 + 0.5) / (rows + 1)) * 100;
-            const size = (0.84 / (cols + 1)) * 100;
+            if (emphasizeInspected && !t.has_result) return null;
             return (
               <button
                 key={`${t.col}-${t.row}`}
@@ -139,10 +158,10 @@ export function WaferRiskMap({
                   t.has_result && "cursor-pointer",
                 )}
                 style={{
-                  left: `${left}%`,
-                  top: `${top}%`,
-                  width: `${size}%`,
-                  height: `${size}%`,
+                  left: `${pctX(t.col + 0.09)}%`,
+                  top: `${pctY(t.row + 0.09)}%`,
+                  width: `${(0.82 / vbW) * 100}%`,
+                  height: `${(0.82 / vbH) * 100}%`,
                 }}
                 onMouseEnter={() => setHovered(t)}
                 onMouseLeave={() => setHovered(null)}
@@ -172,7 +191,9 @@ export function WaferRiskMap({
           </span>
         ) : (
           <span>
-            {riskMap.summary.inspected} tiles · hover to probe · ◷ marked = full result
+            {emphasizeInspected
+              ? `${inspectedCount} inspected · ${fieldCount} not yet inspected`
+              : `${riskMap.summary.inspected} tiles · hover to probe · ◷ marked = full result`}
           </span>
         )}
         <span className="flex items-center gap-1.5">

@@ -4,13 +4,15 @@
   "private": true,
   "packageManager": "pnpm@11.3.0",
   "engines": {
-    "node": ">=22.13"
+    "node": ">=24 <25"
   },
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "validate:demo": "node scripts/validate_demo.mjs demo/manifest.json",
+    "validate:registry": "node scripts/validate_registry.mjs data/registry/sources.example.jsonl"
   },
   "devDependencies": {
     "turbo": "^2.5.8"

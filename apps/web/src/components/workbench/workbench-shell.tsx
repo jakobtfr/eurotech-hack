@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTileSelection, type WorkbenchTab } from "@/hooks/use-tile-selection";
-import { demoManifest } from "@/lib/mock/manifest";
 import { getExampleOrDefault, scoreDistribution } from "@/lib/mock/selectors";
+import type { DemoManifest } from "@/lib/types";
 import { EvidencePanel } from "./evidence-panel";
 import { InspectPanel } from "./inspect-panel";
 import { ResearchPanel } from "./research-panel";
@@ -22,9 +22,15 @@ const TABS = [
   { value: "research", label: "Research", Icon: FlaskConicalIcon },
 ] as const;
 
-export function WorkbenchShell() {
-  const { selectedId, setSelectedId, tab, setTab, inspect } = useTileSelection();
-  const example = getExampleOrDefault(selectedId);
+interface WorkbenchShellProps {
+  manifest: DemoManifest;
+}
+
+export function WorkbenchShell({ manifest }: WorkbenchShellProps) {
+  const { selectedId, setSelectedId, tab, setTab, inspect } = useTileSelection(
+    manifest.default_example_id,
+  );
+  const example = getExampleOrDefault(manifest, selectedId);
 
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-6 py-8">
@@ -57,17 +63,18 @@ export function WorkbenchShell() {
         <TabsContent value="inspect">
           <InspectPanel
             example={example}
-            examples={demoManifest.examples}
+            examples={manifest.examples}
             selectedId={selectedId}
             onSelectExample={setSelectedId}
-            reviewAt={demoManifest.threshold_review}
-            holdAt={demoManifest.threshold_hold}
+            reviewAt={manifest.threshold_review}
+            holdAt={manifest.threshold_hold}
           />
         </TabsContent>
 
         <TabsContent value="risk-map">
           <RiskMapPanel
-            riskMap={demoManifest.risk_map}
+            riskMap={manifest.risk_map}
+            examples={manifest.examples}
             selectedTileId={selectedId}
             onSelectTile={setSelectedId}
             onOpenInspect={inspect}
@@ -76,14 +83,14 @@ export function WorkbenchShell() {
 
         <TabsContent value="evidence">
           <EvidencePanel
-            metrics={demoManifest.metrics}
-            distribution={scoreDistribution()}
-            reviewAt={demoManifest.threshold_review}
+            metrics={manifest.metrics}
+            distribution={scoreDistribution(manifest)}
+            reviewAt={manifest.threshold_review}
           />
         </TabsContent>
 
         <TabsContent value="research">
-          <ResearchPanel research={demoManifest.research} />
+          <ResearchPanel research={manifest.research} />
         </TabsContent>
       </Tabs>
     </main>

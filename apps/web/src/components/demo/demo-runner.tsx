@@ -10,13 +10,14 @@ import { InspectPanel } from "@/components/workbench/inspect-panel";
 import { ResearchPanel } from "@/components/workbench/research-panel";
 import { RiskMapPanel } from "@/components/workbench/risk-map-panel";
 import { useDemoStepper } from "@/hooks/use-demo-stepper";
-import { demoManifest } from "@/lib/mock/manifest";
 import {
   getExampleOrDefault,
   requireExampleWithVerdict,
   scoreDistribution,
 } from "@/lib/mock/selectors";
+import type { DemoManifest } from "@/lib/types";
 import { DemoNarration } from "./demo-narration";
+import { buildDemoSteps } from "./demo-steps";
 import { StepperRail } from "./stepper-rail";
 
 const REVIEW_STEP = 3; // index of the inspect-review step
@@ -26,8 +27,8 @@ const INTRO_POINTS = [
   "Check the evidence — and what stays qualitative.",
 ] as const;
 
-function IntroView() {
-  const hold = requireExampleWithVerdict("HOLD");
+function IntroView({ manifest }: { manifest: DemoManifest }) {
+  const hold = requireExampleWithVerdict(manifest, "HOLD");
   return (
     <div className="grid items-center gap-8 rounded-xl border border-border bg-card p-7 shadow-[var(--shadow-soft)] lg:grid-cols-[1fr_20rem]">
       <div>
@@ -62,19 +63,25 @@ function IntroView() {
   );
 }
 
-export function DemoRunner() {
+interface DemoRunnerProps {
+  manifest: DemoManifest;
+}
+
+export function DemoRunner({ manifest }: DemoRunnerProps) {
+  const steps = buildDemoSteps(manifest);
   const { index, step, total, isLast, autoplay, goTo, next, prev, toggleAutoplay } =
-    useDemoStepper();
+    useDemoStepper(steps);
   const [selectedTileId, setSelectedTileId] = useState<string | null>(null);
 
   function renderView() {
     switch (step.view) {
       case "intro":
-        return <IntroView />;
+        return <IntroView manifest={manifest} />;
       case "risk-map":
         return (
           <RiskMapPanel
-            riskMap={demoManifest.risk_map}
+            riskMap={manifest.risk_map}
+            examples={manifest.examples}
             selectedTileId={selectedTileId}
             highlightTileId={step.highlightTileId}
             onSelectTile={setSelectedTileId}
@@ -84,21 +91,21 @@ export function DemoRunner() {
       case "inspect":
         return (
           <InspectPanel
-            example={getExampleOrDefault(step.focusExampleId)}
-            reviewAt={demoManifest.threshold_review}
-            holdAt={demoManifest.threshold_hold}
+            example={getExampleOrDefault(manifest, step.focusExampleId)}
+            reviewAt={manifest.threshold_review}
+            holdAt={manifest.threshold_hold}
           />
         );
       case "evidence":
         return (
           <EvidencePanel
-            metrics={demoManifest.metrics}
-            distribution={scoreDistribution()}
-            reviewAt={demoManifest.threshold_review}
+            metrics={manifest.metrics}
+            distribution={scoreDistribution(manifest)}
+            reviewAt={manifest.threshold_review}
           />
         );
       case "research":
-        return <ResearchPanel research={demoManifest.research} />;
+        return <ResearchPanel research={manifest.research} />;
     }
   }
 
@@ -115,9 +122,9 @@ export function DemoRunner() {
         </p>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[15rem_minmax(0,1fr)]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[15rem_minmax(0,1fr)]">
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <StepperRail activeIndex={index} onSelect={goTo} />
+          <StepperRail steps={steps} activeIndex={index} onSelect={goTo} />
           {isLast && (
             <a
               href="/workbench"

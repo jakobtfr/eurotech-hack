@@ -6,12 +6,12 @@ import { ProvenanceTag } from "@/components/ui/provenance-tag";
 import { StatCard } from "@/components/ui/stat-card";
 import { VerdictBadge } from "@/components/ui/verdict-badge";
 import { WaferRiskMap } from "@/components/viz/wafer-risk-map";
-import { getExample } from "@/lib/mock/selectors";
-import type { RiskMap } from "@/lib/types";
+import type { DemoExample, RiskMap } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface RiskMapPanelProps {
   riskMap: RiskMap;
+  examples: DemoExample[];
   selectedTileId?: string | null;
   highlightTileId?: string | null;
   onSelectTile?: (id: string) => void;
@@ -21,13 +21,16 @@ interface RiskMapPanelProps {
 
 export function RiskMapPanel({
   riskMap,
+  examples,
   selectedTileId,
   highlightTileId,
   onSelectTile,
   onOpenInspect,
   className,
 }: RiskMapPanelProps) {
-  const focused = selectedTileId ? getExample(selectedTileId) : undefined;
+  const focused = selectedTileId
+    ? examples.find((e) => e.registry.tile_id === selectedTileId)
+    : undefined;
   const { summary } = riskMap;
 
   return (

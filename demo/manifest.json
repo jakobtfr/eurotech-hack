@@ -1,0 +1,245 @@
+{
+  "version": "0.1.0-artifact-contract",
+  "generated_at": "2026-06-06T12:00:00Z",
+  "model": "subspacead",
+  "default_example_id": "miic_sem_w12__x0000_y0000_s0512",
+  "threshold_review": 0.35,
+  "threshold_hold": 0.7,
+  "examples": [
+    {
+      "registry": {
+        "tile_id": "miic_sem_w12__x0000_y0000_s0512",
+        "wafer_id": "MIIC-lot7-w12",
+        "source_id": "MIIC",
+        "source_file": "raw/MIIC/miic_sem_w12__x0000_y0000_s0512.tif",
+        "modality": "SEM",
+        "image_path": "datasets/workbench/miic_sem/test/good/miic_sem_w12__x0000_y0000_s0512.png",
+        "source_image_path": "raw/MIIC/miic_sem_w12__x0000_y0000_s0512.tif",
+        "split": "demo",
+        "source_label": "normal",
+        "mask_path": null,
+        "license_status": "verified",
+        "demo_allowed": true,
+        "tile_x": 0,
+        "tile_y": 0,
+        "tile_size": 512,
+        "preprocess": "rgb_repeat"
+      },
+      "result": {
+        "tile_id": "miic_sem_w12__x0000_y0000_s0512",
+        "model": "subspacead",
+        "model_config_path": "runs/example_subspacead_miic_sem/config.yaml",
+        "anomaly_score": 0.08,
+        "heatmap_path": "runs/example_subspacead_miic_sem/heatmaps/miic_sem_w12__x0000_y0000_s0512.png",
+        "overlay_path": "runs/example_subspacead_miic_sem/overlays/miic_sem_w12__x0000_y0000_s0512.png",
+        "region_tag": null,
+        "semantic_hint": null,
+        "novelty_flag": false,
+        "verdict": "PASS"
+      },
+      "title": "Nominal die",
+      "caption": "Integrated-circuit SEM tile. Dense periodic structure, no residual - matches the support set.",
+      "evidence_class": "verified",
+      "caveats": ["proxy metric"],
+      "k_shot": 4
+    },
+    {
+      "registry": {
+        "tile_id": "miic_sem_w12__x1024_y0512_s0512",
+        "wafer_id": "MIIC-lot7-w12",
+        "source_id": "MIIC",
+        "source_file": "raw/MIIC/miic_sem_w12__x1024_y0512_s0512.tif",
+        "modality": "SEM",
+        "image_path": "datasets/workbench/miic_sem/test/anomaly/miic_sem_w12__x1024_y0512_s0512.png",
+        "source_image_path": "raw/MIIC/miic_sem_w12__x1024_y0512_s0512.tif",
+        "split": "demo",
+        "source_label": "proxy_anomaly",
+        "mask_path": "datasets/workbench/miic_sem/ground_truth/anomaly/miic_sem_w12__x1024_y0512_s0512_mask.png",
+        "license_status": "verified",
+        "demo_allowed": true,
+        "tile_x": 1024,
+        "tile_y": 512,
+        "tile_size": 512,
+        "preprocess": "rgb_repeat"
+      },
+      "result": {
+        "tile_id": "miic_sem_w12__x1024_y0512_s0512",
+        "model": "subspacead",
+        "model_config_path": "runs/example_subspacead_miic_sem/config.yaml",
+        "anomaly_score": 0.52,
+        "heatmap_path": "runs/example_subspacead_miic_sem/heatmaps/miic_sem_w12__x1024_y0512_s0512.png",
+        "overlay_path": "runs/example_subspacead_miic_sem/overlays/miic_sem_w12__x1024_y0512_s0512.png",
+        "region_tag": "localized anomaly",
+        "semantic_hint": "particle / residue (hint)",
+        "novelty_flag": true,
+        "verdict": "REVIEW"
+      },
+      "title": "Particle residue",
+      "caption": "Localized bright residue breaking lattice periodicity. Routed for human review.",
+      "evidence_class": "verified",
+      "caveats": ["proxy metric"],
+      "k_shot": 4
+    },
+    {
+      "registry": {
+        "tile_id": "miic_sem_w12__x1536_y1024_s0512",
+        "wafer_id": "MIIC-lot7-w12",
+        "source_id": "MIIC",
+        "source_file": "raw/MIIC/miic_sem_w12__x1536_y1024_s0512.tif",
+        "modality": "SEM",
+        "image_path": "datasets/workbench/miic_sem/test/anomaly/miic_sem_w12__x1536_y1024_s0512.png",
+        "source_image_path": "raw/MIIC/miic_sem_w12__x1536_y1024_s0512.tif",
+        "split": "demo",
+        "source_label": "proxy_anomaly",
+        "mask_path": "datasets/workbench/miic_sem/ground_truth/anomaly/miic_sem_w12__x1536_y1024_s0512_mask.png",
+        "license_status": "verified",
+        "demo_allowed": true,
+        "tile_x": 1536,
+        "tile_y": 1024,
+        "tile_size": 512,
+        "preprocess": "rgb_repeat"
+      },
+      "result": {
+        "tile_id": "miic_sem_w12__x1536_y1024_s0512",
+        "model": "subspacead",
+        "model_config_path": "runs/example_subspacead_miic_sem/config.yaml",
+        "anomaly_score": 0.86,
+        "heatmap_path": "runs/example_subspacead_miic_sem/heatmaps/miic_sem_w12__x1536_y1024_s0512.png",
+        "overlay_path": "runs/example_subspacead_miic_sem/overlays/miic_sem_w12__x1536_y1024_s0512.png",
+        "region_tag": "high-area anomaly",
+        "semantic_hint": "pattern collapse (hint)",
+        "novelty_flag": true,
+        "verdict": "HOLD"
+      },
+      "title": "Pattern collapse",
+      "caption": "Clustered structural break with high-area deviation from the support set.",
+      "evidence_class": "verified",
+      "caveats": ["proxy metric"],
+      "k_shot": 4
+    },
+    {
+      "registry": {
+        "tile_id": "sic_pl_w03__x0512_y0512_s0512",
+        "wafer_id": "SiC-4H-w03",
+        "source_id": "Zenodo-SiC",
+        "source_file": "raw/Zenodo-SiC/sic_pl_w03__x0512_y0512_s0512.tif",
+        "modality": "PL",
+        "image_path": "datasets/workbench/sic_pl/test/anomaly/sic_pl_w03__x0512_y0512_s0512.png",
+        "source_image_path": "raw/Zenodo-SiC/sic_pl_w03__x0512_y0512_s0512.tif",
+        "split": "demo",
+        "source_label": "unknown",
+        "mask_path": null,
+        "license_status": "verified",
+        "demo_allowed": true,
+        "tile_x": 512,
+        "tile_y": 512,
+        "tile_size": 512,
+        "preprocess": "rgb_repeat+clahe_v1"
+      },
+      "result": {
+        "tile_id": "sic_pl_w03__x0512_y0512_s0512",
+        "model": "subspacead",
+        "model_config_path": "runs/example_subspacead_sic_pl/config.yaml",
+        "anomaly_score": 0.61,
+        "heatmap_path": "runs/example_subspacead_sic_pl/heatmaps/sic_pl_w03__x0512_y0512_s0512.png",
+        "overlay_path": "runs/example_subspacead_sic_pl/overlays/sic_pl_w03__x0512_y0512_s0512.png",
+        "region_tag": "localized anomaly",
+        "semantic_hint": "BPD-like (qualitative)",
+        "novelty_flag": true,
+        "verdict": "REVIEW"
+      },
+      "title": "BPD candidate",
+      "caption": "Low-contrast linear feature consistent with a basal-plane dislocation. Qualitative transfer.",
+      "evidence_class": "qualitative",
+      "caveats": ["SiC qualitative"],
+      "k_shot": 2
+    }
+  ],
+  "risk_map": {
+    "provenance": "stitched field",
+    "wafer_id": "MIIC-lot7-w12",
+    "cols": 4,
+    "rows": 4,
+    "threshold_review": 0.35,
+    "threshold_hold": 0.7,
+    "tiles": [
+      {"tile_id": "miic_sem_w12__x0000_y0000_s0512", "col": 0, "row": 0, "in_wafer": true, "anomaly_score": 0.08, "verdict": "PASS", "has_result": true},
+      {"tile_id": "w12__c1_r0", "col": 1, "row": 0, "in_wafer": true, "anomaly_score": 0.12, "verdict": "PASS", "has_result": false},
+      {"tile_id": "w12__c2_r0", "col": 2, "row": 0, "in_wafer": true, "anomaly_score": 0.41, "verdict": "REVIEW", "has_result": false},
+      {"tile_id": "w12__c3_r0", "col": 3, "row": 0, "in_wafer": true, "anomaly_score": 0.2, "verdict": "PASS", "has_result": false},
+      {"tile_id": "w12__c0_r1", "col": 0, "row": 1, "in_wafer": true, "anomaly_score": 0.18, "verdict": "PASS", "has_result": false},
+      {"tile_id": "miic_sem_w12__x1024_y0512_s0512", "col": 1, "row": 1, "in_wafer": true, "anomaly_score": 0.52, "verdict": "REVIEW", "has_result": true},
+      {"tile_id": "miic_sem_w12__x1536_y1024_s0512", "col": 2, "row": 1, "in_wafer": true, "anomaly_score": 0.86, "verdict": "HOLD", "has_result": true},
+      {"tile_id": "w12__c3_r1", "col": 3, "row": 1, "in_wafer": true, "anomaly_score": 0.49, "verdict": "REVIEW", "has_result": false},
+      {"tile_id": "w12__c0_r2", "col": 0, "row": 2, "in_wafer": true, "anomaly_score": 0.11, "verdict": "PASS", "has_result": false},
+      {"tile_id": "w12__c1_r2", "col": 1, "row": 2, "in_wafer": true, "anomaly_score": 0.22, "verdict": "PASS", "has_result": false},
+      {"tile_id": "w12__c2_r2", "col": 2, "row": 2, "in_wafer": true, "anomaly_score": 0.79, "verdict": "HOLD", "has_result": false},
+      {"tile_id": "w12__c3_r2", "col": 3, "row": 2, "in_wafer": true, "anomaly_score": 0.29, "verdict": "PASS", "has_result": false},
+      {"tile_id": "w12__c0_r3", "col": 0, "row": 3, "in_wafer": true, "anomaly_score": 0.19, "verdict": "PASS", "has_result": false},
+      {"tile_id": "sic_pl_w03__x0512_y0512_s0512", "col": 1, "row": 3, "in_wafer": true, "anomaly_score": 0.61, "verdict": "REVIEW", "has_result": true},
+      {"tile_id": "w12__c2_r3", "col": 2, "row": 3, "in_wafer": true, "anomaly_score": 0.24, "verdict": "PASS", "has_result": false},
+      {"tile_id": "w12__c3_r3", "col": 3, "row": 3, "in_wafer": true, "anomaly_score": 0.15, "verdict": "PASS", "has_result": false}
+    ],
+    "summary": {
+      "pass": 10,
+      "review": 4,
+      "hold": 2,
+      "inspected": 16
+    }
+  },
+  "metrics": {
+    "run_dir": "runs/example_subspacead_miic_sem",
+    "model": "subspacead",
+    "model_config_path": "runs/example_subspacead_miic_sem/config.yaml",
+    "dataset": "MIIC (SEM proxy)",
+    "split": "test",
+    "k_shot": 4,
+    "image_res": 512,
+    "framing": "Image metrics below are proxy-validated on MIIC SEM with real labels. Pixel PRO and SiC image AUROC are withheld (null) because aligned masks and labeled SiC data are not available - those remain qualitative.",
+    "metrics": [
+      {"name": "Image AUROC", "value": 0.942, "requires": "labels", "available": true, "format": "auroc", "evidence_class": "verified", "note": "MIIC test split - 4-shot support"},
+      {"name": "Image AUPR", "value": 0.911, "requires": "labels", "available": true, "format": "auroc", "evidence_class": "verified", "note": "Precision-recall area, anomaly = positive"},
+      {"name": "Pixel AUROC", "value": 0.876, "requires": "masks", "available": true, "format": "auroc", "evidence_class": "verified", "note": "2 annotated masks - localization sanity only"},
+      {"name": "Pixel PRO", "value": null, "requires": "masks", "available": false, "format": "auroc", "evidence_class": "verified", "note": "Needs aligned masks - 2/6 anomalies annotated"},
+      {"name": "SiC Image AUROC", "value": null, "requires": "labels", "available": false, "format": "auroc", "evidence_class": "qualitative", "note": "No labeled SiC data - qualitative transfer only"}
+    ]
+  },
+  "research": [
+    {
+      "id": "subspacead",
+      "title": "SubspaceAD",
+      "status": "executable baseline",
+      "tagline": "Training-free - frozen DINOv2 + PCA residual scoring",
+      "body": [
+        "The executable path for this demo. SubspaceAD needs no training: it extracts frozen DINOv2 patch features from a handful of normal tiles, fits a PCA subspace over them, and scores each test patch by its residual outside that subspace.",
+        "Because there is no fit-to-failure step, it works from scarce normal examples - exactly the few-shot regime semiconductor inspection lives in. Every heatmap in this workbench comes from this path."
+      ],
+      "badges": ["proxy metric"],
+      "source_ref": "P9 - 2602.23013v3 section 3.2-3.4 - R2 README"
+    },
+    {
+      "id": "foundad",
+      "title": "FoundAD",
+      "status": "research headline",
+      "tagline": "Foundation-encoder anomaly detection - DINOv3 projectors",
+      "body": [
+        "The research headline. FoundAD fits the foundation-encoder thesis and reports strong MVTec-AD / VisA numbers, but the quick path depends on DINOv3 rights and downloaded projector assets.",
+        "It stays optional: shown as a comparison only if it runs by mid-week, otherwise framed as the direction-of-travel. The demo never risks itself on FoundAD."
+      ],
+      "badges": [],
+      "source_ref": "P8 - 2510.01934v1 Tables 1-5 - R1 README Quick Start"
+    },
+    {
+      "id": "domain-gap",
+      "title": "Proxy to SiC domain gap",
+      "status": "open caveat",
+      "tagline": "What transfers from SEM proxy, and what still needs SiC labels",
+      "body": [
+        "Metrics are proxy-validated on MIIC SEM, which the source explicitly warns carries a natural-image-pretraining domain gap. SiC PL / etch-pit tiles are shown qualitatively only.",
+        "PL dislocation signatures are low-contrast and their labels typically depend on destructive etch validation. We separate proxy-validated evidence from qualitative SiC transfer everywhere in the UI rather than overclaiming."
+      ],
+      "badges": ["SiC qualitative", "restricted source"],
+      "source_ref": "P7 sections 3.1, 4.1-4.2 - P1 - P11"
+    }
+  ]
+}

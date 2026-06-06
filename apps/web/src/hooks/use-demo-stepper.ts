@@ -1,27 +1,25 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { DEMO_STEPS } from "@/components/demo/demo-steps";
+import type { DemoStep } from "@/components/demo/demo-steps";
 
-const STEP_COUNT = DEMO_STEPS.length;
-
-export function useDemoStepper() {
+export function useDemoStepper(steps: DemoStep[]) {
   const [index, setIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(false);
 
-  const total = STEP_COUNT;
-  const step = DEMO_STEPS[index];
+  const total = steps.length;
+  const step = steps[index] ?? steps[0];
   const isLast = index === total - 1;
 
   const goTo = useCallback((i: number) => {
     setAutoplay(false);
-    setIndex(Math.max(0, Math.min(STEP_COUNT - 1, i)));
-  }, []);
+    setIndex(Math.max(0, Math.min(steps.length - 1, i)));
+  }, [steps.length]);
 
   const next = useCallback(() => {
     setAutoplay(false);
-    setIndex((i) => Math.min(STEP_COUNT - 1, i + 1));
-  }, []);
+    setIndex((i) => Math.min(steps.length - 1, i + 1));
+  }, [steps.length]);
 
   const prev = useCallback(() => {
     setAutoplay(false);

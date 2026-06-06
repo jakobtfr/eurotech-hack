@@ -2,22 +2,23 @@
 
 import { CheckIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { DEMO_STEPS } from "./demo-steps";
+import type { DemoStep } from "./demo-steps";
 
 interface StepperRailProps {
+  steps: DemoStep[];
   activeIndex: number;
   onSelect: (i: number) => void;
 }
 
-export function StepperRail({ activeIndex, onSelect }: StepperRailProps) {
+export function StepperRail({ steps, activeIndex, onSelect }: StepperRailProps) {
   return (
     <ol className="relative flex flex-col gap-1">
-      {DEMO_STEPS.map((step, i) => {
+      {steps.map((step, i) => {
         const done = i < activeIndex;
         const active = i === activeIndex;
         return (
           <li key={step.id} className="relative">
-            {i < DEMO_STEPS.length - 1 && (
+            {i < steps.length - 1 && (
               <span
                 className={cn(
                   "absolute left-[0.8125rem] top-7 h-[calc(100%-0.5rem)] w-px",

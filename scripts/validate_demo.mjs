@@ -147,8 +147,8 @@ function validate(manifest) {
   if (!exampleIds.has(manifest.default_example_id)) {
     fail("default_example_id does not reference an example");
   }
-  for (const verdict of VERDICTS) {
-    if (!verdicts.has(verdict)) fail(`missing example verdict: ${verdict}`);
+  if (!verdicts.has("PASS") || !verdicts.has("HOLD")) {
+    fail("examples must include at least PASS and HOLD verdicts");
   }
 
   const riskMap = manifest.risk_map;

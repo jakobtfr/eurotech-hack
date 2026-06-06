@@ -70,8 +70,8 @@ export function ReadoutPanel({
           </div>
           <dl className="flex flex-1 flex-col gap-3">
             <Fact
-              label="novelty"
-              value={result?.novelty_flag ? "flagged" : "clear"}
+              label="triage"
+              value={result?.novelty_flag ? "escalated" : "clear"}
               tone={
                 result?.novelty_flag ? "var(--verdict-review)" : "var(--verdict-pass)"
               }

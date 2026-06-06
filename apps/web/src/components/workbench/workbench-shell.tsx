@@ -52,7 +52,7 @@ export function WorkbenchShell({ manifest }: WorkbenchShellProps) {
         <div>
           <p className="eyebrow">inspection workbench</p>
           <h1 className="mt-1.5 font-display text-2xl font-bold tracking-tight">
-            Wafer in, defects out
+            Auditable SEM anomaly triage
           </h1>
           <p className="mt-1 max-w-xl text-sm text-muted-foreground">
             {manifest.metrics.framing}

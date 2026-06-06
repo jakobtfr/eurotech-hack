@@ -19,9 +19,13 @@ blocked on data access (qualitative path ready).
     source-level Image AUROC** (0.072–0.397) — the `max`-over-tiles aggregation
     is anti-correlated with the image label on PCB1. Strong localization, weak
     image ranking; treated as an open domain-gap finding, not a headline win.
+- **Recovered MIIC partial SEM evidence is now usable for the demo.** A partial
+  Dataverse download yielded 1,501 readable SEM JPEGs (1,385 normal + 116
+  anomaly) and supports image-level AUROC/AUPR. Aligned masks were not recovered,
+  so pixel metrics remain gated.
 - **The SiC data itself is not publicly available** — the reference dataset is
-  "available upon request" and there is no public mirror. This is the real
-  bottleneck; SiC remains a *qualitative* track and a concrete pilot-data ask.
+  "available upon request" and there is no public mirror. This remains the real
+  bottleneck; SiC stays a pilot-data ask rather than a production claim.
 - Two methodological pitfalls were found and fixed: **tiling bias** in image
   AUROC and **small-sample calibration** false-positives.
 
@@ -61,7 +65,8 @@ The central constraint is **data availability**, not modeling.
 | Dataset | Domain | Labels/Masks | Availability | Use here |
 |---|---|---|---|---|
 | **VisA / MVTec AD** | industrial (PCB, objects) | image + pixel masks | **public** (VisA direct, MVTec form) | metric-bearing proxy (L1) |
-| **MIIC** | semiconductor SEM | image + pixel | gated / access pending | preferred SEM proxy (not yet usable) |
+| **Recovered MIIC partial** | semiconductor SEM | image labels, no masks recovered | local partial archive | executive demo SEM proxy |
+| **Full MIIC** | semiconductor SEM | image + pixel | gated / access pending | preferred full SEM benchmark |
 | **4H-SiC PL/etch** | **SiC wafer** | none public | **"available upon request"** | qualitative only (L2), blocked |
 | NFFA-EUROPE SEM | SEM microscopy | none | public but ~tens of GB | optional modality bridge |
 

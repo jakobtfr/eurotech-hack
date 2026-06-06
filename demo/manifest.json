@@ -1,248 +1,8 @@
 {
-  "default_example_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448",
+  "default_example_id": "miic_partial_anomaly_anomaly_test_abnormal_00022_190dd270__x00000_y00000_s00448",
   "examples": [
     {
-      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
-      "caveats": [
-        "proxy metric",
-        "restricted source"
-      ],
-      "evidence_class": "verified",
-      "k_shot": 8,
-      "registry": {
-        "demo_allowed": false,
-        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00001.jpg",
-        "license_status": "unknown",
-        "mask_path": null,
-        "modality": "SEM",
-        "preprocess": "rgb_repeat_v1",
-        "source_file": "test_abnormal_00001.jpg",
-        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0",
-        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00001.jpg",
-        "source_label": "anomaly",
-        "split": "test",
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448",
-        "tile_size": 448,
-        "tile_x": 0,
-        "tile_y": 0,
-        "wafer_id": "miic-partial-recovered"
-      },
-      "result": {
-        "anomaly_score": 1.0,
-        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448.png",
-        "model": "dinov2_pca_baseline_v1",
-        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
-        "novelty_flag": true,
-        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448.png",
-        "region_tag": "1 residual region \u00b7 area 99.6%",
-        "semantic_hint": null,
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448",
-        "verdict": "HOLD"
-      },
-      "title": "Recovered anomaly 01"
-    },
-    {
-      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
-      "caveats": [
-        "proxy metric",
-        "restricted source"
-      ],
-      "evidence_class": "verified",
-      "k_shot": 8,
-      "registry": {
-        "demo_allowed": false,
-        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00002.jpg",
-        "license_status": "unknown",
-        "mask_path": null,
-        "modality": "SEM",
-        "preprocess": "rgb_repeat_v1",
-        "source_file": "test_abnormal_00002.jpg",
-        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7",
-        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00002.jpg",
-        "source_label": "anomaly",
-        "split": "test",
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448",
-        "tile_size": 448,
-        "tile_x": 0,
-        "tile_y": 0,
-        "wafer_id": "miic-partial-recovered"
-      },
-      "result": {
-        "anomaly_score": 1.0,
-        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448.png",
-        "model": "dinov2_pca_baseline_v1",
-        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
-        "novelty_flag": true,
-        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448.png",
-        "region_tag": "1 residual region \u00b7 area 99.7%",
-        "semantic_hint": null,
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448",
-        "verdict": "HOLD"
-      },
-      "title": "Recovered anomaly 02"
-    },
-    {
-      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
-      "caveats": [
-        "proxy metric",
-        "restricted source"
-      ],
-      "evidence_class": "verified",
-      "k_shot": 8,
-      "registry": {
-        "demo_allowed": false,
-        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00009.jpg",
-        "license_status": "unknown",
-        "mask_path": null,
-        "modality": "SEM",
-        "preprocess": "rgb_repeat_v1",
-        "source_file": "test_abnormal_00009.jpg",
-        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415",
-        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00009.jpg",
-        "source_label": "anomaly",
-        "split": "test",
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448",
-        "tile_size": 448,
-        "tile_x": 0,
-        "tile_y": 0,
-        "wafer_id": "miic-partial-recovered"
-      },
-      "result": {
-        "anomaly_score": 1.0,
-        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448.png",
-        "model": "dinov2_pca_baseline_v1",
-        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
-        "novelty_flag": true,
-        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448.png",
-        "region_tag": "1 residual region \u00b7 area 100.0%",
-        "semantic_hint": null,
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448",
-        "verdict": "HOLD"
-      },
-      "title": "Recovered anomaly 03"
-    },
-    {
-      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
-      "caveats": [
-        "proxy metric",
-        "restricted source"
-      ],
-      "evidence_class": "verified",
-      "k_shot": 8,
-      "registry": {
-        "demo_allowed": false,
-        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00015.jpg",
-        "license_status": "unknown",
-        "mask_path": null,
-        "modality": "SEM",
-        "preprocess": "rgb_repeat_v1",
-        "source_file": "test_abnormal_00015.jpg",
-        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea",
-        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00015.jpg",
-        "source_label": "anomaly",
-        "split": "test",
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448",
-        "tile_size": 448,
-        "tile_x": 0,
-        "tile_y": 0,
-        "wafer_id": "miic-partial-recovered"
-      },
-      "result": {
-        "anomaly_score": 1.0,
-        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448.png",
-        "model": "dinov2_pca_baseline_v1",
-        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
-        "novelty_flag": true,
-        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448.png",
-        "region_tag": "1 residual region \u00b7 area 99.9%",
-        "semantic_hint": null,
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448",
-        "verdict": "HOLD"
-      },
-      "title": "Recovered anomaly 04"
-    },
-    {
-      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
-      "caveats": [
-        "proxy metric",
-        "restricted source"
-      ],
-      "evidence_class": "verified",
-      "k_shot": 8,
-      "registry": {
-        "demo_allowed": false,
-        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00017.jpg",
-        "license_status": "unknown",
-        "mask_path": null,
-        "modality": "SEM",
-        "preprocess": "rgb_repeat_v1",
-        "source_file": "test_abnormal_00017.jpg",
-        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2",
-        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00017.jpg",
-        "source_label": "anomaly",
-        "split": "test",
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448",
-        "tile_size": 448,
-        "tile_x": 0,
-        "tile_y": 0,
-        "wafer_id": "miic-partial-recovered"
-      },
-      "result": {
-        "anomaly_score": 1.0,
-        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448.png",
-        "model": "dinov2_pca_baseline_v1",
-        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
-        "novelty_flag": true,
-        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448.png",
-        "region_tag": "1 residual region \u00b7 area 99.9%",
-        "semantic_hint": null,
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448",
-        "verdict": "HOLD"
-      },
-      "title": "Recovered anomaly 05"
-    },
-    {
-      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
-      "caveats": [
-        "proxy metric",
-        "restricted source"
-      ],
-      "evidence_class": "verified",
-      "k_shot": 8,
-      "registry": {
-        "demo_allowed": false,
-        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00018.jpg",
-        "license_status": "unknown",
-        "mask_path": null,
-        "modality": "SEM",
-        "preprocess": "rgb_repeat_v1",
-        "source_file": "test_abnormal_00018.jpg",
-        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273",
-        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00018.jpg",
-        "source_label": "anomaly",
-        "split": "test",
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448",
-        "tile_size": 448,
-        "tile_x": 0,
-        "tile_y": 0,
-        "wafer_id": "miic-partial-recovered"
-      },
-      "result": {
-        "anomaly_score": 1.0,
-        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448.png",
-        "model": "dinov2_pca_baseline_v1",
-        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
-        "novelty_flag": true,
-        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448.png",
-        "region_tag": "1 residual region \u00b7 area 100.0%",
-        "semantic_hint": null,
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448",
-        "verdict": "HOLD"
-      },
-      "title": "Recovered anomaly 06"
-    },
-    {
-      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caption": "High-confidence recovered MIIC anomaly. The residual map saturates because most patches sit outside the 8-shot normal subspace. Score 1.000; source label anomaly.",
       "caveats": [
         "proxy metric",
         "restricted source"
@@ -279,10 +39,10 @@
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00022_190dd270__x00000_y00000_s00448",
         "verdict": "HOLD"
       },
-      "title": "Recovered anomaly 07"
+      "title": "Obvious SEM anomaly"
     },
     {
-      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caption": "A less extreme anomaly with distributed residual regions. This is the tile to show that the map is not only an all-red alert surface. Score 0.662; source label anomaly.",
       "caveats": [
         "proxy metric",
         "restricted source"
@@ -291,38 +51,118 @@
       "k_shot": 8,
       "registry": {
         "demo_allowed": false,
-        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00025.jpg",
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00053.jpg",
         "license_status": "unknown",
         "mask_path": null,
         "modality": "SEM",
         "preprocess": "rgb_repeat_v1",
-        "source_file": "test_abnormal_00025.jpg",
-        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df",
-        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00025.jpg",
+        "source_file": "test_abnormal_00053.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00053_21267ecc",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00053.jpg",
         "source_label": "anomaly",
         "split": "test",
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00053_21267ecc__x00000_y00000_s00448",
         "tile_size": 448,
         "tile_x": 0,
         "tile_y": 0,
         "wafer_id": "miic-partial-recovered"
       },
       "result": {
-        "anomaly_score": 1.0,
-        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448.png",
+        "anomaly_score": 0.66185,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00053_21267ecc__x00000_y00000_s00448.png",
         "model": "dinov2_pca_baseline_v1",
         "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
         "novelty_flag": true,
-        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448.png",
-        "region_tag": "1 residual region \u00b7 area 100.0%",
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00053_21267ecc__x00000_y00000_s00448.png",
+        "region_tag": "37 residual regions \u00b7 area 18.0%",
         "semantic_hint": null,
-        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00053_21267ecc__x00000_y00000_s00448",
         "verdict": "HOLD"
       },
-      "title": "Recovered anomaly 08"
+      "title": "Moderate SEM anomaly"
     },
     {
-      "caption": "Recovered MIIC SEM normal tile scored 0.003; included as a low-risk reference for visual calibration.",
+      "caption": "A labeled anomaly that currently passes. Keep this in the pitch: the workbench exposes failure cases instead of hiding them. Score 0.043; source label anomaly.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00072.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00072.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00072_ea457dc3",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00072.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00072_ea457dc3__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.043353,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00072_ea457dc3__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": false,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00072_ea457dc3__x00000_y00000_s00448.png",
+        "region_tag": "26 residual regions \u00b7 area 5.5%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00072_ea457dc3__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      "title": "Missed anomaly"
+    },
+    {
+      "caption": "A normal image that escalates. This is the calibration and support-set sensitivity caveat executives should hear. Score 0.983; source label good.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00702.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_normal_00702.jpg",
+        "source_id": "miic_partial_normal_normal_test_normal_00702_7494fa41",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00702.jpg",
+        "source_label": "good",
+        "split": "test",
+        "tile_id": "miic_partial_normal_normal_test_normal_00702_7494fa41__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.982659,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_normal_normal_test_normal_00702_7494fa41__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_normal_normal_test_normal_00702_7494fa41__x00000_y00000_s00448.png",
+        "region_tag": "2 residual regions \u00b7 area 91.2%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_normal_normal_test_normal_00702_7494fa41__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "False-positive normal"
+    },
+    {
+      "caption": "A low-score normal reference. The heatmap stays mostly cold and anchors what PASS looks like. Score 0.003; source label good.",
       "caveats": [
         "proxy metric",
         "restricted source"
@@ -359,10 +199,10 @@
         "tile_id": "miic_partial_normal_normal_test_normal_00163_08e48147__x00000_y00000_s00448",
         "verdict": "PASS"
       },
-      "title": "Quiet normal 09"
+      "title": "Quiet normal"
     },
     {
-      "caption": "Recovered MIIC SEM normal tile scored 0.003; included as a low-risk reference for visual calibration.",
+      "caption": "Second low-risk normal reference. This supports the review-queue story without pretending the threshold is production-tuned. Score 0.003; source label good.",
       "caveats": [
         "proxy metric",
         "restricted source"
@@ -399,10 +239,130 @@
         "tile_id": "miic_partial_normal_normal_test_normal_00372_c24992e6__x00000_y00000_s00448",
         "verdict": "PASS"
       },
-      "title": "Quiet normal 10"
+      "title": "Quiet normal repeat"
     },
     {
-      "caption": "Recovered MIIC SEM normal tile scored 0.003; included as a low-risk reference for visual calibration.",
+      "caption": "A labeled anomaly with many residual regions. Useful for explaining region count and human review escalation. Score 0.720; source label anomaly.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00096.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00096.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00096_ba8c4507",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00096.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00096_ba8c4507__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.719653,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00096_ba8c4507__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00096_ba8c4507__x00000_y00000_s00448.png",
+        "region_tag": "55 residual regions \u00b7 area 29.1%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00096_ba8c4507__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "Fragmented anomaly field"
+    },
+    {
+      "caption": "An anomaly with lower area fraction but many residual regions. Shows why the area rule is heuristic, not a reject rule. Score 0.725; source label anomaly.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00115.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00115.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00115_02908c46",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00115.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00115_02908c46__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.725434,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00115_02908c46__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00115_02908c46__x00000_y00000_s00448.png",
+        "region_tag": "53 residual regions \u00b7 area 15.7%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00115_02908c46__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "Sparse anomaly field"
+    },
+    {
+      "caption": "A high-score normal tile. Present as a known false positive and a reason to tune calibration before a fab pilot. Score 0.971; source label good.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00909.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_normal_00909.jpg",
+        "source_id": "miic_partial_normal_normal_test_normal_00909_807b94ca",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00909.jpg",
+        "source_label": "good",
+        "split": "test",
+        "tile_id": "miic_partial_normal_normal_test_normal_00909_807b94ca__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.971098,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_normal_normal_test_normal_00909_807b94ca__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_normal_normal_test_normal_00909_807b94ca__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 95.3%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_normal_normal_test_normal_00909_807b94ca__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "High-score normal"
+    },
+    {
+      "caption": "A clean recovered normal tile with a very low score. Score 0.003; source label good.",
       "caveats": [
         "proxy metric",
         "restricted source"
@@ -439,53 +399,13 @@
         "tile_id": "miic_partial_normal_normal_test_normal_00852_d70fcae5__x00000_y00000_s00448",
         "verdict": "PASS"
       },
-      "title": "Quiet normal 11"
-    },
-    {
-      "caption": "Recovered MIIC SEM normal tile scored 0.006; included as a low-risk reference for visual calibration.",
-      "caveats": [
-        "proxy metric",
-        "restricted source"
-      ],
-      "evidence_class": "verified",
-      "k_shot": 8,
-      "registry": {
-        "demo_allowed": false,
-        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00847.jpg",
-        "license_status": "unknown",
-        "mask_path": null,
-        "modality": "SEM",
-        "preprocess": "rgb_repeat_v1",
-        "source_file": "test_normal_00847.jpg",
-        "source_id": "miic_partial_normal_normal_test_normal_00847_dd8eccc9",
-        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00847.jpg",
-        "source_label": "good",
-        "split": "test",
-        "tile_id": "miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448",
-        "tile_size": 448,
-        "tile_x": 0,
-        "tile_y": 0,
-        "wafer_id": "miic-partial-recovered"
-      },
-      "result": {
-        "anomaly_score": 0.00578,
-        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448.png",
-        "model": "dinov2_pca_baseline_v1",
-        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
-        "novelty_flag": false,
-        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448.png",
-        "region_tag": "12 residual regions \u00b7 area 2.8%",
-        "semantic_hint": null,
-        "tile_id": "miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448",
-        "verdict": "PASS"
-      },
-      "title": "Quiet normal 12"
+      "title": "Clean normal"
     }
   ],
-  "generated_at": "2026-06-06T19:42:28Z",
+  "generated_at": "2026-06-06T19:57:11Z",
   "metrics": {
-    "dataset": "MIIC partial recovery (SEM proxy)",
-    "framing": "Recovered partial MIIC SEM archive: image labels support image-level metrics; aligned masks were not present in the partial download, so pixel metrics remain gated.",
+    "dataset": "Recovered MIIC partial SEM proxy",
+    "framing": "Executive demo on recovered MIIC SEM: useful image-level evidence, real heatmaps, and explicit limits. This is triage support, not production disposition.",
     "image_res": 448,
     "k_shot": 8,
     "metrics": [
@@ -512,7 +432,7 @@
         "evidence_class": "verified",
         "format": "auroc",
         "name": "Pixel AUROC",
-        "note": "Aligned masks unavailable in recovered partial archive",
+        "note": "Aligned masks unavailable in the recovered partial archive",
         "requires": "masks",
         "value": null
       },
@@ -538,12 +458,12 @@
         "proxy metric"
       ],
       "body": [
-        "This run uses frozen DINOv2 patch tokens and PCA residual scoring, then calibrates normalized scores from held-out normal validation images.",
-        "It is a local baseline inspired by SubspaceAD-style evidence, not a claim that the upstream SubspaceAD repository was executed."
+        "The model extracts frozen DINOv2 patch tokens, fits a PCA normal subspace from only normal support tiles, and scores residual distance for every patch.",
+        "The run is local and reproducible; SubspaceAD is inspiration, not an upstream execution claim."
       ],
       "id": "subspacead",
       "status": "executable baseline",
-      "tagline": "8 normal SEM support tiles define the normal subspace.",
+      "tagline": "Eight normal SEM support tiles define the normal subspace.",
       "title": "Frozen DINOv2 + PCA residual baseline"
     },
     {
@@ -552,12 +472,12 @@
         "restricted source"
       ],
       "body": [
-        "The recovered ZIP yielded 1,501 readable SEM JPEGs: 1,385 normal and 116 anomaly images. One truncated normal file was excluded.",
-        "Image-level labels are enough for AUROC/AUPR; pixel metrics are intentionally withheld because masks were not recovered."
+        "The partial archive yielded 1,501 readable SEM JPEGs: 1,385 normal and 116 anomaly images. One truncated normal file was excluded.",
+        "Image labels support AUROC/AUPR. Pixel metrics are intentionally withheld because aligned masks were not recovered."
       ],
       "id": "domain-gap",
       "status": "research headline",
-      "tagline": "The partial archive gives SEM proxy evidence but no aligned masks.",
+      "tagline": "SEM proxy evidence is strong enough for a pilot ask, but masks and SiC labels remain the gating data.",
       "title": "Recovered MIIC partial evidence"
     },
     {
@@ -565,12 +485,12 @@
         "proxy metric"
       ],
       "body": [
-        "FoundAD remains a later comparison after the baseline evidence is stable on the same split and support protocol."
+        "The demo keeps one stable baseline; a method comparison is future work unless it runs on the exact same split and support sets."
       ],
       "id": "foundad",
       "status": "open caveat",
-      "tagline": "Still a controlled follow-up, not part of this frozen run.",
-      "title": "FoundAD comparison"
+      "tagline": "A controlled comparison can be added after the pilot split and support protocol are fixed.",
+      "title": "Next comparison: FoundAD"
     }
   ],
   "risk_map": {
@@ -589,7 +509,7 @@
       {
         "anomaly_score": 1.0,
         "col": 0,
-        "has_result": true,
+        "has_result": false,
         "in_wafer": true,
         "row": 0,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448",
@@ -598,7 +518,7 @@
       {
         "anomaly_score": 1.0,
         "col": 1,
-        "has_result": true,
+        "has_result": false,
         "in_wafer": true,
         "row": 0,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448",
@@ -661,7 +581,7 @@
       {
         "anomaly_score": 1.0,
         "col": 8,
-        "has_result": true,
+        "has_result": false,
         "in_wafer": true,
         "row": 0,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448",
@@ -715,7 +635,7 @@
       {
         "anomaly_score": 1.0,
         "col": 14,
-        "has_result": true,
+        "has_result": false,
         "in_wafer": true,
         "row": 0,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448",
@@ -733,7 +653,7 @@
       {
         "anomaly_score": 1.0,
         "col": 16,
-        "has_result": true,
+        "has_result": false,
         "in_wafer": true,
         "row": 0,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448",
@@ -742,7 +662,7 @@
       {
         "anomaly_score": 1.0,
         "col": 17,
-        "has_result": true,
+        "has_result": false,
         "in_wafer": true,
         "row": 0,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448",
@@ -805,7 +725,7 @@
       {
         "anomaly_score": 1.0,
         "col": 0,
-        "has_result": true,
+        "has_result": false,
         "in_wafer": true,
         "row": 1,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448",
@@ -1057,7 +977,7 @@
       {
         "anomaly_score": 0.66185,
         "col": 4,
-        "has_result": false,
+        "has_result": true,
         "in_wafer": true,
         "row": 2,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00053_21267ecc__x00000_y00000_s00448",
@@ -1228,7 +1148,7 @@
       {
         "anomaly_score": 0.043353,
         "col": 23,
-        "has_result": false,
+        "has_result": true,
         "in_wafer": true,
         "row": 2,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00072_ea457dc3__x00000_y00000_s00448",
@@ -1444,7 +1364,7 @@
       {
         "anomaly_score": 0.719653,
         "col": 23,
-        "has_result": false,
+        "has_result": true,
         "in_wafer": true,
         "row": 3,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00096_ba8c4507__x00000_y00000_s00448",
@@ -1615,7 +1535,7 @@
       {
         "anomaly_score": 0.725434,
         "col": 18,
-        "has_result": false,
+        "has_result": true,
         "in_wafer": true,
         "row": 4,
         "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00115_02908c46__x00000_y00000_s00448",
@@ -3046,7 +2966,7 @@
       {
         "anomaly_score": 0.982659,
         "col": 9,
-        "has_result": false,
+        "has_result": true,
         "in_wafer": true,
         "row": 11,
         "tile_id": "miic_partial_normal_normal_test_normal_00702_7494fa41__x00000_y00000_s00448",
@@ -3415,7 +3335,7 @@
       {
         "anomaly_score": 0.00578,
         "col": 2,
-        "has_result": true,
+        "has_result": false,
         "in_wafer": true,
         "row": 13,
         "tile_id": "miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448",
@@ -3586,7 +3506,7 @@
       {
         "anomaly_score": 0.971098,
         "col": 21,
-        "has_result": false,
+        "has_result": true,
         "in_wafer": true,
         "row": 13,
         "tile_id": "miic_partial_normal_normal_test_normal_00909_807b94ca__x00000_y00000_s00448",
@@ -4911,5 +4831,5 @@
   },
   "threshold_hold": 0.999,
   "threshold_review": 0.99,
-  "version": "0.2.0-miic-partial"
+  "version": "0.3.0-miic-exec-demo"
 }

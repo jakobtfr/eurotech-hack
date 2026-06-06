@@ -100,7 +100,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2 font-mono text-[0.68rem] text-muted-foreground">
           <span className="size-1.5 rounded-full bg-verdict-pass" />
           <span className="hidden sm:inline">
-            model <span className="text-foreground">subspacead</span>
+            model <span className="text-foreground">dinov2/pca</span>
           </span>
         </div>
       </div>

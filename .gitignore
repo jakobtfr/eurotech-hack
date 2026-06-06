@@ -1,2 +1,26 @@
 .codex-planner-home/
+
+# dependencies
+node_modules/
+.pnp.*
+.pnpm-store/
+
+# builds
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# turbo
+.turbo/
+
+# env
+.env
+.env*.local
+
+# misc
+.DS_Store
+*.log
 planning/sources/repos/

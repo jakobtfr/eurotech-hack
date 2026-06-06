@@ -71,6 +71,41 @@ Backend-generated raw data, split CSVs, run folders, and demo manifests are
 gitignored. Source-controlled files define the contracts, configs, and command
 implementations.
 
+## MCP Server
+
+The local MCP server exposes the demo manifest, tile evidence, source tracing,
+claim-boundary summaries, and artifact validation over stdio.
+
+```bash
+uv run python -m src.mcp_server
+```
+
+For a quick end-to-end check:
+
+```bash
+make mcp-smoke
+```
+
+MCP client configuration can point at the repo with:
+
+```json
+{
+  "mcpServers": {
+    "sic-anomaly-workbench": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/Users/jakobfriedrich/code/projects/eurotech-hack",
+        "run",
+        "python",
+        "-m",
+        "src.mcp_server"
+      ]
+    }
+  }
+}
+```
+
 ## Frontend
 
 `apps/web` is the dashboard with four tabs: **Inspect**, **Risk Map**,

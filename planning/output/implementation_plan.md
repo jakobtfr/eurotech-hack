@@ -1,390 +1,169 @@
-# SiC Wafer Anomaly and Defect Detection - Implementation Plan
+# SiC Wafer Anomaly and Defect Detection - Week-Long Demo Plan
 
-Planning artifact created from the local control documents and sources only.
+Date: 2026-06-06
+
+This plan converts the research direction in `planning/prompt.md` into an
+executable demo target for a one-week hackathon. The priority is a working,
+offline, source-traceable demo by the end of the week. Research breadth is
+secondary to a stable demo path.
 
 Control documents:
-- `AGENTS.md`: planning-only session, maintain artifacts under `output/`, cite source IDs and exact files/sections, separate verified claims, assumptions, pitch framing, and open questions.
-- `prompt.md` (`BRIEF`): project thesis, candidate methods, datasets, repos, and 24-hour hackathon plan.
-- `sources/manifest.md`: authoritative source IDs and local file paths.
-
-## Committee Decision
-
-The plan should target a credible demo and research claim, not a fully validated SiC inspection product. The current roadmap is not optimized around the brief's 24-hour framing; it prioritizes executable contracts and evidence quality first. The most defensible build is:
-
-1. Use **FoundAD** as the primary research headline because the brief asks for a foundation-encoder few-shot anomaly detector and the local repo supports DINOv3-based train, AD, and demo modes (`R1`, `sources/repos/FoundAD/README.md`, `foundad/main.py`, `foundad/src/train.py`, `foundad/src/AD.py`).
-2. Use **SubspaceAD** as the first executable model path and reliability baseline because it is training-free, has explicit CLI support, and avoids projector training if FoundAD or DINOv3 access blocks progress (`R2`, `sources/repos/SubspaceAD/README.md`, `main.py`, `src/subspacead/config.py`). FoundAD remains the research headline only after its assets and demo path run locally.
-3. Use **semiconductor proxy validation** on MIIC or other available SEM data before claiming any SiC transfer. P7 shows MIIC is public, large-scale SEM, and explicitly highlights the domain gap from natural-image pretraining (`P7`, `sources/md/2505.07576v1.md`, Sections 3.1, 4.1, 4.2).
-4. Use **SiC PL/etch-pit data** for qualitative proof and the demo if acquired in time. P1 and P11 verify that PL images can reveal 4H-SiC dislocations, but also show low contrast, ambiguous boundaries, and dependence on destructive etch labels for validation (`P1`, Sections 1, 2.1.3, 3.3, 4; `P11`, Abstract, Materials and Equipment, Results and Discussion, Summary).
-5. Avoid claiming a new public SiC benchmark or production accuracy unless the dataset is actually collected, licensed, split, and measured during the build. Treat that as pitch framing and future work, not a verified result.
-
-## Verified Claims
-
-- 4H-SiC PL inspection is relevant, but the imaging task is hard because dislocation defects can be low contrast with indistinct boundaries, requiring enhancement before detection. P1 applies Gaussian spot homogenization, brightness/contrast adjustment, denoising, YOLO11-OBB, and class-balanced multi-sampling for 4H-SiC PL dislocation detection (`P1`, Abstract, Sections 1, 2.1.3, 2.2, 3.1.3, 3.2, 3.3).
-- The strongest directly relevant SiC PL paper still reports a meaningful limitation: YOLO11-OBB plus CBMS reaches an overall mAP50 of 0.700 in the reported TD/BPD detection result, and BPD recall remains weak (`P1`, Section 3.3, Fig. 18 discussion, Conclusions).
-- SiC crystal microscopy has strong self-reported supervised results, but it is not the same task as open-set wafer inspection. SCDD-Net reports SiC-Crystal-5K with 5,125 actual images after augmentation, mAP@0.5 of 0.9953, and 102 FPS, while also saying the dataset should be expanded for richer industrial scenarios (`P2`, `sources/md/1-s2.0-S095070512300744X-main.md`, Abstract, Table 1, Table 3, Table 5, Conclusion).
-- PL-NDT can be correlated with destructive etch-derived defect labels in SiC. Wolfspeed/Cree reports PL-NDT plus DCNN inference for BPD, TD, TSD, and TED, with BPD density correlation to etch values at slope 1.13 and R2 0.84 over N=308 wafers (`P11`, `sources/md/MSF.1004.321.md`, Abstract, Results and Discussion, Fig. 5, Summary).
-- Modern wafer/semiconductor anomaly methods transfer imperfectly across modalities. P7 explicitly warns that ImageNet-pretrained feature methods face a domain gap on SEM, while still reporting strong MIIC results for feature-based methods such as CFA and STFPM (`P7`, Sections 3.1, 4.1, 4.2).
-- EfficientAD is a strong lightweight baseline for wafer visual inspection. On a private 300 mm wafer dataset, P4 reports EfficientAD as best among tested unsupervised anomaly methods, with image-wise F1 82.35 and pixel-level PRO 75.14, but the data is not shareable (`P4`, `sources/md/1-s2.0-S2667305325001024-main.md`, Abstract, Sections 3.1, 5.1, Table 2, Data availability).
-- WaferDC validates useful engineering ideas for SEM wafer inspection: multi-cluster memory banks for background/scale variation and SegMix augmentation for long-tailed defect classification. Its main SEM dataset is proprietary (`P3`, `sources/md/1-s2.0-S0952197625023504-main.md`, Abstract, Sections 3.1-3.3, 4.1, Tables 1-8, Limitations).
-- FoundAD's evidence is on MVTec-AD and VisA, not SiC. It reports strong few-shot results using frozen foundation encoders and a nonlinear projector, with DINOv3 best in its ablation (`P8`, `sources/md/2510.01934v1.md`, Abstract, Tables 1-5, Section 3.3).
-- SubspaceAD's evidence is also on MVTec-AD and VisA, not SiC. It reports training-free PCA subspace residual scoring on frozen DINOv2 features; DINOv3-7B is explicitly worse than DINOv2-G in the provided appendix table (`P9`, `sources/md/2602.23013v3.md`, Abstract, Sections 3.2-3.4, Table 1, Section 4.7, Appendix Table 7).
-- Wafer-map classification sources are useful for yield-pattern context but are not microscope/PL anomaly-localization evidence. P5 uses WM-811K wafer maps, and R5/R6 use MixedWM38 electrical wafer maps (`P5`, `sources/md/2411.11029v1.md`, Abstract, Section 2.1, Table 4; `R5`, `sources/repos/WaferMap/README.md`; `R6`, `sources/repos/Wafers-Defect-Recognition-using-Visual-Transformer/README.md`).
-
-## Assumptions
-
-- DINOv3 access and weights are available for the team. R1 requires users to have rights to DINOv3 and to download trained manifold projectors for quick demos (`R1`, `README.md`, Quick Start).
-- Challenge machines have enough GPU memory for FoundAD or at least SubspaceAD. R1 and R2 both recommend Python 3.10; R2 benchmark scripts assume H100-class resources, though manual category-level runs can be smaller (`R1`, `requirements.txt`, `README.md`; `R2`, `scripts/benchmark_few_shot.sh`).
-- The Zenodo SiC etch-pit set, NFFA SEM proxy, MIIC, MVTec, or VisA can be downloaded during the session. They are not present in `sources/manifest.md`; only papers and repos are local.
-- The challenge permits pre-rendered demo outputs and public/proxy datasets.
-- The brief's Hong Kong executive framing is the target narrative, but local sources do not verify the market timing, competitor details, or Resonac wafer-cost figure.
-
-## Pitch Framing
-
-- Frame the project as an **open few-shot inspection workbench for third-generation semiconductor defects**, not a direct replacement for KLA/SICA on day one.
-- The research question is: **Do foundation-encoder anomaly residuals remain useful when moving from photographic industrial benchmarks into wafer physics modalities such as SEM and PL?**
-- The product wedge is: collect scarce normal SiC images, produce tile heatmaps quickly, flag unknown defects, and route suspicious regions to engineer review.
-- The honest win condition is not "production-grade accuracy"; it is a defensible demonstration that the system can ingest wafer imagery, localize suspect regions, quantify uncertainty, and expose where transfer works or breaks.
-- Avoid claiming "first public SiC benchmark" unless the dataset release, license, and evaluation protocol are actually prepared.
-
-## Source Ledger
-
-### C0 - AGENTS.md
-
-- Contribution: Governs this session. Requires planning only, local-source preference, Markdown before PDFs, output artifacts under `output/`, citations to source IDs/files/sections, and explicit separation of verified claims, assumptions, pitch framing, and open questions.
-- Relevant claims: This deliverable must be an implementation plan, not code.
-- Caveats/trust: Highest authority for task format, but not technical evidence.
-- Inspect later: Entire file.
-- Missing context: None for planning format.
-
-### BRIEF - prompt.md
-
-- Contribution: Primary project thesis, method shortlist, data shortlist, repo list, and 24-hour execution sketch.
-- Relevant claims: The proposed angle is open, few-shot, open-vocabulary, open-set SiC wafer inspection; FoundAD is the primary stack; SubspaceAD, EfficientAD, DefectFill/SeaS, TailedCore, WaferDC, MIIC, WM-811K, MixedWM38, and proxy datasets form the method/data landscape.
-- Caveats/trust: High as user intent and proposal framing. Medium to low as factual evidence where it asserts market gaps, latest papers, competitor names, and cost/ROI numbers without local source verification.
-- Inspect later: Sections 1 Thesis, 2 Methods and Papers, 3 Code Repositories, 4 Datasets, 5 24-Hour Execution Plan, 6 Caveats and Open Questions.
-- Missing context: Actual challenge rules, evaluation criteria, allowed datasets, available GPUs, download credentials, and whether the team is expected to release data.
-
-### P1 - Enhanced PL YOLO11-OBB for 4H-SiC
-
-- File: `sources/md/1-s2.0-S0925963525008027-main.md`
-- Contribution: Most directly relevant SiC PL defect-detection source. Supports PL preprocessing, OBBs for elongated BPDs, class-balanced sampling, and the caveat that BPD remains difficult.
-- Relevant claims: PL defects in high-doping 4H-SiC have low contrast and unclear boundaries; the authors use image enhancement plus YOLO11-OBB and CBMS; overall reported mAP50 for YOLO11-OBB (CBMS) in Fig. 18 discussion is 0.700 with weaker BPD recall.
-- Caveats/trust: Peer-reviewed Elsevier article, high topical relevance. Dataset is self-built and not public in local materials; performance is supervised, not open-set; BPD result is not strong enough to use as a triumphant benchmark.
-- Inspect later: Abstract; Sections 1, 2.1.2, 2.1.3, 2.2, 3.1.3, 3.2.1, 3.2.2, 3.3, 4; Table 1; Figs. 9-19.
-- Missing context: Dataset access, annotation files, exact class counts after CBMS, train/test split, image license, and whether PL images can be redistributed.
-
-### P2 - SCDD-Net for SiC crystal defects
-
-- File: `sources/md/1-s2.0-S095070512300744X-main.md`
-- Contribution: SiC defect taxonomy and high-performance supervised crystal microscopy baseline.
-- Relevant claims: SiC-Crystal-5K covers TSD, BPD, TED, and MP with 5,125 actual images after augmentation; SCDD-Net reports mAP@0.5 0.9953, mAP@0.5:0.95 0.7320, and 102 FPS.
-- Caveats/trust: Peer-reviewed source, but lower implementation relevance because it targets crystal/ingot microscopy and supervised detection on an author-collected dataset. The headline metric should be cited as self-reported, not independently validated.
-- Inspect later: Abstract; Section 2.1; Fig. 2; Table 1; Table 3; Table 4; Table 5; Conclusion.
-- Missing context: Public availability of SiC-Crystal-5K, annotation format, licensing, and raw image examples.
-
-### P3 - WaferDC SEM wafer detection/classification
-
-- File: `sources/md/1-s2.0-S0952197625023504-main.md`
-- Contribution: SEM wafer pipeline pattern: multi-cluster memory bank, anomaly heatmaps, SegMix augmentation, PEFT ViT classifier, long-tail handling.
-- Relevant claims: SEM wafer data has diverse background types, variable scales, and long-tail defect distributions; WaferDC improves detection and classification on a proprietary SEM wafer dataset plus DTD-Synthetic and MTD; SegMix uses anomaly heatmaps to synthesize balanced defects.
-- Caveats/trust: Peer-reviewed article and local repo. Main SEM wafer dataset is proprietary, so use the method concepts and code paths but not its data claims as directly reproducible.
-- Inspect later: Abstract; Fig. 1; Sections 3.1, 3.2, 3.3, 4.1, 4.4, 4.5; Tables 1-8, 10, 15-18; Limitations.
-- Missing context: Proprietary SEM data access, cluster-count selection for SiC/PL, and whether SegMix masks are meaningful for PL dislocation lines.
-
-### P4 - Efficient wafer visual inspection
-
-- File: `sources/md/1-s2.0-S2667305325001024-main.md`
-- Contribution: Lightweight wafer inspection benchmark and practical dual-stage decision framing.
-- Relevant claims: Dataset has 1,055 300 mm wafer images, 6,861 labels, seven defect types, PASS/FAIL labels; EfficientAD is best among tested unsupervised AD models; UPerNet-Swin is best among tested segmentation models; dual-stage EfficientAD plus UPerNet-Swin supports PASS/FAIL/RECOVER/DISCARD style decisions.
-- Caveats/trust: Open-access article, good engineering relevance. Dataset is not available to the authors for sharing, so it cannot be the hackathon's reproducible dataset.
-- Inspect later: Abstract; Sections 3.1, 3.2, 5.1, 5.2, 5.3; Tables 1-6; Appendix B; Appendix D; Data availability.
-- Missing context: Public dataset access, labels, severity thresholds, and exact EfficientAD/anomalib config.
-
-### P5 - WM-811K autoencoder augmentation plus CNN
-
-- File: `sources/md/2411.11029v1.md`
-- Contribution: Wafer-map classification context and class-imbalance augmentation example.
-- Relevant claims: WM-811K has 811,457 wafer images, 172,950 manually labeled maps, and 25,519 defective labeled wafers; CNN-AUG reports 0.9856 accuracy on eight wafer-map defect classes.
-- Caveats/trust: Preprint and wafer-map classification, not microscope/PL anomaly localization. Traditional baselines are limited. Use for background only.
-- Inspect later: Abstract; Section 2.1; Figs. 2, 7, 8; Table 4; Table 5; References.
-- Missing context: Code availability, exact split reproducibility, whether unlabeled WM-811K data is used, and independent benchmark comparisons.
-
-### P6 - TailedCore
-
-- File: `sources/md/2504.02775v2.md`
-- Contribution: Long-tail/noisy-normal anomaly detection method. Useful if normal-pool contamination and class imbalance become key implementation risks.
-- Relevant claims: Defines the tail-versus-noise dilemma; proposes TailSampler and TailedCore; evaluates on modified MVTecAD and VisA noisy long-tail settings; reports TailedCore outperforms PatchCore and SoftPatch in most settings.
-- Caveats/trust: CVPR 2025 paper with local repo. It is general industrial AD, not semiconductor or SiC; datasets are artificially transformed to create long-tail/noisy settings.
-- Inspect later: Abstract; Sections 1, 6.1, 6.3.3, 6.3.4, 6.4, 7; Tables 3-6; Fig. 4; Fig. 5.
-- Missing context: Whether SiC reference pools contain enough contamination or unknown tail classes to justify adding this complexity in the first build.
-
-### P7 - MIIC VAD benchmark
-
-- File: `sources/md/2505.07576v1.md`
-- Contribution: Strongest public SEM proxy justification and domain-gap warning.
-- Relevant claims: MIIC has 25,276 SEM images: 25,160 normal and 116 anomalous, with 512x512 resolution and masks/labels; feature-based methods work on SEM but ImageNet pretraining has a domain gap; CFA leads image-level F1 among tested feature methods while STFPM leads pixel F1.
-- Caveats/trust: arXiv benchmark, but very relevant and public-data oriented. Not SiC and not PL.
-- Inspect later: Abstract; Sections 2.1, 3.1, 3.2, 3.4, 4.1, 4.2, 5; Tables 1-3.
-- Missing context: MIIC download status, license restrictions, exact dataset split files, and whether non-commercial restrictions apply.
-
-### P8 - FoundAD
-
-- File: `sources/md/2510.01934v1.md`
-- Contribution: Primary foundation-encoder anomaly method and research thesis support.
-- Relevant claims: Foundation visual encoders show feature-distance correlation with anomaly area; FoundAD trains a projector from synthesized abnormal features to normal features; DINOv3 is the best FoundAD backbone in the reported ablation; layer selection and Top-K matter.
-- Caveats/trust: ICLR 2026/preprint style source with local repo. Evidence is MVTec-AD and VisA, not SiC/SEM/PL. DINOv3 access may be gated.
-- Inspect later: Abstract; Fig. 2; Fig. 3; Tables 1-5; Section 3.3; Section 3.4; supplementary tables for per-class results.
-- Missing context: DINOv3 license/access, trained projector downloads, correct crop/layer for the local repo, and behavior on grayscale SEM/PL.
-
-### P9 - SubspaceAD
-
-- File: `sources/md/2602.23013v3.md`
-- Contribution: Training-free few-shot baseline/fallback using frozen DINOv2 features plus PCA residuals.
-- Relevant claims: SubspaceAD extracts patch-level DINOv2 features from a few normal images, fits PCA, and scores residuals; reports strong 1/2/4-shot MVTec-AD and VisA results; DINOv3-7B appendix results are worse than DINOv2-G for this method.
-- Caveats/trust: CVPR 2026/preprint style source with local repo. Still not SiC/SEM/PL; uses MVTec/VisA and relatively high-resolution DINOv2-G defaults.
-- Inspect later: Abstract; Sections 3.2, 3.3, 3.4, 4.5, 4.7, 5; Table 1; Table 3; Table 4; Appendix Table 7; Appendix failure cases.
-- Missing context: Runtime on challenge hardware, dataset loader adaptation for arbitrary SiC tile folders, and whether PCA residuals are stable on low-contrast PL.
-
-### P10 - UniSpector
-
-- File: `sources/md/2604.02905v1.md`
-- Contribution: Open-set and visual-prompt framing for defect naming/localization.
-- Relevant claims: Closed-set detectors fail on novel defect types; anomaly detectors localize but do not distinguish defect classes; UniSpector uses visual prompts, spatial-spectral prompt encoding, contrastive prompt encoding, and prompt-guided query selection; performance depends on exemplar prompts and remains weaker cross-domain.
-  - Caveats/trust: CVPR 2026/preprint style source. No local repo in manifest. Best used as pitch framing and a future naming module unless code and prompt exemplars become available.
-- Inspect later: Abstract; Sections 1, 3, 4.3, 4.4, 5; Tables 1-6; Appendix A.2 prompt allocation; Fig. 8.
-- Missing context: Code availability, prompt exemplars for SiC classes, and whether spectral prompt features apply to PL/SEM grayscale images.
-
-### P11 - Wolfspeed/Cree PL-NDT DCNN for SiC
-
-- File: `sources/md/MSF.1004.321.md`
-- Contribution: Industrial SiC PL-NDT validation logic and defect taxonomy.
-- Relevant claims: PL-NDT images of 150 mm 4H-SiC wafers can correlate to etch-derived BPD, TD, TSD, and TED features; a DCNN trained on etch-labeled PL images can infer defect locations from PL images; BPD density correlation against etch count reports slope 1.13 and R2 0.84 over N=308.
-- Caveats/trust: Older 2020 conference/journal source from Wolfspeed/Cree; proprietary DCNN and data; useful for context and taxonomy, not open-source implementation.
-- Inspect later: Abstract; Introduction; Materials and Equipment; Results and Discussion; Figs. 1-5; Summary.
-- Missing context: Network architecture, data volume, annotation tooling, license/access, and production acceptance thresholds.
-
-### H1 - IEEE Xplore stub
-
-- File: `sources/md/IEEE Xplore Full-Text PDF_.md`
-- Raw: `sources/raw/IEEE Xplore Full-Text PDF_.html`
-- Contribution: None. Converted Markdown is empty.
-- Relevant claims: Manifest says the IEEE PDF returned HTTP 403 during conversion. Local raw HTML is access-control/script boilerplate, not paper content.
-- Caveats/trust: Not usable as evidence.
-- Inspect later: Only if IEEE access is provided; otherwise skip.
-- Missing context: Paper title, abstract, bibliographic metadata, and PDF access.
-
-### H2 - IEEE Xplore stub 2
-
-- File: `sources/md/IEEE Xplore Full-Text PDF_2.md`
-- Raw: `sources/raw/IEEE Xplore Full-Text PDF_2.html`
-- Contribution: None. Converted Markdown is empty.
-- Relevant claims: Manifest says the IEEE PDF returned HTTP 403 during conversion.
-- Caveats/trust: Not usable as evidence.
-- Inspect later: Only if IEEE access is provided; otherwise skip.
-- Missing context: Paper title, abstract, bibliographic metadata, and PDF access.
-
-## Repository Inventory
-
-### R1 - FoundAD
-
-- Repo: `https://github.com/ymxlzgy/FoundAD`
-- Local path: `sources/repos/FoundAD`
-- Commit: `a590587d9618`
-- Contribution: Primary few-shot foundation-encoder anomaly detector and demo path.
-- Useful files:
-  - `README.md`: environment, DINOv3 rights note, projector download links, demo/train/inference commands.
-  - `requirements.txt`, `setup.py`: installation.
-  - `foundad/main.py`: Hydra/DDP entrypoint with `train`, `AD`, and `demo` modes.
-  - `foundad/configs/config.yaml`: base data/testing settings; Top-K defaults and augmentation flags.
-  - `foundad/configs/app/train_dinov3.yaml`: local default DINOv3 config, `crop_size: 512`, `pred_depth: 6`, `n_layer: 3`.
-  - `foundad/configs/app/test.yaml`: test app config.
-  - `foundad/src/sample.py`: few-shot subset creation from `train/good` or `train/ok`.
-  - `foundad/src/train.py`: CutPaste synthesis and projector training.
-  - `foundad/src/AD.py`: metrics, heatmaps, and demo heatmap export.
-  - `foundad/src/datasets/dataset.py`: dataset loader to adapt for custom SiC tile folders.
-- Caveats: DINOv3 access and pretrained projector downloads are external; local default crop/layer differs from the brief's 448px/layer-10 suggestion and must be verified.
-
-### R2 - SubspaceAD
-
-- Repo: `https://github.com/CLendering/SubspaceAD`
-- Local path: `sources/repos/SubspaceAD`
-- Commit: `419050677288`
-- Contribution: Training-free fallback and baseline.
-- Useful files:
-  - `README.md`: method summary, setup, data prep, manual command.
-  - `requirements.txt`, `pyproject.toml`: installation.
-  - `main.py`: end-to-end CLI, PCA fitting, scoring, visualizations.
-  - `src/subspacead/config.py`: arguments for dataset, backbone, resolution, k-shot, PCA explained variance, CLAHE, saliency masks, patching.
-  - `src/subspacead/core/extractor.py`: DINO/HF feature extraction.
-  - `src/subspacead/core/pca.py`: PCA and Kernel PCA models.
-  - `src/subspacead/data/datasets.py`: dataset handlers to adapt for custom SiC data.
-  - `src/subspacead/post_process/scoring.py`: image/pixel scoring.
-  - `scripts/benchmark_few_shot.sh`: recommended DINOv2-G, 672px, k-shot, 30 augmentations, PCA EV 0.99.
-  - `tools/prepare_visa.py`: VisA format utility.
-- Caveats: Built for MVTec/VisA folder structures; DINOv2-G may be heavy. Needs adaptation for arbitrary SiC tile data.
-
-### R3 - TailedCore
-
-- Repo: `https://github.com/jungyg/TailedCore`
-- Local path: `sources/repos/TailedCore`
-- Commit: `7240f04b489f`
-- Contribution: Long-tail/noisy-normal robustness option.
-- Useful files:
-  - `README.md`: installation, generated noisy long-tail MVTecAD/VisA datasets, command pattern.
-  - `main.py`: experiment entrypoint.
-  - `configs/tailedcore_mvtec.yaml`, `configs/tailedcore_visa.yaml`: model configs.
-  - `src/coreset_model.py`: PatchCore, SoftPatch, TailedCore implementation.
-  - `src/sampler.py`: TailSampler, AdaptiveTailSampler, LOF/TailedLOF samplers.
-  - `src/class_size.py`, `src/adaptive_class_size.py`: class-size prediction and few-shot sampling.
-  - `make_all_mvtecad_nlt.sh`, `make_all_visa_nlt.sh`: synthetic noisy long-tail data generation.
-- Caveats: Adds complexity that is probably too high for the primary build. Evidence is general industrial AD, not semiconductor or SiC.
-
-### R4 - WaferDC
-
-- Repo: `https://github.com/SpatialAILab/WaferDC`
-- Local path: `sources/repos/WaferDC`
-- Commit: `2b185c2fcc51`
-- Contribution: SEM wafer detection/classification reference implementation and SegMix/memory-bank ideas.
-- Useful files:
-  - `README.md`: method summary, setup, two-stage command flow, license.
-  - `1step_defect_detetion/step1_1_train_k_means.py`: clustering for multi-cluster memory bank.
-  - `1step_defect_detetion/step1_2_normal_augmentation.py`: normal augmentation.
-  - `1step_defect_detetion/step1_3_run_patchcore.py` and `step1_3_run_patchcore_magnetic.sh`: PatchCore stage.
-  - `1step_defect_detetion/test1_2_load_and_evaluate_patchcore.py`: thresholding, evaluation, heatmap export.
-  - `1step_defect_detetion/patchcore/*`: embedded PatchCore implementation.
-  - `2step_defect_classification/main.py`: PEFT classifier entrypoint.
-  - `2step_defect_classification/configs/data/wafer.yaml`: wafer dataset path config.
-  - `2step_defect_classification/configs/model/clip_vit_b16_peft_wafer.yaml`: CLIP ViT-B/16 PEFT config, normal label handling.
-  - `2step_defect_classification/datasets/wafer.py`: wafer dataset text-list format.
-- Caveats: Main SEM wafer data is proprietary; code has hardcoded paths and Python 3.8/PyTorch-version assumptions. License is CC BY-NC-ND 4.0, so reuse carefully.
-
-### R5 - WaferMap
-
-- Repo: `https://github.com/Junliangwangdhu/WaferMap`
-- Local path: `sources/repos/WaferMap`
-- Commit: `10e65ca04cf1`
-- Contribution: MixedWM38 dataset and older Keras/TensorFlow multi-label wafer-map baseline.
-- Useful files:
-  - `README.md`: MixedWM38 description, data keys `arr_0` and `arr_1`, dataset sources, pattern taxonomy.
-  - `trian_mutil_label.py`: Keras multi-label training, data loading, deformable convolution model.
-  - `layers_train.py`, `deform_conv.py`: deformable convolution layer.
-  - `Dataset Figure/*.png`: visual taxonomy examples.
-- Caveats: Electrical wafer maps, not microscope/PL imagery. TF1-era style code and typo in filename.
-
-### R6 - ViT Wafer Defect Recognition
-
-- Repo: `https://github.com/PanithanS/Wafers-Defect-Recognition-using-Visual-Transformer`
-- Local path: `sources/repos/Wafers-Defect-Recognition-using-Visual-Transformer`
-- Commit: `d54c4a278777`
-- Contribution: Notebook-level ViT baseline for MixedWM38 wafer-map classification.
-- Useful files:
-  - `README.md`: MixedWM38 context and reported 98.98% accuracy.
-  - `MixedDefectWafer_ViT_v1b.ipynb`: data loader, label reader, ViT model cells.
-  - `model_vit_v1b.index`, `model_vit_v1b_history`: saved artifacts/history.
-- Caveats: Notebook uses a local Windows dataset path in code cells; not directly runnable without edits. Wafer maps only, not visual inspection imagery.
-
-### R7 - awesome-industrial-anomaly-detection
-
-- Repo: `https://github.com/M-3LAB/awesome-industrial-anomaly-detection`
-- Local path: `sources/repos/awesome-industrial-anomaly-detection`
-- Commit: `79e113227d50`
-- Contribution: Method landscape checklist and pointers to current SOTA, benchmarks, datasets, and anomaly synthesis.
-- Useful files:
-  - `README.md`: current method list; entries for SubspaceAD, UniSpector, FoundAD, SeaS, AA-CLIP, TailedCore, DefectFill, EfficientAD, WinCLIP, MVTec, VisA.
-  - `paper_tree.png`, `timeline.png`: overview visuals.
-- Caveats: Curated list, not primary evidence. Use only for discovery and cross-checking, not for technical claims.
-
-## Implementation Plan
-
-### Workstream 0 - Governance and Evidence
-
-Owner: research lead.
-
-Deliverables:
-- `data/source_registry.jsonl`: every input image, source ID, license/access note, modality, split, and preprocessing version.
-- `docs/claim_table.md`: verified claims only, with source ID and section/file.
-- `runs/<timestamp>/config.yaml`: exact model, crop size, layer, k-shot, threshold, and data split used.
-- `runs/<timestamp>/labels.csv`: explicit image-level labels for every metric-bearing example.
-- `runs/<timestamp>/metrics_manifest.json`: declares which metrics are valid for each dataset and why.
-
-`labels.csv` minimum columns:
-- `image_path`
-- `split`
-- `image_label`: `0` for normal, `1` for anomaly, empty for qualitative-only examples.
-- `source_label`: original source label, if any.
-- `mask_path`: empty unless a real aligned mask exists.
-- `source_id`
-
-`metrics_manifest.json` minimum fields per dataset:
-- `dataset_name`
-- `split_file`
-- `has_image_labels`
-- `has_pixel_masks`
-- `valid_metrics`
-- `invalid_metrics_reason`
-
-Steps:
-1. Freeze claim language before coding: "evaluates transfer" and "few-shot workbench" are allowed; "production replacement", "first public benchmark", and ROI numbers require verification.
-2. Make every plotted metric reproducible from a saved CSV and split file.
-3. Keep source-derived caveats visible in the pitch appendix.
-4. Do not report pixel metrics unless real masks are present and the mask source is recorded.
-5. Do not report image metrics from path-name heuristics; metrics require explicit labels from `labels.csv`.
-
-### Workstream 1 - Data and Tiling
-
-Owner: data engineer plus SiC domain expert.
-
-Hard gate before model work:
-- At least one metric-bearing proxy dataset must be downloaded, license-checked, and converted to the common folder layout.
-- At least five demo-safe images must have source/license status recorded before they appear in the dashboard.
-- Paper figure crops are allowed only when the source license or challenge rules permit that use; otherwise they are deck-only references, not model/demo inputs.
-
-Primary data priority:
-1. Real SiC source named in `BRIEF`: Zenodo SiC etch-pit set, if downloadable and license permits.
-2. SiC PL/figure crops from P1/P11 only if licensing permits and manually cropped examples are acceptable.
-3. SEM proxy: MIIC from P7, because it is public and semiconductor-specific.
-4. Safety fallback: MVTec AD and VisA, because R1/R2 support them directly.
-5. Wafer-map sources R5/R6 only for an optional yield-map context slide, not the anomaly-localization demo.
-
-Executable folder contract:
-- Generate an MVTec-style folder tree as the canonical model input, because both R1 and R2 already support MVTec-style assumptions better than a flat registry:
+- `planning/AGENTS.md`: planning artifact only, use local sources, keep outputs
+  under `planning/output/`, and separate verified claims, assumptions, pitch
+  framing, and open questions.
+- `planning/prompt.md` (`BRIEF`): thesis, methods, datasets, repos, and initial
+  hackathon sketch.
+- `planning/sources/manifest.md`: source IDs and local file paths.
+
+## 1. Demo Objective
+
+Build a local demo that lets a judge inspect semiconductor/SiC imagery, view an
+anomaly heatmap, see a wafer/tile risk map, and understand what is verified
+versus qualitative.
+
+End-of-week demo definition:
+- Runs locally from pre-rendered artifacts.
+- Shows 6-10 curated examples with raw image, heatmap overlay, anomaly score,
+  contour/ROI, novelty flag, and verdict.
+- Includes one tile-grid or wafer-style risk map labeled by provenance.
+- Includes at least one metric-bearing proxy evaluation if data/labels are
+  available.
+- Includes qualitative SiC examples only when source/license status is recorded.
+- Includes a research tab or appendix showing why SubspaceAD is the executable
+  baseline and why FoundAD is the research headline only if it runs.
+
+The demo claim:
+
+> We built an open, few-shot semiconductor anomaly workbench that produces
+> heatmaps and review decisions from scarce normal examples, while explicitly
+> separating proxy-validated evidence from qualitative SiC transfer.
+
+Non-goals for the week:
+- No production-grade SiC accuracy claim.
+- No public benchmark claim unless the dataset is actually licensed, split, and
+  released.
+- No reliable defect naming claim unless labels or a validated classifier exist.
+- No live model training during the final demo.
+
+## 2. Fixed MVP Scope
+
+The week should optimize for one executable path and one convincing story.
+
+Must ship:
+- `datasets/workbench/<category>/...` in MVTec-style layout.
+- `data/source_registry.jsonl` for every demo image.
+- `runs/<timestamp>_subspacead_<category>/` with config, scores, heatmaps,
+  overlays, and metrics manifest.
+- `demo/manifest.json` pointing to all pre-rendered demo artifacts.
+- A dashboard app, preferably Gradio as suggested in the brief, with preloaded
+  examples and no network dependency.
+- `docs/claim_table.md` and `docs/run_summary.md`.
+
+Should ship if stable:
+- FoundAD demo or FoundAD comparison on the same proxy split.
+- k-shot comparison table: 1-shot, 2-shot, 4-shot.
+- CLAHE on/off qualitative comparison for PL/etch-pit examples.
+- Simple CLIP/SigLIP semantic hints labeled as hints, not predictions.
+
+Explicit cuts:
+- No TailedCore integration unless all MVP items are already done.
+- No WaferDC integration unless the primary heatmap path is stable.
+- No EfficientAD/anomalib baseline unless dependency setup takes less than half
+  a day.
+- No custom full dataset platform. Use files, CSV, JSON, and pre-rendered PNGs.
+- No live upload requirement. Preloaded examples are enough.
+
+## 3. Evidence-Backed Stack Choice
+
+Primary executable path: SubspaceAD.
+- It is training-free and uses frozen DINOv2 features plus PCA residual scoring
+  (`R2`, `planning/sources/repos/SubspaceAD/README.md`, Introduction and Usage;
+  `P9`, `planning/sources/md/2602.23013v3.md`, Sections 3.2-3.4).
+- The local repo exposes CLI controls for dataset, categories, model checkpoint,
+  resolution, k-shot, augmentations, PCA explained variance, CLAHE, scoring, and
+  output directory (`R2`,
+  `planning/sources/repos/SubspaceAD/src/subspacead/config.py`).
+
+Research headline path: FoundAD.
+- FoundAD fits the foundation-encoder thesis and supports `mode=demo`,
+  `mode=train`, and `mode=AD`, but it requires DINOv3 rights and downloaded
+  projector assets for the quick path (`R1`,
+  `planning/sources/repos/FoundAD/README.md`, Quick Start and Training and
+  Inference; `P8`, `planning/sources/md/2510.01934v1.md`, Abstract, Tables
+  1-5).
+- FoundAD is optional until SubspaceAD heatmaps, demo artifacts, and the
+  dashboard are working.
+
+Data path:
+- Use MIIC or another available SEM dataset as the metric-bearing proxy before
+  making any SiC transfer statement. P7 is the strongest local source for public
+  semiconductor SEM anomaly validation and explicitly warns about natural-image
+  pretraining domain gap (`P7`, `planning/sources/md/2505.07576v1.md`, Sections
+  3.1, 4.1, 4.2).
+- Use SiC PL/etch-pit data for qualitative transfer if license/source status is
+  recorded. P1 and P11 support PL relevance but also justify caution: PL defects
+  can be low contrast, labels often depend on etch validation, and the relevant
+  data/models are not public in the local materials (`P1`,
+  `planning/sources/md/1-s2.0-S0925963525008027-main.md`, Abstract, Sections 1,
+  2.1.3, 3.3, 4; `P11`, `planning/sources/md/MSF.1004.321.md`, Abstract,
+  Materials and Equipment, Results and Discussion).
+
+## 4. Artifact Contract
+
+The demo is built from durable artifacts, not ad hoc notebook state.
 
 ```text
-datasets/workbench/<category>/
-  train/good/*.png
-  test/good/*.png
-  test/anomaly/*.png
-  ground_truth/anomaly/*_mask.png   # only when masks are real
+data/
+  source_registry.jsonl
+  splits/
+    <dataset>_<split>.csv
+datasets/
+  workbench/
+    <category>/
+      train/good/*.png
+      test/good/*.png
+      test/anomaly/*.png
+      ground_truth/anomaly/*_mask.png
+runs/
+  <timestamp>_<model>_<category>/
+    config.yaml
+    labels.csv
+    scores.csv
+    metrics.json
+    metrics_manifest.json
+    heatmaps/*.png
+    overlays/*.png
+    examples/*.png
+demo/
+  manifest.json
+  prerendered/
+docs/
+  claim_table.md
+  run_summary.md
 ```
 
-- For qualitative/unlabeled SiC examples, use:
+Model input contract:
+- Use MVTec-style folder layout as the canonical runtime interface because
+  SubspaceAD and FoundAD already support MVTec/VisA-like assumptions (`R2`,
+  README Data Preparation and Usage; `R1`, README Dataset Preparation).
+- Convert grayscale SEM/PL to RGB by channel repeat.
+- Tile large images deterministically and record source image, tile coordinates,
+  tile size, and preprocessing.
+- Apply CLAHE only as an explicit preprocessing variant. P1 supports PL
+  enhancement, and SubspaceAD has `--use_clahe` (`P1`, Sections 2.1.3, 2.2;
+  `R2`, `src/subspacead/config.py`).
 
-```text
-datasets/workbench/sic_qualitative/
-  train/good/*.png
-  test/unknown/*.png
-```
-
-- `data/source_registry.jsonl` is an audit artifact derived from this folder layout. It is not the primary runtime interface for FoundAD or SubspaceAD.
-- If a model requires a repo-specific path or class-name value, create a thin config/adapter for that repo rather than changing the source registry schema.
-
-Preprocessing contract:
-- Convert grayscale PL/SEM to RGB by channel repeat for foundation encoders.
-- Create square tiles with deterministic IDs.
-- Try 512px first for FoundAD because local `R1` config defaults to `crop_size: 512`; test 448px as an ablation after the default path works.
-- Try 672px for SubspaceAD because R2 benchmark scripts and P9 ablations use that setting.
-- Apply CLAHE as an explicit on/off switch, not silently. P1 supports image enhancement for PL; R2 has a `--use_clahe` flag.
-- Preserve original image dimensions, tile coordinates, wafer/source image ID, and preprocessing settings in metadata so overlays and aggregate maps can be traced.
-- Save tile metadata as:
+Minimum source registry row:
 
 ```json
 {
   "tile_id": "source_image__x0000_y0000_s0512",
   "wafer_id": "unknown-or-wafer-id",
-  "source_id": "P1-or-dataset-name",
-  "modality": "PL|SEM|etch|wafer_map|synthetic",
-  "image_path": "...",
-  "source_image_path": "...",
+  "source_id": "MIIC|Zenodo-SiC|P1|P11|MVTec|VisA|private",
+  "source_file": "relative/original/path",
+  "modality": "SEM|PL|etch|wafer_map|synthetic",
+  "image_path": "datasets/workbench/<category>/test/anomaly/example.png",
+  "source_image_path": "raw/path/example.png",
   "tile_x": 0,
   "tile_y": 0,
   "tile_size": 512,
@@ -392,206 +171,372 @@ Preprocessing contract:
   "split": "support|validation|test|demo",
   "source_label": "normal|BPD|TD|unknown|proxy_anomaly|null",
   "mask_path": null,
-  "license_status": "verified|restricted|unknown"
+  "license_status": "verified|restricted|unknown",
+  "demo_allowed": true
 }
 ```
 
-Exit criteria:
-- At least one normal-only support set and one test/demo set exist.
-- At least five preloaded demo examples exist even if real SiC data is limited.
-- Every example has source/license status recorded.
-- Every metric-bearing example has an explicit image label; every pixel metric has a real mask path.
-
-### Workstream 2 - Core Anomaly Models
-
-Owner: CV anomaly lead.
-
-First executable path: SubspaceAD.
-- Install R2.
-- Convert selected datasets to the MVTec-style folder contract instead of adapting the model to a flat tile folder.
-- Add or configure a dataset handler only if the MVTec-style folder shim is insufficient.
-- Run a single category command from R2 README against a known MVTec/VisA category to prove feature extraction and visualization.
-- Run against `datasets/workbench/<category>` with `--dataset_name mvtec_ad`.
-- Fit PCA using k normal SiC/SEM images with `k_shot` in {1, 2, 4}, `aug_count: 30`, `pca_ev: 0.99` when hardware allows.
-- Use R2's `--use_clahe` for PL ablation.
-
-Research headline path: FoundAD.
-- Install R1 environment.
-- Download or mount DINOv3 weights and the FoundAD projector only if permitted.
-- Run the R1 MVTec or VisA demo exactly once to prove heatmap rendering.
-- Use the MVTec-style folder contract for SiC/SEM tiles where possible; avoid registry-driven loader rewrites unless the folder shim fails.
-- Account for R1 path assertions: either place/symlink the workbench under a path containing the configured dataset string, such as `datasets/mvtec_workbench`, or patch the assertion deliberately and record the change.
-- If training a local projector, override defaults explicitly: set a bounded `optimization.epochs`, identify the saved checkpoint step, and record `app.meta.crop_size`, `app.meta.n_layer`, `pred_depth`, and Top-K.
-- Start with local defaults first: `crop_size: 512`, `n_layer: 3`, `pred_depth: 6`.
-- Then run a minimal ablation: DINOv3 layer/crop from local default versus the brief's suggested layer/crop.
-- If DINOv3 rights, torch hub access, or projector downloads fail, stop treating FoundAD as an executable dependency and keep it as research framing.
-
-Secondary baselines:
-- EfficientAD through anomalib only if dependency setup is fast; P4 justifies it, but no local anomalib repo is present.
-- PatchCore/WaferDC only if the demo needs a classic memory-bank baseline; R4 can be inspected but is a secondary integration because its code and data assumptions are less direct.
-
-Hardware tiers:
-- H100/H200-class GPU: SubspaceAD with DINOv2-G at 672px, `aug_count: 30`; FoundAD DINOv3 if assets are accessible.
-- Mid-range CUDA GPU: SubspaceAD with DINOv2-B or DINOv2-L at 448px; reduce `aug_count`; use FoundAD demo only with pretrained projector.
-- CPU or weak GPU: use pre-rendered heatmaps from a stronger machine; run only dashboard and metadata/evaluation code locally.
-
-Exit criteria:
-- For each demo tile: anomaly score, heatmap image, and model config are saved.
-- For any dataset with labels/masks: image AUROC and pixel AUROC or PRO are saved.
-- Failure cases are preserved; they are useful for the honest research narrative.
-- At least one model path produces heatmaps from `datasets/workbench` without manual path editing.
-
-### Workstream 3 - Naming, Open-Set Flagging, and Verdicts
-
-Owner: open-set and UX lead.
-
-Minimal implementation:
-- Contour connected hot regions from anomaly heatmaps.
-- Emit conservative region tags only: `localized anomaly`, `unknown anomaly`, `review region`, and optional manually curated display labels for known demo examples.
-- Compute novelty flag as: high anomaly residual and low confidence from the available heuristic or classifier.
-
-Important caveat:
-- Do not claim reliable defect naming without supervised labels or a visual-prompt model. P10 supports open-set visual prompting as a research direction, but no local UniSpector repo is available.
-- If using CLIP/SigLIP prompts, label outputs as "semantic hints" rather than defect classification.
-- Do not show BPD, TD, micropipe, scratch, particle, or stain as model-predicted classes unless a real classifier or validated prompt model produced them.
-
-Verdict logic:
-- `PASS`: all tile scores below conservative threshold.
-- `REVIEW`: localized defects or unknown flag.
-- `REJECT`: severe/high-area anomaly or many clustered hot tiles.
-- Thresholds must be labeled as demo heuristics unless calibrated on a validation set.
-
-Exit criteria:
-- Each scored tile emits:
+Run output contract:
 
 ```json
 {
-  "tile_id": "...",
+  "tile_id": "source_image__x0000_y0000_s0512",
+  "model": "subspacead",
+  "model_config_path": "runs/.../config.yaml",
   "anomaly_score": 0.0,
-  "heatmap_path": "...",
-  "region_tag": "unknown anomaly",
-  "display_label": null,
+  "heatmap_path": "runs/.../heatmaps/tile.png",
+  "overlay_path": "runs/.../overlays/tile.png",
+  "region_tag": "localized anomaly",
+  "semantic_hint": null,
   "novelty_flag": true,
   "verdict": "REVIEW"
 }
 ```
 
-### Workstream 4 - Demo
+Metric rules:
+- Image AUROC/AUPR require explicit labels in `labels.csv`.
+- Pixel AUROC/PRO require real aligned masks.
+- Missing labels means qualitative-only outputs and score distributions.
+- Folder names alone are not sufficient evidence for reported metrics.
 
-Owner: demo engineer plus pitch lead.
+## 5. Demo Architecture
+
+Use a simple local app with pre-rendered results.
+
+Recommended app stack:
+- Gradio dashboard for speed and reliability.
+- Static PNG overlays from model runs.
+- Local JSON/CSV loading only.
+- No network calls during final demo.
 
 First screen:
-- Operational dashboard, not a landing page.
-- Preloaded examples only; live upload is optional.
-- Main visual: tile-level risk map. Use "synthetic wafer montage" or "stitched wafer map" labels accurately based on provenance.
-- Detail panel: raw tile, heatmap overlay, before/after slider, contours, score, novelty flag, verdict.
-- Research tab: FoundAD versus SubspaceAD or FoundAD versus EfficientAD if available.
+- Left: preloaded example selector with modality/source tags.
+- Center: raw image and heatmap overlay.
+- Right: score, verdict, novelty flag, source status, and caveat badge.
+- Top or bottom: tile-grid or wafer-style risk map.
 
-Wafer map provenance rules:
-- A full-wafer visualization may be shown as a product concept if it is synthetic or assembled from unrelated tiles, but the UI and deck must label it that way.
-- A real full-wafer map requires `wafer_id`, tile coordinates, source image ID, and stitch/tiling metadata.
-- Do not imply spatial process/yield conclusions from unordered image crops.
+Tabs:
+- `Inspect`: raw image, overlay, contours, score, verdict.
+- `Risk Map`: wafer/tile risk map with provenance label.
+- `Evidence`: metrics table, split/config labels, run directory.
+- `Research`: SubspaceAD path, optional FoundAD result/blocker, domain-gap
+  caveat.
 
-Pre-render:
-- Heatmaps for every demo example.
-- A screen recording as backup.
-- Static PNG fallback for the full-wafer heatmap.
+Verdict rules:
+- `PASS`: all tile scores below threshold.
+- `REVIEW`: localized anomaly or unknown/high-uncertainty flag.
+- `REJECT`: high-area anomaly or clustered hot tiles.
 
-Exit criteria:
-- Demo runs offline from local files.
-- Every displayed claim links back to source or run artifact.
-- No metric appears without a dataset/split/config label.
-- Every aggregate map has a provenance label: `real spatial`, `stitched field`, or `synthetic montage`.
+Thresholds are demo heuristics unless calibrated on a validation split.
 
-### Workstream 5 - Evaluation
+Wafer map provenance labels:
+- `real spatial`: true wafer/source coordinates exist.
+- `stitched field`: assembled from related tiles/crops.
+- `synthetic montage`: product concept visualization.
 
-Owner: evaluation lead.
+## 6. Week-Long Execution Plan
 
-Minimum metrics:
-- For proxy datasets with labels/masks: image AUROC, AUPR, pixel AUROC, and PRO where masks exist.
-- For real SiC without labels: qualitative heatmap audit with domain-expert notes and an "unlabeled qualitative only" label.
-- For demo thresholds: false-negative-sensitive thresholding inspired by P4 Section 5.1.1, but clearly marked as heuristic unless calibrated.
-- For any image-level metric: labels must come from `runs/<timestamp>/labels.csv`, not path-name inference.
-- For any pixel-level metric: masks must be real, source-recorded, and aligned to the scored image after preprocessing.
-- If only normal examples are available, report score distributions and selected qualitative heatmaps, not AUROC/AUPR.
+### Day 1 - Lock Demo Scope and Prove One Heatmap
 
-Comparison table:
-- FoundAD on MVTec/VisA sanity run.
-- FoundAD on SEM proxy.
-- SubspaceAD on SEM proxy.
-- Optional EfficientAD/PatchCore if setup is already available.
-- SiC qualitative examples separately, unless labels exist.
+Owner focus:
+- Research lead: claim boundaries and source rules.
+- Model lead: SubspaceAD environment.
+- Data lead: first proxy dataset or benchmark layout.
+- Demo lead: app shell and visual design sketch.
 
-Exit criteria:
-- CSV metrics and selected qualitative examples are generated.
-- Negative results are summarized, not hidden.
-- `metrics_manifest.json` marks each metric as `valid`, `qualitative_only`, or `not_applicable`.
+Tasks:
+- Freeze MVP scope from Section 2.
+- Create `docs/claim_table.md` with verified claims, assumptions, pitch framing,
+  and open questions.
+- Create the initial artifact directories.
+- Install SubspaceAD from `planning/sources/repos/SubspaceAD/`.
+- Run one known MVTec/VisA sanity category if data is available.
+- If no benchmark data is ready, run the smallest available workbench category.
 
-## Execution Sequence
+SubspaceAD setup from the local README:
 
-Phase 1 - Data and license gate:
-- Download or stage at least one metric-bearing proxy dataset and one SiC qualitative source.
-- Verify licenses/access rules for every demo input.
-- Convert data to `datasets/workbench/<category>` MVTec-style layout.
-- Generate `source_registry.jsonl`, `labels.csv`, and any available mask manifest.
+```bash
+cd planning/sources/repos/SubspaceAD
+conda create -n subspacead python=3.10
+conda activate subspacead
+pip install -r requirements.txt
+pip install -e .
+```
 
-Phase 2 - First heatmap:
-- Install R2/SubspaceAD.
-- Run a known MVTec/VisA category to verify environment and visualization.
-- Run SubspaceAD on the converted workbench layout.
-- Save heatmaps, config, scores, and failure logs.
+Sanity command shape:
 
-Phase 3 - Proxy evaluation:
-- Score the SEM/proxy dataset.
-- Produce image metrics only from explicit labels.
-- Produce pixel metrics only when real masks exist.
-- Record negative results and qualitative failure cases.
+```bash
+python main.py \
+  --dataset_name mvtec_ad \
+  --dataset_path datasets/mvtec-ad \
+  --categories bottle \
+  --model_ckpt facebook/dinov2-with-registers-large \
+  --image_res 512 \
+  --k_shot 1 \
+  --aug_count 10 \
+  --pca_ev 0.99 \
+  --outdir results/day1_sanity
+```
 
-Phase 4 - FoundAD research path:
-- Attempt FoundAD only after the SubspaceAD path is producing artifacts.
-- Verify DINOv3 rights, projector availability, and R1 demo path.
-- Train or run FoundAD with bounded settings and recorded checkpoint/config.
-- Compare FoundAD against SubspaceAD only if both were run on the same data split.
+Day 1 exit gate:
+- One heatmap exists, even if only on a benchmark category.
+- If no heatmap exists, Day 2 starts with environment/debug only. Do not start
+  FoundAD or extra baselines.
 
-Phase 5 - Qualitative SiC transfer:
-- Add SiC PL/etch-pit examples only with source/license status recorded.
-- Run CLAHE on/off and crop/resolution variants when relevant.
-- Label outputs as qualitative unless labels/masks exist.
+### Day 2 - Build the Workbench Dataset and First Demo Manifest
 
-Phase 6 - Demo and narrative:
-- Build the offline dashboard around pre-rendered examples.
-- Add conservative region tags, novelty flags, and heuristic verdicts.
-- Label aggregate maps by provenance.
-- Write `docs/claim_table.md` with verified claims, assumptions, pitch framing, and open questions separated.
+Tasks:
+- Stage the metric-bearing proxy dataset.
+- Stage all candidate SiC qualitative examples.
+- Convert at least one category to `datasets/workbench/<category>/...`.
+- Generate `data/source_registry.jsonl`.
+- Generate `data/splits/<dataset>_<split>.csv` and labels for metric-bearing
+  examples.
+- Select 6-10 demo candidates and mark `demo_allowed`.
+- Create `demo/manifest.json` with expected artifact paths for each selected
+  example.
 
-Phase 7 - Freeze:
-- Freeze demo inputs, run configs, metrics CSVs, qualitative examples, and screen recording.
-- Rehearse exact wording: verified results, assumptions, and next-step ask.
+Recommended dataset priority:
+1. MIIC or available SEM proxy.
+2. Zenodo SiC etch-pit or team-provided SiC examples.
+3. MVTec/VisA safety category.
 
-## Guardrails and Pivots
+Day 2 exit gate:
+- `datasets/workbench/<category>` exists.
+- At least five demo-safe images are registered.
+- The app can load `demo/manifest.json`, even before all heatmaps are populated.
 
-- If SubspaceAD does not produce a heatmap on a known benchmark: stop model integration and fix the environment/data layout before touching FoundAD.
-- If DINOv3 access is blocked: use DINOv2 via SubspaceAD and phrase the foundation-encoder claim around DINOv2, with DINOv3 as a planned ablation.
-- If no real SiC data is available: demo on MIIC/SEM proxy plus licensed SiC examples, clearly marked qualitative.
-- If cross-modality transfer fails: pitch the result as a map of where natural-image foundation features break on PL/SEM wafer physics, with a concrete plan for SiC-specific normal-data collection and projector adaptation.
-- If metrics look weak: prioritize visual audit, calibrated thresholds, and uncertainty routing over overclaiming accuracy.
-- If labels or masks are missing: do not compute substitute AUROC/PRO from folder names or zero masks; report qualitative outputs only.
+### Day 3 - Run SubspaceAD on Workbench Data
 
-## Open Questions for the User or Team
+Tasks:
+- Run SubspaceAD on the workbench category.
+- Save heatmaps, overlays, scores, and configs under `runs/`.
+- Run 1-shot first. Add 2-shot/4-shot only after the first run succeeds.
+- Run CLAHE on/off only for PL/etch examples.
+- Create a simple score threshold rule for `PASS`, `REVIEW`, `REJECT`.
 
-- Which datasets are already downloaded or permitted for the challenge: Zenodo SiC, NFFA SEM, MIIC, MVTec, VisA, or private wafer images?
-- Are DINOv3 weights and FoundAD projector downloads accessible under the challenge environment and license?
-- What is the challenge judging rubric: technical novelty, business pitch, demo polish, accuracy, speed, or deployment feasibility?
-- Is internet access available during the hackathon?
-- What GPU and storage are actually available?
-- Are the team allowed to use figure crops from papers, and under what license?
-- Is the Resonac `$50/wafer saved` number in the brief sourced somewhere outside the local materials?
-- Should the final artifact include a public dataset-release plan, or only a private pilot dataset plan?
+Workbench command shape from `planning/sources/repos/SubspaceAD/`:
 
-## Final Recommendation
+```bash
+python main.py \
+  --dataset_name mvtec_ad \
+  --dataset_path ../../datasets/workbench \
+  --categories <category> \
+  --model_ckpt facebook/dinov2-with-registers-large \
+  --image_res 512 \
+  --k_shot 1 \
+  --aug_count 10 \
+  --pca_ev 0.99 \
+  --outdir ../../runs/day3_subspacead_<category>
+```
 
-Build the pitch around a conservative but sharp claim:
+Upgrade path if hardware is strong:
+- Use `facebook/dinov2-with-registers-giant`.
+- Use `--image_res 672`.
+- Use `--aug_count 30`.
 
-> We built an open few-shot wafer-physics anomaly workbench that tests whether foundation visual encoders can transfer from industrial photographs into SiC/semiconductor inspection. It produces tile heatmaps, unknown-defect flags, and full-wafer risk maps from a handful of normal examples, while clearly separating proxy-validated results from qualitative SiC evidence.
+Fallback path if hardware is weak:
+- Use `facebook/dinov2-with-registers-base` or smaller available checkpoint.
+- Use `--image_res 448` or `512`.
+- Keep only pre-rendered outputs in the app.
 
-The implementation should start with SubspaceAD as the first executable path. FoundAD should become the headline model only after pretrained assets, DINOv3 access, and the R1 demo path run locally. WaferDC, TailedCore, UniSpector, and wafer-map classifiers should inform the deck and future work unless the primary heatmap pipeline, evidence artifacts, and demo are already stable.
+Day 3 exit gate:
+- At least six demo examples have real heatmaps and overlays.
+- `scores.csv` is joined into `demo/manifest.json`.
+- The demo can show raw image, overlay, score, and verdict from local files.
+
+### Day 4 - Metrics, Failure Cases, and Risk Map
+
+Tasks:
+- Compute valid metrics for proxy data:
+  - image AUROC/AUPR if image labels exist.
+  - pixel AUROC/PRO if masks exist.
+- Write `metrics_manifest.json` explaining valid and invalid metrics.
+- Create risk-map data from tile scores.
+- Render one static tile-grid or wafer-style risk map.
+- Collect 2-3 failure cases and label them honestly.
+- Add caveat badges in the app:
+  - `proxy metric`
+  - `SiC qualitative`
+  - `synthetic montage`
+  - `restricted source`
+
+Day 4 exit gate:
+- The app has a risk map.
+- The app has an evidence/metrics tab.
+- No metric appears without split/config/provenance.
+
+### Day 5 - FoundAD Attempt and Optional Comparison
+
+FoundAD is a Day 5 task only if Days 1-4 gates are complete.
+
+Tasks:
+- Verify DINOv3 rights and projector access.
+- Run the FoundAD MVTec or VisA demo from the local README.
+- If the demo works, run FoundAD on the same proxy split as SubspaceAD.
+- If it fails, document the blocker and show FoundAD as research framing.
+
+Setup from `planning/sources/repos/FoundAD/`:
+
+```bash
+cd planning/sources/repos/FoundAD
+conda create -n foundad python=3.10
+conda activate foundad
+pip install -r requirements.txt
+pip install -e .
+```
+
+Demo commands from the local README:
+
+```bash
+python foundad/main.py mode=demo app=test testing.segmentation_vis=True data.dataset=mvtec data.data_name=mvtec_1shot data.test_root=assets/mvtec
+python foundad/main.py mode=demo app=test testing.segmentation_vis=True data.dataset=visa data.data_name=visa_4shot data.test_root=assets/visa
+```
+
+FoundAD decision gate:
+- If FoundAD runs by midday Day 5, add it as an optional comparison.
+- If not, stop debugging and keep the demo on SubspaceAD.
+- Do not risk the final demo for FoundAD.
+
+Day 5 exit gate:
+- The app still works after adding optional comparison or documented blocker.
+- `docs/run_summary.md` contains the FoundAD status.
+
+### Day 6 - Demo Hardening and Pitch Integration
+
+Tasks:
+- Remove live dependencies from the app.
+- Pre-render every image used in the final demo.
+- Add source/provenance labels everywhere.
+- Add a "what is verified" section in the app or deck.
+- Freeze demo examples. No new data after this point unless replacing a broken
+  image.
+- Record a first backup screen capture.
+- Rehearse the 4-minute demo path:
+  1. Problem and scarce-label setup.
+  2. Show risk map.
+  3. Inspect one clean/pass tile.
+  4. Inspect one anomalous/review tile.
+  5. Show evidence tab.
+  6. State what remains qualitative for SiC.
+
+Day 6 exit gate:
+- App runs offline.
+- Backup recording exists.
+- Final example set is frozen.
+- Unsupported claims are removed from the app/deck.
+
+### Day 7 - Freeze, Rehearse, and Present
+
+Tasks:
+- Final smoke test from a clean shell.
+- Verify every path in `demo/manifest.json` exists.
+- Verify `docs/claim_table.md` and `docs/run_summary.md` match the demo.
+- Record final backup video.
+- Prepare final one-slide fallback with static risk map and heatmap overlays.
+- Rehearse exact claim language.
+
+Final demo gate:
+- If the app fails, present the screen recording and static fallback.
+- If metrics are unavailable, present qualitative heatmaps and say metrics were
+  not valid because labels/masks were unavailable.
+- If SiC examples are unavailable, present SEM proxy results and frame SiC as
+  the next data acquisition target.
+
+## 7. Team Operating Model
+
+Four-person split:
+- Research lead: claims, source ledger, judging story, final deck.
+- Data lead: data staging, tiling, registry, labels, license status.
+- Model lead: SubspaceAD, optional FoundAD, metrics, run artifacts.
+- Demo lead: dashboard, overlays, risk map, backup recording.
+
+Daily rhythm:
+- Morning: gate review and cut decisions.
+- Midday: artifact sync into `demo/manifest.json`.
+- Evening: app smoke test and one screenshot/video.
+
+Cut policy:
+- Anything blocking the next day gate gets cut or downgraded to future work.
+- The demo path takes priority over additional baselines.
+- The final app uses pre-rendered outputs, not live training.
+
+## 8. Risks and Pivots
+
+Risk: SubspaceAD does not produce heatmaps by end of Day 1.
+- Pivot: debug only the environment/data layout on Day 2. Do not add FoundAD or
+  extra baselines.
+
+Risk: No metric-bearing proxy data is available by Day 2.
+- Pivot: use MVTec/VisA for executable proof and treat SiC/SEM as qualitative
+  until labels arrive.
+
+Risk: No usable SiC data is available by Day 3.
+- Pivot: demo on SEM proxy and licensed context figures/deck references. Phrase
+  as "proxy-validated workbench for SiC data acquisition."
+
+Risk: FoundAD is blocked by DINOv3/projector access.
+- Pivot: keep FoundAD as the research headline and show SubspaceAD as the
+  executable foundation-feature baseline.
+
+Risk: Metrics look weak.
+- Pivot: emphasize review routing, heatmap audit, failure-mode discovery, and
+  the domain-gap result. Do not overclaim accuracy.
+
+Risk: The dashboard breaks on presentation day.
+- Pivot: use the backup screen recording and static PNG fallback.
+
+## 9. Verified Claims
+
+- 4H-SiC PL dislocation detection is relevant but hard because defects can be
+  low contrast with unclear boundaries; P1 uses preprocessing plus YOLO11-OBB
+  and still reports limitations (`P1`, Abstract, Sections 1, 2.1.3, 3.3, 4).
+- PL-NDT can connect non-destructive PL images with etch-derived SiC defect
+  labels, but the Wolfspeed/Cree implementation and data are proprietary
+  (`P11`, Abstract, Materials and Equipment, Results and Discussion).
+- MIIC is the strongest local public SEM proxy source and highlights the
+  natural-image-pretraining domain gap (`P7`, Sections 3.1, 4.1, 4.2).
+- FoundAD evidence is on MVTec-AD and VisA, not SiC; DINOv3 rights/projectors
+  are external dependencies (`P8`, Abstract, Tables 1-5; `R1`, README Quick
+  Start).
+- SubspaceAD evidence is on MVTec-AD and VisA, not SiC, but it is the simplest
+  executable few-shot baseline in the local sources (`P9`, Sections 3.2-3.4;
+  `R2`, README Usage).
+- Wafer-map sources are useful for business/yield context but are not
+  microscope/PL anomaly-localization evidence (`P5`, Section 2.1; `R5`,
+  README; `R6`, README).
+
+## 10. Assumptions
+
+- The team has at least one machine that can run a DINOv2 SubspaceAD category.
+- Internet or pre-staged model/data assets are available early in the week.
+- Pre-rendered model outputs are acceptable for the final demo.
+- At least five demo-safe images can be used legally.
+- The judging rubric rewards a working, honest, well-framed demo more than an
+  unsupported production claim.
+
+## 11. Pitch Framing
+
+Use this positioning:
+
+> This is a demo of an open few-shot inspection workbench for semiconductor
+> imagery. It turns a handful of normal examples into heatmaps, risk maps, and
+> review decisions, and it explicitly shows what transfers from proxy SEM data
+> to SiC-style imagery and what still needs labeled SiC data.
+
+Avoid:
+- "We replace KLA/SICA."
+- "We solve SiC inspection."
+- "We classify every defect type."
+- "We created the first public SiC benchmark" unless the release exists.
+
+## 12. Open Questions
+
+- Which datasets are actually available by Day 1: MIIC, Zenodo SiC, NFFA SEM,
+  MVTec, VisA, or private wafer images?
+- Are DINOv3 weights and FoundAD projector assets available legally?
+- What are the exact judging criteria?
+- Are paper figure crops allowed for demo use, deck use only, or not at all?
+- What GPU and storage are available for the week?
+- Is the Resonac wafer-savings figure sourced outside the local brief?
+- Should the post-hackathon path be a private pilot or a public dataset release?

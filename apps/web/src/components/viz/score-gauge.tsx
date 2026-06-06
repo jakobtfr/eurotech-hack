@@ -8,6 +8,10 @@ interface ScoreGaugeProps {
   holdAt: number;
   size?: number;
   label?: string;
+  /** Arc + value color. Defaults to the spectral heat ramp; pass a verdict color to unify. */
+  color?: string;
+  /** Tint the centered value number with `color` too (full unification). */
+  tintValue?: boolean;
   className?: string;
 }
 
@@ -32,6 +36,8 @@ export function ScoreGauge({
   holdAt,
   size = 150,
   label = "anomaly score",
+  color: colorProp,
+  tintValue,
   className,
 }: ScoreGaugeProps) {
   const f = clamp(score);
@@ -39,7 +45,7 @@ export function ScoreGauge({
   const r = size / 2 - stroke;
   const cx = size / 2;
   const cy = size / 2;
-  const color = heatColor(f); // single solid tone for the value arc
+  const color = colorProp ?? heatColor(f); // value arc tone
 
   // small notch marks at the thresholds
   const notch = (frac: number) => {
@@ -93,7 +99,10 @@ export function ScoreGauge({
         ))}
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-display text-[1.7rem] font-bold tabular-nums leading-none text-foreground">
+        <span
+          className="font-display text-[1.7rem] font-bold tabular-nums leading-none text-foreground"
+          style={tintValue && colorProp ? { color: colorProp } : undefined}
+        >
           {f.toFixed(2)}
         </span>
         <span className="mt-1.5 font-mono text-[0.5rem] uppercase tracking-[0.18em] text-muted-foreground">

@@ -61,19 +61,17 @@ export function WorkbenchShell({ manifest }: WorkbenchShellProps) {
         <dl className="flex flex-wrap items-center gap-x-5 gap-y-1.5 font-mono text-[0.7rem]">
           <Meta label="wafer" value={riskMap.wafer_id} />
           <Meta label="model" value={manifest.model} />
-          <Meta label="review" value={reviewAt.toFixed(2)} />
-          <Meta label="hold" value={holdAt.toFixed(2)} />
         </dl>
       </header>
 
-      <div className="mt-5 grid flex-1 items-start gap-5 lg:grid-cols-[16rem_minmax(0,1fr)_22rem]">
+      <div className="mt-5 grid flex-1 items-start gap-5 lg:grid-cols-[15rem_minmax(0,1fr)_24rem]">
         {/* left: worklist + spatial wafer map */}
-        <aside className="flex flex-col gap-4">
+        <aside className="flex min-h-0 flex-col gap-4">
           <Worklist
             examples={queue}
             selectedId={selectedId}
             onSelect={setSelectedId}
-            className="max-h-[22rem]"
+            className="max-h-[26rem]"
           />
           <div className="rule" />
           <div className="flex flex-col gap-2">
@@ -93,7 +91,6 @@ export function WorkbenchShell({ manifest }: WorkbenchShellProps) {
         {/* center: inspection stage — where the defect is */}
         <section className="flex min-w-0 flex-col gap-3">
           <div className="mx-auto flex w-full max-w-[36rem] flex-col gap-3">
-            <p className="text-sm text-muted-foreground">{example.caption}</p>
             <TileViewer key={example.registry.tile_id} example={example} />
           </div>
         </section>

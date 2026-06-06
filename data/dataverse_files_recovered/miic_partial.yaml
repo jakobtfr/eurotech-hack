@@ -1,7 +1,7 @@
 schema_version: "1.0"
 dataset_id: miic_partial
-registry_path: /Users/jakobfriedrich/Downloads/dataverse_files_recovered/miic_partial_registry.jsonl
-split_path: /Users/jakobfriedrich/Downloads/dataverse_files_recovered/miic_partial_split.csv
+registry_path: data/dataverse_files_recovered/miic_partial_registry.jsonl
+split_path: data/dataverse_files_recovered/miic_partial_split.csv
 workbench_root: datasets/workbench/miic_partial
 category: default
 tile_size: 448

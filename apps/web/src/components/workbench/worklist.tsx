@@ -1,9 +1,9 @@
 "use client";
 
 import { ModalityTag } from "@/components/ui/modality-tag";
+import { tileDisplayName } from "@/lib/tile-name";
 import type { DemoExample, Verdict } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { heatColor } from "@/lib/viz/heat-ramp";
 
 const VERDICT_COLOR: Record<Verdict, string> = {
   PASS: "var(--verdict-pass)",
@@ -52,6 +52,7 @@ export function Worklist({ examples, selectedId, onSelect, className }: Worklist
           const score = ex.result?.anomaly_score ?? 0;
           const verdict = ex.result?.verdict ?? "PASS";
           const selected = ex.registry.tile_id === selectedId;
+          const name = tileDisplayName(ex.registry);
           return (
             <button
               key={ex.registry.tile_id}
@@ -69,26 +70,23 @@ export function Worklist({ examples, selectedId, onSelect, className }: Worklist
                 className="absolute inset-y-2 left-0 w-0.5 rounded-full transition-opacity"
                 style={{
                   background: VERDICT_COLOR[verdict],
-                  opacity: selected ? 1 : 0,
+                  opacity: selected ? 1 : 0.4,
                 }}
               />
               <div className="flex items-center justify-between gap-2">
                 <ModalityTag modality={ex.registry.modality} />
-                <span className="flex items-center gap-1.5 font-mono text-[0.7rem] tabular-nums">
-                  <span
-                    className="size-1.5 rounded-full"
-                    style={{ background: heatColor(Math.max(score, 0.05)) }}
-                  />
-                  <span style={{ color: VERDICT_COLOR[verdict] }}>
-                    {score.toFixed(2)}
-                  </span>
+                <span
+                  className="font-mono text-[0.7rem] font-medium tabular-nums"
+                  style={{ color: VERDICT_COLOR[verdict] }}
+                >
+                  {score.toFixed(2)}
                 </span>
               </div>
-              <p className="mt-1.5 text-sm font-medium leading-tight text-foreground">
-                {ex.title}
+              <p className="mt-1.5 truncate text-sm font-medium leading-tight text-foreground">
+                {name.primary}
               </p>
-              <p className="mt-0.5 truncate font-mono text-[0.66rem] text-muted-foreground">
-                {ex.registry.source_id} · {ex.registry.wafer_id}
+              <p className="mt-0.5 truncate text-[0.66rem] text-muted-foreground">
+                {name.secondary}
               </p>
             </button>
           );

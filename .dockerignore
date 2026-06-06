@@ -1,0 +1,10 @@
+.git
+.codex
+planning
+sources
+output
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.pdf

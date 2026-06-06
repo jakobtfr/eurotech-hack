@@ -1,0 +1,12 @@
+# Keep source data in Git LFS, but omit redundant downloads and local metadata.
+**/.cache/
+**/.source-git/
+**/archive/
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.tgz
+
+# GitHub Free/Pro rejects this individual file because it exceeds 2 GB.
+# It can be downloaded again from the WM-811K source listed in links.md.
+wm811k/data/LSWMD.pkl

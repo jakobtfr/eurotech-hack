@@ -1,4 +1,4 @@
-# eurotech-hack — SiC Anomaly Workbench
+# eurotech-hack - SiC Anomaly Workbench
 
 Monorepo for the SiC wafer anomaly/defect-detection hackathon. See
 [`planning/implementation_plan.md`](planning/implementation_plan.md)
@@ -18,10 +18,10 @@ runs/         # Generated immutable run artifacts
 packages/     # reserved for shared code (ui/config)
 ```
 
-Tooling: pnpm workspaces + Turborepo for the frontend, uv + Ruff + pytest for
-the backend scaffold.
+Tooling: Node 24, pnpm workspaces, and Turborepo for the frontend; uv, Ruff,
+and pytest for the backend scaffold.
 
-## Getting started
+## Getting Started
 
 ```bash
 pnpm install        # install all workspaces
@@ -29,6 +29,8 @@ pnpm dev            # run every app (web on http://localhost:3000)
 pnpm build          # production build
 pnpm lint           # lint all workspaces
 pnpm typecheck      # type-check all workspaces
+pnpm validate:demo      # validate demo/manifest.json
+pnpm validate:registry  # validate data/registry/sources.example.jsonl
 ```
 
 Run a single workspace:
@@ -71,7 +73,14 @@ implementations.
 
 ## Frontend
 
-`apps/web` is the dashboard with four tabs — **Inspect**, **Risk Map**,
-**Evidence**, **Research** — currently scaffolded with placeholder content. It
-reads the backend base URL from `NEXT_PUBLIC_API_URL` (see
-`apps/web/.env.example`); no API calls are wired up yet.
+`apps/web` is the dashboard with four tabs: **Inspect**, **Risk Map**,
+**Evidence**, and **Research**. The app loads `demo/manifest.json` on the server
+and passes the validated manifest into the client views. If the file is missing
+during local iteration, the TypeScript mock manifest remains as a fallback.
+
+## Data Intake
+
+Before real datasets arrive, use `data/registry/sources.example.jsonl` as a
+source registry template. The registry validator checks row shape and uniqueness
+by default; add `--check-files` to verify that source, mask, and license paths
+exist once files are staged.

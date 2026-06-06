@@ -8,13 +8,18 @@ import { ModalityTag } from "@/components/ui/modality-tag";
 import { VerdictBadge } from "@/components/ui/verdict-badge";
 import { OverlayCompositor } from "@/components/viz/overlay-compositor";
 import { requireExampleWithVerdict } from "@/lib/mock/selectors";
+import type { DemoManifest } from "@/lib/types";
 
 const CHIPS = ["offline", "source-traceable", "few-shot", "training-free"];
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function Hero() {
-  const hold = requireExampleWithVerdict("HOLD");
+interface HeroProps {
+  manifest: DemoManifest;
+}
+
+export function Hero({ manifest }: HeroProps) {
+  const hold = requireExampleWithVerdict(manifest, "HOLD");
   const score = hold.result?.anomaly_score ?? 0;
 
   return (

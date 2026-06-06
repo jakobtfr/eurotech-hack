@@ -4,11 +4,14 @@ import { HowItWorks } from "@/components/marketing/how-it-works";
 import { LandingCta } from "@/components/marketing/landing-cta";
 import { PitchClaim } from "@/components/marketing/pitch-claim";
 import { ScarceLabelProblem } from "@/components/marketing/scarce-label-problem";
+import { loadDemoManifest } from "@/lib/demo-manifest";
 
-export default function Home() {
+export default async function Home() {
+  const manifest = await loadDemoManifest();
+
   return (
     <main className="flex-1">
-      <Hero />
+      <Hero manifest={manifest} />
       <ScarceLabelProblem />
       <HowItWorks />
       <HonestFraming />

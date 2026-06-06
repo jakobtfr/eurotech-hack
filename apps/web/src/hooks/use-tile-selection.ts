@@ -1,11 +1,10 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { demoManifest } from "@/lib/mock/manifest";
 
 export type WorkbenchTab = "inspect" | "risk-map" | "evidence" | "research";
 
-export function useTileSelection(initialId = demoManifest.default_example_id) {
+export function useTileSelection(initialId: string) {
   const [selectedId, setSelectedId] = useState(initialId);
   const [tab, setTab] = useState<WorkbenchTab>("inspect");
 

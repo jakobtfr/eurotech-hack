@@ -1,6 +1,6 @@
-import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { CircleCheckIcon, TriangleAlertIcon, OctagonXIcon } from "lucide-react";
+import { CircleCheckIcon, OctagonXIcon, TriangleAlertIcon } from "lucide-react";
+import type * as React from "react";
 import type { Verdict } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -11,14 +11,14 @@ const verdictBadgeVariants = cva(
       verdict: {
         PASS: "border-verdict-pass/35 bg-verdict-pass/10 text-verdict-pass",
         REVIEW: "border-verdict-review/35 bg-verdict-review/10 text-verdict-review",
-        REJECT: "border-verdict-reject/40 bg-verdict-reject/12 text-verdict-reject",
+        HOLD: "border-verdict-hold/40 bg-verdict-hold/12 text-verdict-hold",
       },
       glow: { true: "", false: "" },
     },
     compoundVariants: [
       { verdict: "PASS", glow: true, className: "ring-1 ring-verdict-pass/30" },
       { verdict: "REVIEW", glow: true, className: "ring-1 ring-verdict-review/35" },
-      { verdict: "REJECT", glow: true, className: "ring-1 ring-verdict-reject/35" },
+      { verdict: "HOLD", glow: true, className: "ring-1 ring-verdict-hold/35" },
     ],
     defaultVariants: { verdict: "PASS", glow: false },
   },
@@ -27,7 +27,7 @@ const verdictBadgeVariants = cva(
 const ICONS: Record<Verdict, React.ElementType> = {
   PASS: CircleCheckIcon,
   REVIEW: TriangleAlertIcon,
-  REJECT: OctagonXIcon,
+  HOLD: OctagonXIcon,
 };
 
 interface VerdictBadgeProps

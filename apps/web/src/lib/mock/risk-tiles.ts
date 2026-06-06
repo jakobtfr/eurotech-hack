@@ -2,7 +2,7 @@ import type { RiskMap, RiskTile } from "@/lib/types";
 import { clamp, rngFor } from "@/lib/viz/seeded-random";
 import {
   DEMO_EXAMPLES,
-  THRESHOLD_REJECT,
+  THRESHOLD_HOLD,
   THRESHOLD_REVIEW,
   verdictForScore,
 } from "./examples";
@@ -15,14 +15,14 @@ const RADIUS = 6.7;
 
 // Deterministic anomaly hot-spots across the wafer field.
 const HOT_SPOTS = [
-  { cx: 10, cy: 3.5, amp: 0.96, sigma: 1.7 }, // reject cluster
+  { cx: 10, cy: 3.5, amp: 0.96, sigma: 1.7 }, // hold cluster
   { cx: 3.5, cy: 9, amp: 0.58, sigma: 1.9 }, // review cluster
   { cx: 8.6, cy: 10, amp: 0.36, sigma: 1.5 }, // minor warm
 ];
 
 // Map specific grid cells to demo examples so the map drills into Inspect.
 const LINKS: Record<string, string> = {
-  "10:3": DEMO_EXAMPLES[3].registry.tile_id, // pattern collapse (REJECT)
+  "10:3": DEMO_EXAMPLES[3].registry.tile_id, // pattern collapse (HOLD)
   "4:9": DEMO_EXAMPLES[2].registry.tile_id, // particle residue (REVIEW)
   "3:3": DEMO_EXAMPLES[0].registry.tile_id, // nominal die (PASS)
   "11:11": DEMO_EXAMPLES[1].registry.tile_id, // nominal edge (PASS)
@@ -54,7 +54,7 @@ function buildRiskMap(): RiskMap {
   const tiles: RiskTile[] = [];
   let pass = 0;
   let review = 0;
-  let reject = 0;
+  let hold = 0;
   let inspected = 0;
 
   for (let row = 0; row < ROWS; row++) {
@@ -73,7 +73,7 @@ function buildRiskMap(): RiskMap {
       const verdict = verdictForScore(score);
       if (present) {
         inspected++;
-        if (verdict === "REJECT") reject++;
+        if (verdict === "HOLD") hold++;
         else if (verdict === "REVIEW") review++;
         else pass++;
       }
@@ -96,9 +96,9 @@ function buildRiskMap(): RiskMap {
     cols: COLS,
     rows: ROWS,
     threshold_review: THRESHOLD_REVIEW,
-    threshold_reject: THRESHOLD_REJECT,
+    threshold_hold: THRESHOLD_HOLD,
     tiles,
-    summary: { pass, review, reject, inspected },
+    summary: { pass, review, hold, inspected },
   };
 }
 

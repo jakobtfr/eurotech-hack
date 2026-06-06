@@ -1,21 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "motion/react";
 import { ArrowRightIcon } from "lucide-react";
+import { motion } from "motion/react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { VerdictBadge } from "@/components/ui/verdict-badge";
 import { ModalityTag } from "@/components/ui/modality-tag";
+import { VerdictBadge } from "@/components/ui/verdict-badge";
 import { OverlayCompositor } from "@/components/viz/overlay-compositor";
-import { firstExampleWithVerdict } from "@/lib/mock/selectors";
+import { requireExampleWithVerdict } from "@/lib/mock/selectors";
 
 const CHIPS = ["offline", "source-traceable", "few-shot", "training-free"];
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
-  const reject = firstExampleWithVerdict("REJECT")!;
-  const score = reject.result?.anomaly_score ?? 0;
+  const hold = requireExampleWithVerdict("HOLD");
+  const score = hold.result?.anomaly_score ?? 0;
 
   return (
     <section className="relative overflow-hidden">
@@ -54,10 +54,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.12, ease }}
           >
-            An open inspection workbench for silicon-carbide imagery. It turns a
-            handful of known-good tiles into heatmaps, risk maps, and review
-            decisions — and shows exactly what is proxy-validated versus what
-            stays qualitative.
+            An open inspection workbench for silicon-carbide imagery. It turns a handful
+            of known-good tiles into heatmaps, risk maps, and review decisions — and
+            shows exactly what is proxy-validated versus what stays qualitative.
           </motion.p>
 
           <motion.div
@@ -71,7 +70,12 @@ export function Hero() {
                 Run the guided demo <ArrowRightIcon />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="h-11 px-5 text-[0.95rem]">
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="h-11 px-5 text-[0.95rem]"
+            >
               <Link href="/workbench">Open the workbench</Link>
             </Button>
           </motion.div>
@@ -98,26 +102,26 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15, ease }}
         >
-          <OverlayCompositor example={reject} />
+          <OverlayCompositor example={hold} />
 
           {/* floating modality chip */}
           <div className="absolute -right-3 -top-4 flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 shadow-[var(--shadow-card)]">
-            <ModalityTag modality={reject.registry.modality} />
+            <ModalityTag modality={hold.registry.modality} />
             <span className="font-mono text-[0.66rem] text-muted-foreground">
-              {reject.registry.wafer_id}
+              {hold.registry.wafer_id}
             </span>
           </div>
 
-          {/* floating verdict chip */}
+          {/* floating decision chip */}
           <div className="absolute -bottom-6 -left-5 flex items-center gap-3.5 rounded-xl border border-border bg-card px-4 py-3 shadow-[var(--shadow-lift)]">
             <span className="font-display text-3xl font-bold tabular-nums text-foreground">
               {score.toFixed(2)}
             </span>
             <span className="h-9 w-px bg-border" />
             <div className="flex flex-col gap-1">
-              <VerdictBadge verdict={reject.result?.verdict ?? "REJECT"} />
+              <VerdictBadge verdict={hold.result?.verdict ?? "HOLD"} />
               <span className="font-mono text-[0.66rem] text-muted-foreground">
-                {reject.title.toLowerCase()}
+                {hold.title.toLowerCase()}
               </span>
             </div>
           </div>

@@ -1,14 +1,14 @@
 "use client";
 
+import { ModalityTag } from "@/components/ui/modality-tag";
 import type { DemoExample } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { ModalityTag } from "@/components/ui/modality-tag";
 import { heatColor } from "@/lib/viz/heat-ramp";
 
 const VERDICT_COLOR: Record<string, string> = {
   PASS: "var(--verdict-pass)",
   REVIEW: "var(--verdict-review)",
-  REJECT: "var(--verdict-reject)",
+  HOLD: "var(--verdict-hold)",
 };
 
 interface ExampleSelectorProps {

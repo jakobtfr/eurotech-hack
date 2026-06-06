@@ -7,15 +7,15 @@ import type {
 } from "@/lib/types";
 
 export const THRESHOLD_REVIEW = 0.35;
-export const THRESHOLD_REJECT = 0.7;
+export const THRESHOLD_HOLD = 0.7;
 const RUN_TS = "20260603_1042";
 
 export function verdictForScore(
   score: number,
   review = THRESHOLD_REVIEW,
-  reject = THRESHOLD_REJECT,
+  hold = THRESHOLD_HOLD,
 ): Verdict {
-  if (score >= reject) return "REJECT";
+  if (score >= hold) return "HOLD";
   if (score >= review) return "REVIEW";
   return "PASS";
 }

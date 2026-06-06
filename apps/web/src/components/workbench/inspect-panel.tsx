@@ -1,13 +1,13 @@
 import type { DemoExample } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { ExampleSelector } from "./example-selector";
-import { TileViewer } from "./tile-viewer";
 import { ReadoutPanel } from "./readout-panel";
+import { TileViewer } from "./tile-viewer";
 
 interface InspectPanelProps {
   example: DemoExample;
   reviewAt: number;
-  rejectAt: number;
+  holdAt: number;
   examples?: DemoExample[];
   selectedId?: string;
   onSelectExample?: (id: string) => void;
@@ -17,7 +17,7 @@ interface InspectPanelProps {
 export function InspectPanel({
   example,
   reviewAt,
-  rejectAt,
+  holdAt,
   examples,
   selectedId,
   onSelectExample,
@@ -50,7 +50,7 @@ export function InspectPanel({
         <TileViewer key={example.registry.tile_id} example={example} />
       </div>
 
-      <ReadoutPanel example={example} reviewAt={reviewAt} rejectAt={rejectAt} />
+      <ReadoutPanel example={example} reviewAt={reviewAt} holdAt={holdAt} />
     </div>
   );
 }

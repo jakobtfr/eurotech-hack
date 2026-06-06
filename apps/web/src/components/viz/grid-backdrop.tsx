@@ -18,11 +18,15 @@ export function GridBackdrop({ className }: { className?: string }) {
       {/* spectral aurora pools */}
       <div
         className="absolute -top-40 left-[8%] size-[42rem] rounded-full opacity-[0.16] blur-[120px]"
-        style={{ background: "radial-gradient(circle, var(--heat-0), transparent 70%)" }}
+        style={{
+          background: "radial-gradient(circle, var(--heat-0), transparent 70%)",
+        }}
       />
       <div
         className="absolute -bottom-52 right-[2%] size-[46rem] rounded-full opacity-[0.14] blur-[140px]"
-        style={{ background: "radial-gradient(circle, var(--heat-35), transparent 70%)" }}
+        style={{
+          background: "radial-gradient(circle, var(--heat-35), transparent 70%)",
+        }}
       />
       {/* vignette */}
       <div className="vignette absolute inset-0" />

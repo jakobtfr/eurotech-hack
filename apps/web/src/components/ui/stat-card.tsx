@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +29,9 @@ export function StatCard({
       <CardContent className="flex flex-col gap-1">
         <div className="flex items-center justify-between">
           <span className="eyebrow">{label}</span>
-          {icon && <span className="text-muted-foreground [&>svg]:size-3.5">{icon}</span>}
+          {icon && (
+            <span className="text-muted-foreground [&>svg]:size-3.5">{icon}</span>
+          )}
         </div>
         <span
           className="font-display text-2xl font-bold tabular-nums leading-none"

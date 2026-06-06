@@ -1,10 +1,5 @@
-import * as React from "react";
-import {
-  FlaskConicalIcon,
-  MicroscopeIcon,
-  LayersIcon,
-  LockIcon,
-} from "lucide-react";
+import { FlaskConicalIcon, LayersIcon, LockIcon, MicroscopeIcon } from "lucide-react";
+import type * as React from "react";
 import type { CaveatKind } from "@/lib/types";
 import { cn } from "@/lib/utils";
 

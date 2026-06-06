@@ -1,8 +1,8 @@
 import type { DemoExample } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { TileTexture } from "./tile-texture";
 import { AnomalyHeatmap } from "./anomaly-heatmap";
 import { ContourRing } from "./contour-ring";
+import { TileTexture } from "./tile-texture";
 
 interface OverlayCompositorProps {
   example: DemoExample;

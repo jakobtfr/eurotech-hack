@@ -12,9 +12,30 @@ const NAV = [
 
 function WaferMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden>
-      <circle cx="16" cy="16" r="12.5" stroke="currentColor" strokeWidth="1.4" opacity="0.85" />
-      <circle cx="16" cy="16" r="7.5" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+    <svg
+      viewBox="0 0 32 32"
+      className={className}
+      fill="none"
+      role="img"
+      aria-label="Substrate mark"
+    >
+      <title>Substrate mark</title>
+      <circle
+        cx="16"
+        cy="16"
+        r="12.5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        opacity="0.85"
+      />
+      <circle
+        cx="16"
+        cy="16"
+        r="7.5"
+        stroke="currentColor"
+        strokeWidth="1"
+        opacity="0.4"
+      />
       <path
         d="M16 3.5 L16 6.5 M16 25.5 L16 28.5 M3.5 16 L6.5 16 M25.5 16 L28.5 16"
         stroke="currentColor"
@@ -22,7 +43,12 @@ function WaferMark({ className }: { className?: string }) {
         opacity="0.55"
       />
       <circle cx="16" cy="16" r="2.6" fill="var(--primary)" />
-      <path d="M13.5 28 L16 25.7 L18.5 28" stroke="currentColor" strokeWidth="1.1" opacity="0.6" />
+      <path
+        d="M13.5 28 L16 25.7 L18.5 28"
+        stroke="currentColor"
+        strokeWidth="1.1"
+        opacity="0.6"
+      />
     </svg>
   );
 }
@@ -50,9 +76,7 @@ export function SiteHeader() {
         <nav className="hidden items-center gap-7 md:flex">
           {NAV.map((item) => {
             const active =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
+              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}

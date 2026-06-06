@@ -6,8 +6,7 @@ import type { MetricsManifest } from "@/lib/types";
 export const METRICS: MetricsManifest = {
   run_dir: "runs/20260603_1042_subspacead_miic_sem",
   model: "subspacead",
-  model_config_path:
-    "runs/20260603_1042_subspacead_miic_sem/config.yaml",
+  model_config_path: "runs/20260603_1042_subspacead_miic_sem/config.yaml",
   dataset: "MIIC (SEM proxy)",
   split: "test",
   k_shot: 4,

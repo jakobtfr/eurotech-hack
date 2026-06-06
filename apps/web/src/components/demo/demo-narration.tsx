@@ -1,14 +1,9 @@
 "use client";
 
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  PlayIcon,
-  PauseIcon,
-} from "lucide-react";
-import type { DemoStep } from "./demo-steps";
-import { cn } from "@/lib/utils";
+import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import type { DemoStep } from "./demo-steps";
 
 interface DemoNarrationProps {
   step: DemoStep;
@@ -31,6 +26,11 @@ export function DemoNarration({
   onNext,
   onToggle,
 }: DemoNarrationProps) {
+  const progressSegments = Array.from({ length: total }, (_, i) => ({
+    id: `progress-step-${i + 1}`,
+    isComplete: i <= index,
+  }));
+
   return (
     <div className="rounded-xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -79,12 +79,12 @@ export function DemoNarration({
 
       {/* progress segments */}
       <div className="mt-4 flex items-center gap-1.5">
-        {Array.from({ length: total }, (_, i) => (
+        {progressSegments.map((segment) => (
           <span
-            key={i}
+            key={segment.id}
             className={cn(
               "h-1 flex-1 rounded-full transition-colors",
-              i <= index ? "bg-primary" : "bg-border",
+              segment.isComplete ? "bg-primary" : "bg-border",
             )}
           />
         ))}

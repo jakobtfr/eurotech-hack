@@ -62,14 +62,14 @@
   /* verdict palette (legible on paper) */
   --verdict-pass: oklch(0.52 0.13 162);
   --verdict-review: oklch(0.6 0.14 72);
-  --verdict-reject: oklch(0.545 0.205 27);
+  --verdict-hold: oklch(0.545 0.205 27);
 
   /* refined elevation (no glow) */
   --shadow-soft: 0 1px 2px oklch(0.22 0.02 60 / 0.05);
-  --shadow-card: 0 1px 2px oklch(0.22 0.02 60 / 0.04),
-    0 12px 32px -20px oklch(0.22 0.02 60 / 0.22);
-  --shadow-lift: 0 1px 2px oklch(0.22 0.02 60 / 0.05),
-    0 20px 48px -24px oklch(0.22 0.02 60 / 0.26);
+  --shadow-card:
+    0 1px 2px oklch(0.22 0.02 60 / 0.04), 0 12px 32px -20px oklch(0.22 0.02 60 / 0.22);
+  --shadow-lift:
+    0 1px 2px oklch(0.22 0.02 60 / 0.05), 0 20px 48px -24px oklch(0.22 0.02 60 / 0.26);
 }
 
 @theme inline {
@@ -122,7 +122,7 @@
   --color-heat-100: var(--heat-100);
   --color-verdict-pass: var(--verdict-pass);
   --color-verdict-review: var(--verdict-review);
-  --color-verdict-reject: var(--verdict-reject);
+  --color-verdict-hold: var(--verdict-hold);
 
   --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
 

@@ -1,12 +1,12 @@
-import * as React from "react";
 import {
-  CrosshairIcon,
-  LayoutGridIcon,
-  LayersIcon,
-  ShieldCheckIcon,
-  LockIcon,
   CircleHelpIcon,
+  CrosshairIcon,
+  LayersIcon,
+  LayoutGridIcon,
+  LockIcon,
+  ShieldCheckIcon,
 } from "lucide-react";
+import type * as React from "react";
 import type { SourceRegistryRow, WaferMapProvenance } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -60,7 +60,7 @@ const LICENSE_META: Record<
   { icon: React.ElementType; className: string }
 > = {
   verified: { icon: ShieldCheckIcon, className: "text-verdict-pass" },
-  restricted: { icon: LockIcon, className: "text-verdict-reject" },
+  restricted: { icon: LockIcon, className: "text-verdict-hold" },
   unknown: { icon: CircleHelpIcon, className: "text-muted-foreground" },
 };
 

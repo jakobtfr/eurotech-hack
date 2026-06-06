@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
 import { Reveal } from "./reveal";
 
 export function LandingCta() {
@@ -11,7 +11,9 @@ export function LandingCta() {
           <div
             aria-hidden
             className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full opacity-20 blur-2xl"
-            style={{ background: "radial-gradient(circle, var(--primary), transparent 70%)" }}
+            style={{
+              background: "radial-gradient(circle, var(--primary), transparent 70%)",
+            }}
           />
           <div className="relative flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-xl">
@@ -22,9 +24,8 @@ export function LandingCta() {
                 See it run.
               </h2>
               <p className="mt-3 text-background/70">
-                Walk the four-minute guided path, or open the workbench and probe
-                the tiles yourself. Everything runs offline from pre-rendered
-                artifacts.
+                Walk the four-minute guided path, or open the workbench and probe the
+                tiles yourself. Everything runs offline from pre-rendered artifacts.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">

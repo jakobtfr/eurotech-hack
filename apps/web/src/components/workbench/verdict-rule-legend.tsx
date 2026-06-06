@@ -1,11 +1,11 @@
-import { cn } from "@/lib/utils";
 import { VERDICT_META } from "@/lib/mock/selectors";
 import type { Verdict } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 const TONE: Record<string, string> = {
   pass: "var(--verdict-pass)",
   review: "var(--verdict-review)",
-  reject: "var(--verdict-reject)",
+  hold: "var(--verdict-hold)",
 };
 
 export function VerdictRuleLegend({

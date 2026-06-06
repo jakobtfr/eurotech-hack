@@ -1,18 +1,18 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 import { clamp } from "@/lib/viz/seeded-random";
 
 interface ScoreMeterProps extends React.ComponentProps<"div"> {
   score: number;
   reviewAt: number;
-  rejectAt: number;
+  holdAt: number;
   showValue?: boolean;
 }
 
 export function ScoreMeter({
   score,
   reviewAt,
-  rejectAt,
+  holdAt,
   showValue = true,
   className,
   ...props
@@ -41,7 +41,7 @@ export function ScoreMeter({
         />
         <span
           className="absolute top-0 h-full w-px bg-background/80"
-          style={{ left: `${rejectAt * 100}%` }}
+          style={{ left: `${holdAt * 100}%` }}
         />
       </div>
       {showValue && (

@@ -1,5 +1,5 @@
-import * as React from "react";
 import { LockIcon } from "lucide-react";
+import type * as React from "react";
 import type { EvidenceMetric } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -34,24 +34,28 @@ export function MetricRow({
   metric,
   className,
   ...props
-}: React.ComponentProps<"div"> & { metric: EvidenceMetric }) {
+}: React.ComponentProps<"tr"> & { metric: EvidenceMetric }) {
   const gated = metric.value === null || !metric.available;
   return (
-    <div
+    <tr
       data-slot="metric-row"
-      role="row"
-      className={cn(
-        "grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 border-b border-border/50 py-3 last:border-b-0",
-        className,
-      )}
+      className={cn("border-b border-border/50 align-top last:border-b-0", className)}
       {...props}
     >
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-medium text-foreground">{metric.name}</span>
-        <EvidenceChip kind={metric.evidence_class} />
-      </div>
+      <td className="py-3 pr-4">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-foreground">{metric.name}</span>
+          <EvidenceChip kind={metric.evidence_class} />
+        </div>
 
-      <div className="text-right">
+        {metric.note && (
+          <p className="mt-1 font-mono text-[0.68rem] leading-relaxed text-muted-foreground">
+            {metric.note}
+          </p>
+        )}
+      </td>
+
+      <td className="py-3 text-right">
         {gated ? (
           <span className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-border bg-muted/30 px-2 py-1 font-mono text-[0.7rem] text-muted-foreground [&>svg]:size-3">
             <LockIcon aria-hidden />
@@ -61,21 +65,13 @@ export function MetricRow({
           <span
             className={cn(
               "font-mono text-xl font-semibold tabular-nums",
-              metric.evidence_class === "verified"
-                ? "text-foreground"
-                : "text-chart-2",
+              metric.evidence_class === "verified" ? "text-foreground" : "text-chart-2",
             )}
           >
             {formatValue(metric)}
           </span>
         )}
-      </div>
-
-      {metric.note && (
-        <p className="col-span-2 font-mono text-[0.68rem] leading-relaxed text-muted-foreground">
-          {metric.note}
-        </p>
-      )}
-    </div>
+      </td>
+    </tr>
   );
 }

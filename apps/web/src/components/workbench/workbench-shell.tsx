@@ -1,14 +1,19 @@
 "use client";
 
-import { ScanSearchIcon, LayoutGridIcon, GaugeIcon, FlaskConicalIcon } from "lucide-react";
+import {
+  FlaskConicalIcon,
+  GaugeIcon,
+  LayoutGridIcon,
+  ScanSearchIcon,
+} from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTileSelection, type WorkbenchTab } from "@/hooks/use-tile-selection";
 import { demoManifest } from "@/lib/mock/manifest";
 import { getExampleOrDefault, scoreDistribution } from "@/lib/mock/selectors";
-import { useTileSelection, type WorkbenchTab } from "@/hooks/use-tile-selection";
-import { InspectPanel } from "./inspect-panel";
-import { RiskMapPanel } from "./risk-map-panel";
 import { EvidencePanel } from "./evidence-panel";
+import { InspectPanel } from "./inspect-panel";
 import { ResearchPanel } from "./research-panel";
+import { RiskMapPanel } from "./risk-map-panel";
 
 const TABS = [
   { value: "inspect", label: "Inspect", Icon: ScanSearchIcon },
@@ -36,8 +41,7 @@ export function WorkbenchShell() {
             </h1>
             <p className="mt-1 max-w-xl text-sm text-muted-foreground">
               Heatmaps and review decisions from scarce normal examples —
-              proxy-validated evidence kept separate from qualitative SiC
-              transfer.
+              proxy-validated evidence kept separate from qualitative SiC transfer.
             </p>
           </div>
           <TabsList variant="line" className="self-start lg:self-auto">
@@ -57,7 +61,7 @@ export function WorkbenchShell() {
             selectedId={selectedId}
             onSelectExample={setSelectedId}
             reviewAt={demoManifest.threshold_review}
-            rejectAt={demoManifest.threshold_reject}
+            holdAt={demoManifest.threshold_hold}
           />
         </TabsContent>
 

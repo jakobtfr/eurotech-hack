@@ -12,7 +12,12 @@ interface ContourRingProps {
 const SIZE = 512;
 
 /** ROI contour traced around the hottest region, with a crosshair marker. */
-export function ContourRing({ tileId, score, className, animated = true }: ContourRingProps) {
+export function ContourRing({
+  tileId,
+  score,
+  className,
+  animated = true,
+}: ContourRingProps) {
   const d = contourPath(tileId, score, SIZE);
   const focal = focalPoint(tileId);
   const cx = focal.x * SIZE;
@@ -24,8 +29,10 @@ export function ContourRing({ tileId, score, className, animated = true }: Conto
       viewBox={`0 0 ${SIZE} ${SIZE}`}
       preserveAspectRatio="none"
       className={cn("size-full", className)}
-      aria-hidden
+      role="img"
+      aria-label="Anomaly contour"
     >
+      <title>Anomaly contour</title>
       <path
         d={d}
         fill="none"

@@ -13,8 +13,8 @@ Control documents:
 
 - `planning/prompt.md`: project thesis, candidate methods, datasets, and initial
   execution sketch.
-- `planning/sources/manifest.md`: local source IDs, paper conversions, and
-  intended upstream commits.
+- `planning/sources/repo_references.md`: upstream repository URLs, pinned
+  commits, roles, and observed license status.
 - `planning/AGENTS.md`: planning constraints and evidence-handling rules.
 
 The project wins by proving three things in four minutes:
@@ -66,18 +66,19 @@ The project wins by proving three things in four minutes:
 
 As of 2026-06-06:
 
-- The workspace contains planning documents and paper conversions.
+- The workspace contains planning documents, paper conversions, and lightweight
+  upstream repository references.
 - There is no implementation, dataset, environment lockfile, model weight, run
   artifact, or demo application.
-- `planning/sources/repos/*` entries are empty gitlink directories in the
-  current checkout, and `.gitmodules` is absent. The repository code and README
-  commands must therefore be hydrated and verified before use.
+- Upstream repository code is intentionally not vendored. Required checkouts
+  must be cloned or cached outside this repo from
+  `planning/sources/repo_references.md` and verified before use.
 - Claims about SubspaceAD and FoundAD are currently supported by `P9` and `P8`,
   respectively. Repository-specific CLI details remain unverified until the
-  gitlinks are restored.
+  external checkouts are restored and tested.
 
-This audit makes repository hydration and one rendered heatmap the first
-critical gate.
+This audit makes external repository hydration and one rendered heatmap the
+first critical gate.
 
 ---
 
@@ -861,7 +862,7 @@ No lane may bypass the artifact contracts.
 
 Tasks:
 
-- Hydrate the empty repository gitlinks or clone verified upstream commits.
+- Clone or cache verified upstream commits outside this repository.
 - Record upstream commit IDs and license files.
 - Run environment diagnostics and record hardware.
 - Obtain one benchmark category and verify its license.
@@ -1144,8 +1145,9 @@ Avoid:
 
 The first four hours should happen in this order:
 
-1. Restore or clone the exact SubspaceAD and FoundAD source commits listed in
-   `planning/sources/manifest.md`; verify licenses and record any mismatch.
+1. Clone or cache the exact SubspaceAD and FoundAD source commits listed in
+   `planning/sources/repo_references.md` outside this repository; verify
+   licenses and record any mismatch.
 2. Confirm hardware, Python, CUDA or MPS support, disk space, and network/model
    access.
 3. Obtain one licensed MVTec/VisA category and one candidate semiconductor

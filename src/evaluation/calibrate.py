@@ -54,8 +54,15 @@ def calibrate_run(run_path: str | Path) -> str:
 
 
 def _empirical_cdf(score: float, reference_scores: list[float]) -> float:
-    count = sum(1 for reference in reference_scores if reference <= score)
-    return count / len(reference_scores)
+    # Midrank (Hazen) plotting position: a reference value maps to its own rank
+    # midpoint rather than 1.0, so a normal validation tile does not self-trip the
+    # hold threshold. Scores strictly above the whole reference set still map to 1.0.
+    n = len(reference_scores)
+    if n == 0:
+        return 0.0
+    less = sum(1 for reference in reference_scores if reference < score)
+    equal = sum(1 for reference in reference_scores if reference == score)
+    return (less + 0.5 * equal) / n
 
 
 def _decision(

@@ -77,7 +77,7 @@ def test_pipeline_end_to_end_real_model(tmp_path: Path) -> None:
     raw = tmp_path / "raw"
     raw.mkdir()
     lines = []
-    for index in range(3):
+    for index in range(6):
         path = raw / f"normal_{index}.png"
         _save(path, _normal(rng))
         lines.append(_registry_line(f"normal_{index}", path, "normal"))
@@ -102,6 +102,8 @@ def test_pipeline_end_to_end_real_model(tmp_path: Path) -> None:
         freeze_run(run_dir)
 
         manifest = validate_run(run_dir, require_frozen=True)
+        # Calibration normalizes against held-out validation normals, not the scored tiles.
+        assert manifest["calibration_method"] == "normal_validation_quantiles"
         predictions = validate_predictions(manifest["predictions_path"], require_rendered_paths=True)
         by_tile = {row["tile_id"]: row for row in predictions}
         defect_row = next(row for tile_id, row in by_tile.items() if tile_id.startswith("defect"))

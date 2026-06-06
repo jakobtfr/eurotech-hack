@@ -1,0 +1,10 @@
+schema_version: "1.0"
+model_name: foundad_scaffold
+model_family: foundad
+adapter_status: disabled
+upstream_repository: https://github.com/ymxlzgy/FoundAD
+upstream_commit: a590587d96184249eeb59e403cf06dc097fdf347
+prediction_mode: not_implemented
+notes:
+  - FoundAD is a stretch adapter after the baseline pipeline is working.
+  - The observed upstream checkout did not include a license file; verify rights before integration.

@@ -1,0 +1,12 @@
+schema_version: "1.0"
+dataset_id: stub
+version: v0
+category: scaffold
+registry_path: data/registry/sources.jsonl
+split_path: data/splits/stub_v0.csv
+workbench_root: datasets/workbench/stub
+tile_size: 448
+stride: 448
+preprocess_id: rgb_repeat_v1
+allow_empty: true
+allow_placeholder_tiles: false

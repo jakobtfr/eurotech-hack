@@ -1,0 +1,1 @@
+"""Model adapter entry points."""

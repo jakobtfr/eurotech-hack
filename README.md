@@ -23,6 +23,14 @@ packages/     # reserved for shared code (ui/config)
 Tooling: Node 24, pnpm workspaces, and Turborepo for the frontend; uv, Ruff,
 and pytest for the backend scaffold.
 
+## SiC Results
+
+The real 4H-SiC photoluminescence detection experiment is published separately
+from the MIIC and WM811K proxy experiments in
+[`sic_results/`](sic_results/README.md). It includes the best YOLO11n-OBB
+checkpoint, exact parameters, validation metrics, plots, predictions, dataset
+provenance, and a concise scientific summary.
+
 ## Getting Started
 
 ```bash

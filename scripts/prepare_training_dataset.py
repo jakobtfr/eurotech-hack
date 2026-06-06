@@ -149,7 +149,7 @@ def _registry_rows(
                 "dataset_id": dataset_id,
                 "wafer_id": None,
                 "source_path": str(image_path),
-                "modality": MODALITY_BY_DATASET.get(_normalize(dataset_id), "optical"),
+                "modality": _modality_for_dataset(dataset_id),
                 "source_label": label,
                 "mask_source_path": str(mask_path) if mask_path is not None else None,
                 "license_status": license_status,
@@ -226,6 +226,13 @@ def _token(value: str) -> str:
 
 def _normalize(dataset_id: str) -> str:
     return dataset_id.strip().lower()
+
+
+def _modality_for_dataset(dataset_id: str) -> str:
+    normalized = _normalize(dataset_id)
+    if normalized.startswith("miic"):
+        return "SEM"
+    return MODALITY_BY_DATASET.get(normalized, "optical")
 
 
 def _config_yaml(root: Path, dataset_id: str, registry_path: Path, split_path: Path) -> str:

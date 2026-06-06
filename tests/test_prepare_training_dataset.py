@@ -34,6 +34,16 @@ def test_prepare_training_dataset_excludes_miic_by_default(tmp_path: Path) -> No
     assert {row["dataset_id"] for row in rows} == {"visa"}
 
 
+def test_prepare_training_dataset_marks_miic_variants_as_sem(tmp_path: Path) -> None:
+    root = tmp_path / "datasets_ready"
+    _write_image(root / "miic_partial" / "normal" / "sem.png")
+
+    combined = prepare_training_dataset(root, datasets=["miic_partial"], excluded_datasets=set(), min_rows=1)
+
+    rows = validate_split(combined, check_files=False)
+    assert {row["modality"] for row in rows} == {"SEM"}
+
+
 def _write_image(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(np.full((448, 448), 128, dtype=np.uint8), mode="L").save(path)

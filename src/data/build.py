@@ -7,7 +7,7 @@ from typing import Any
 from PIL import Image
 
 from src.cli import add_common_flags, run_cli
-from src.common import ContractError, load_yaml, relpath, repo_path, write_csv
+from src.common import ContractError, load_yaml, relpath, repo_path, stable_unit_interval, write_csv
 from src.contracts import SPLIT_FIELDS, validate_registry, validate_split
 
 
@@ -20,13 +20,16 @@ def build_split(config_path: str | Path) -> str:
     if not rows and not config.get("allow_empty", False):
         raise ContractError(f"{relpath(config_path)} has no registry rows for {dataset_id!r}")
 
+    assignment = _assign_splits(rows, config)
     use_placeholder = bool(config.get("allow_placeholder_tiles", False))
     split_rows: list[dict[str, Any]] = []
     for source in rows:
+        split = assignment[source["source_image_id"]]
+        is_normal = source["source_label"] == "normal"
         if use_placeholder:
-            split_rows.extend(_placeholder_tiles(source, config))
+            split_rows.extend(_placeholder_tiles(source, config, split, is_normal))
         else:
-            split_rows.extend(_tiles_for_source(source, config))
+            split_rows.extend(_tiles_for_source(source, config, split, is_normal))
 
     repo_path(config.get("workbench_root", f"datasets/workbench/{dataset_id}")).mkdir(parents=True, exist_ok=True)
     write_csv(split_path, split_rows, SPLIT_FIELDS)
@@ -34,7 +37,49 @@ def build_split(config_path: str | Path) -> str:
     return relpath(split_path)
 
 
-def _tiles_for_source(source: dict[str, Any], config: dict[str, Any]) -> list[dict[str, Any]]:
+def _assign_splits(rows: list[dict[str, Any]], config: dict[str, Any]) -> dict[str, str]:
+    """Assign each source to train/validation/test, leakage-safe and deterministic.
+
+    Normal sources are partitioned so calibration has held-out ``validation/good``
+    normals (otherwise the empirical CDF self-references the scored tiles). Grouping
+    is by ``wafer_id`` when present, else ``source_image_id``, so a whole wafer (and
+    all its tiles) stays in one split. Anomaly sources go to ``test``.
+    """
+
+    train_fraction = float(config.get("train_fraction", 0.5))
+    validation_fraction = float(config.get("validation_fraction", 0.25))
+
+    groups: dict[str, list[str]] = {}
+    for row in rows:
+        if row["source_label"] != "normal":
+            continue
+        key = row.get("wafer_id") or row["source_image_id"]
+        groups.setdefault(key, []).append(row["source_image_id"])
+    ordered = sorted(groups, key=lambda key: stable_unit_interval(f"split:{key}"))
+
+    total = len(ordered)
+    n_train = min(total, max(1, round(train_fraction * total))) if total else 0
+    n_validation = min(total - n_train, round(validation_fraction * total)) if total else 0
+
+    assignment: dict[str, str] = {}
+    for index, key in enumerate(ordered):
+        if index < n_train:
+            split = "train"
+        elif index < n_train + n_validation:
+            split = "validation"
+        else:
+            split = "test"
+        for source_id in groups[key]:
+            assignment[source_id] = split
+    for row in rows:
+        if row["source_label"] != "normal":
+            assignment[row["source_image_id"]] = "test"
+    return assignment
+
+
+def _tiles_for_source(
+    source: dict[str, Any], config: dict[str, Any], split: str, is_normal: bool
+) -> list[dict[str, Any]]:
     tile_size = int(config.get("tile_size", 448))
     stride = int(config.get("stride", tile_size))
     image_path = repo_path(source["source_path"])
@@ -43,7 +88,7 @@ def _tiles_for_source(source: dict[str, Any], config: dict[str, Any]) -> list[di
     with Image.open(image_path) as image:
         width, height = image.size
     origins = _tile_origins(width, height, tile_size, stride)
-    return [_split_row(source, config, x, y, tile_size, stride) for (x, y) in origins]
+    return [_split_row(source, config, x, y, tile_size, stride, split, is_normal) for (x, y) in origins]
 
 
 def _tile_origins(width: int, height: int, tile_size: int, stride: int) -> list[tuple[int, int]]:
@@ -57,15 +102,23 @@ def _tile_origins(width: int, height: int, tile_size: int, stride: int) -> list[
     return [(x, y) for y in ys for x in xs]
 
 
-def _placeholder_tiles(source: dict[str, Any], config: dict[str, Any]) -> list[dict[str, Any]]:
+def _placeholder_tiles(
+    source: dict[str, Any], config: dict[str, Any], split: str, is_normal: bool
+) -> list[dict[str, Any]]:
     tile_size = int(config.get("tile_size", 448))
-    return [_split_row(source, config, 0, 0, tile_size, int(config.get("stride", tile_size)))]
+    return [_split_row(source, config, 0, 0, tile_size, int(config.get("stride", tile_size)), split, is_normal)]
 
 
 def _split_row(
-    source: dict[str, Any], config: dict[str, Any], tile_x: int, tile_y: int, tile_size: int, stride: int
+    source: dict[str, Any],
+    config: dict[str, Any],
+    tile_x: int,
+    tile_y: int,
+    tile_size: int,
+    stride: int,
+    split: str,
+    is_normal: bool,
 ) -> dict[str, Any]:
-    is_normal = source["source_label"] == "normal"
     return {
         "tile_id": f"{source['source_image_id']}__x{tile_x:05d}_y{tile_y:05d}_s{tile_size:05d}",
         "source_image_id": source["source_image_id"],
@@ -73,7 +126,7 @@ def _split_row(
         "category": config.get("category", "default"),
         "wafer_id": source.get("wafer_id") or "",
         "modality": source["modality"],
-        "split": "train" if is_normal else "test",
+        "split": split,
         "label": "good" if is_normal else "anomaly",
         "image_path": source["source_path"],
         "mask_path": source.get("mask_source_path") or "",
@@ -82,7 +135,7 @@ def _split_row(
         "tile_size": tile_size,
         "stride": stride,
         "preprocess_id": config.get("preprocess_id", "rgb_repeat_v1"),
-        "support_eligible": is_normal,
+        "support_eligible": is_normal and split == "train",
         "demo_allowed": bool(source["demo_allowed"]),
     }
 

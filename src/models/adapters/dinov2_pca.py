@@ -50,11 +50,74 @@ def load_tile_rgb(ref: dict[str, Any], resolution: int) -> np.ndarray:
 
 
 def _apply_preprocess(image: Image.Image, preprocess_id: str) -> Image.Image:
-    if preprocess_id in {"rgb_repeat_v1", "rgb_repeat_clahe_v1"}:
+    if preprocess_id == "rgb_repeat_clahe_v1":
+        # Low-contrast imagery (e.g. SiC PL): apply fixed CLAHE before the
+        # channel-repeat. Enhancement is explicit and recorded, never a hidden default.
+        equalized = _clahe(np.asarray(image.convert("L"), dtype=np.uint8))
+        return Image.fromarray(equalized, mode="L").convert("RGB")
+    if preprocess_id == "rgb_repeat_v1":
         # Channel-repeat: collapse to luminance then back to 3 channels so the
         # encoder sees a stable grayscale-derived RGB regardless of source mode.
         return image.convert("L").convert("RGB")
     return image.convert("RGB")
+
+
+def _clahe(gray: np.ndarray, grid: int = 8, clip_limit: float = 0.01) -> np.ndarray:
+    """Contrast-limited adaptive histogram equalization (fixed params, deterministic).
+
+    Per-tile clipped-histogram CDFs are bilinearly interpolated across tiles, the
+    standard CLAHE construction — no blocky artifacts, no external dependency.
+    """
+
+    height, width = gray.shape
+    if height < 2 or width < 2:
+        return gray
+    y_bounds = np.linspace(0, height, grid + 1).astype(int)
+    x_bounds = np.linspace(0, width, grid + 1).astype(int)
+    luts = np.empty((grid, grid, 256), dtype=np.float64)
+    centers_y = np.empty(grid)
+    centers_x = np.empty(grid)
+    for i in range(grid):
+        centers_y[i] = (y_bounds[i] + y_bounds[i + 1] - 1) / 2.0
+        for j in range(grid):
+            centers_x[j] = (x_bounds[j] + x_bounds[j + 1] - 1) / 2.0
+            tile = gray[y_bounds[i] : y_bounds[i + 1], x_bounds[j] : x_bounds[j + 1]]
+            luts[i, j] = _clipped_cdf_lut(tile, clip_limit)
+
+    iy0, iy1, wy = _bracket(np.arange(height), centers_y)
+    ix0, ix1, wx = _bracket(np.arange(width), centers_x)
+    iy0 = np.broadcast_to(iy0[:, None], (height, width))
+    iy1 = np.broadcast_to(iy1[:, None], (height, width))
+    ix0 = np.broadcast_to(ix0[None, :], (height, width))
+    ix1 = np.broadcast_to(ix1[None, :], (height, width))
+    wy = wy[:, None]
+    wx = wx[None, :]
+    m00 = luts[iy0, ix0, gray]
+    m01 = luts[iy0, ix1, gray]
+    m10 = luts[iy1, ix0, gray]
+    m11 = luts[iy1, ix1, gray]
+    out = (1 - wy) * ((1 - wx) * m00 + wx * m01) + wy * ((1 - wx) * m10 + wx * m11)
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
+def _clipped_cdf_lut(tile: np.ndarray, clip_limit: float) -> np.ndarray:
+    count = tile.size
+    if count == 0:
+        return np.arange(256, dtype=np.float64)
+    histogram = np.bincount(tile.ravel(), minlength=256).astype(np.float64)
+    clip = max(1.0, clip_limit * count)
+    excess = np.maximum(histogram - clip, 0.0).sum()
+    histogram = np.minimum(histogram, clip) + excess / 256.0
+    cdf = np.cumsum(histogram)
+    return cdf / cdf[-1] * 255.0
+
+
+def _bracket(coords: np.ndarray, centers: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    upper = np.clip(np.searchsorted(centers, coords), 1, len(centers) - 1)
+    lower = upper - 1
+    span = centers[upper] - centers[lower]
+    weight = np.where(span > 0, (coords - centers[lower]) / np.where(span > 0, span, 1.0), 0.0)
+    return lower, upper, np.clip(weight, 0.0, 1.0)
 
 
 def _crop(image: Image.Image, ref: dict[str, Any]) -> Image.Image:

@@ -1,0 +1,33 @@
+{
+  "validation_sessions": [
+    "20241009test1",
+    "20241011test3",
+    "20241104test3",
+    "20250117test6",
+    "20250117test7",
+    "20250120test1",
+    "20250120test2",
+    "20250123test5"
+  ],
+  "splits": {
+    "train": {
+      "images": 2054,
+      "objects": 3945,
+      "class_objects": {
+        "TD": 2834,
+        "BPD": 1111
+      },
+      "sessions": 45
+    },
+    "val": {
+      "images": 211,
+      "objects": 493,
+      "class_objects": {
+        "TD": 287,
+        "BPD": 206
+      },
+      "sessions": 8
+    }
+  },
+  "session_overlap": []
+}

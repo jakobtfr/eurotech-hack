@@ -1,0 +1,59 @@
+{
+  "requested_epochs": 30,
+  "completed_epochs": 18,
+  "best_epoch": 16,
+  "stop_reason": "Manual efficiency stop after two epochs without improving the best validation mAP50-95",
+  "patience": 8,
+  "image_size": 768,
+  "batch_size": 8,
+  "seed": 17,
+  "device": "mps",
+  "run_name": "yolo11n_obb_cbms_sic",
+  "model": "yolo11n-obb.pt",
+  "dataset": "SiC_Dislocation_Detection_DB / CBMS-Dataset",
+  "material": "4H-SiC",
+  "modality": "photoluminescence",
+  "classes": {
+    "0": "TD",
+    "1": "BPD"
+  },
+  "data_config": "sic_results/sic_cbms_leakage_safe.yaml",
+  "split_policy": "Acquisition-session disjoint; augmented images excluded from validation",
+  "split_statistics": {
+    "validation_sessions": [
+      "20241009test1",
+      "20241011test3",
+      "20241104test3",
+      "20250117test6",
+      "20250117test7",
+      "20250120test1",
+      "20250120test2",
+      "20250123test5"
+    ],
+    "splits": {
+      "train": {
+        "images": 2054,
+        "objects": 3945,
+        "class_objects": {
+          "TD": 2834,
+          "BPD": 1111
+        },
+        "sessions": 45
+      },
+      "val": {
+        "images": 211,
+        "objects": 493,
+        "class_objects": {
+          "TD": 287,
+          "BPD": 206
+        },
+        "sessions": 8
+      }
+    },
+    "session_overlap": []
+  },
+  "optimizer": "AdamW",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0005,
+  "amp": false
+}

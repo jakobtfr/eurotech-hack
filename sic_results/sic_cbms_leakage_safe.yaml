@@ -1,0 +1,8 @@
+path: datasets/sic_dislocation_detection_db/leakage_safe
+train: images/train
+val: images/val
+test: ''
+obb: true
+names:
+  0: TD
+  1: BPD

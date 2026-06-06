@@ -10,6 +10,7 @@ import { InspectPanel } from "@/components/workbench/inspect-panel";
 import { ResearchPanel } from "@/components/workbench/research-panel";
 import { RiskMapPanel } from "@/components/workbench/risk-map-panel";
 import { useDemoStepper } from "@/hooks/use-demo-stepper";
+import { artifactUrl } from "@/lib/artifact-url";
 import {
   getExampleOrDefault,
   requireExampleWithVerdict,
@@ -51,7 +52,11 @@ function IntroView({ manifest }: { manifest: DemoManifest }) {
         </ol>
       </div>
       <div className="relative mx-auto w-full max-w-[18rem]">
-        <OverlayCompositor example={hold} />
+        <OverlayCompositor
+          example={hold}
+          rawSrc={artifactUrl(hold.registry.image_path)}
+          overlaySrc={artifactUrl(hold.result?.heatmap_path)}
+        />
         <div className="absolute -bottom-4 -left-3 flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 shadow-[var(--shadow-card)]">
           <span className="font-display text-lg font-bold tabular-nums text-foreground">
             {(hold.result?.anomaly_score ?? 0).toFixed(2)}

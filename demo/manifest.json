@@ -1,245 +1,4915 @@
 {
-  "version": "0.1.0-artifact-contract",
-  "generated_at": "2026-06-06T12:00:00Z",
-  "model": "subspacead",
-  "default_example_id": "miic_sem_w12__x0000_y0000_s0512",
-  "threshold_review": 0.35,
-  "threshold_hold": 0.7,
+  "default_example_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448",
   "examples": [
     {
+      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
       "registry": {
-        "tile_id": "miic_sem_w12__x0000_y0000_s0512",
-        "wafer_id": "MIIC-lot7-w12",
-        "source_id": "MIIC",
-        "source_file": "raw/MIIC/miic_sem_w12__x0000_y0000_s0512.tif",
-        "modality": "SEM",
-        "image_path": "datasets/workbench/miic_sem/test/good/miic_sem_w12__x0000_y0000_s0512.png",
-        "source_image_path": "raw/MIIC/miic_sem_w12__x0000_y0000_s0512.tif",
-        "split": "demo",
-        "source_label": "normal",
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00001.jpg",
+        "license_status": "unknown",
         "mask_path": null,
-        "license_status": "verified",
-        "demo_allowed": true,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00001.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00001.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448",
+        "tile_size": 448,
         "tile_x": 0,
         "tile_y": 0,
-        "tile_size": 512,
-        "preprocess": "rgb_repeat"
+        "wafer_id": "miic-partial-recovered"
       },
       "result": {
-        "tile_id": "miic_sem_w12__x0000_y0000_s0512",
-        "model": "subspacead",
-        "model_config_path": "runs/example_subspacead_miic_sem/config.yaml",
-        "anomaly_score": 0.08,
-        "heatmap_path": "runs/example_subspacead_miic_sem/heatmaps/miic_sem_w12__x0000_y0000_s0512.png",
-        "overlay_path": "runs/example_subspacead_miic_sem/overlays/miic_sem_w12__x0000_y0000_s0512.png",
-        "region_tag": null,
+        "anomaly_score": 1.0,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 99.6%",
         "semantic_hint": null,
-        "novelty_flag": false,
-        "verdict": "PASS"
-      },
-      "title": "Nominal die",
-      "caption": "Integrated-circuit SEM tile. Dense periodic structure, no residual - matches the support set.",
-      "evidence_class": "verified",
-      "caveats": ["proxy metric"],
-      "k_shot": 4
-    },
-    {
-      "registry": {
-        "tile_id": "miic_sem_w12__x1024_y0512_s0512",
-        "wafer_id": "MIIC-lot7-w12",
-        "source_id": "MIIC",
-        "source_file": "raw/MIIC/miic_sem_w12__x1024_y0512_s0512.tif",
-        "modality": "SEM",
-        "image_path": "datasets/workbench/miic_sem/test/anomaly/miic_sem_w12__x1024_y0512_s0512.png",
-        "source_image_path": "raw/MIIC/miic_sem_w12__x1024_y0512_s0512.tif",
-        "split": "demo",
-        "source_label": "proxy_anomaly",
-        "mask_path": "datasets/workbench/miic_sem/ground_truth/anomaly/miic_sem_w12__x1024_y0512_s0512_mask.png",
-        "license_status": "verified",
-        "demo_allowed": true,
-        "tile_x": 1024,
-        "tile_y": 512,
-        "tile_size": 512,
-        "preprocess": "rgb_repeat"
-      },
-      "result": {
-        "tile_id": "miic_sem_w12__x1024_y0512_s0512",
-        "model": "subspacead",
-        "model_config_path": "runs/example_subspacead_miic_sem/config.yaml",
-        "anomaly_score": 0.52,
-        "heatmap_path": "runs/example_subspacead_miic_sem/heatmaps/miic_sem_w12__x1024_y0512_s0512.png",
-        "overlay_path": "runs/example_subspacead_miic_sem/overlays/miic_sem_w12__x1024_y0512_s0512.png",
-        "region_tag": "localized anomaly",
-        "semantic_hint": "particle / residue (hint)",
-        "novelty_flag": true,
-        "verdict": "REVIEW"
-      },
-      "title": "Particle residue",
-      "caption": "Localized bright residue breaking lattice periodicity. Routed for human review.",
-      "evidence_class": "verified",
-      "caveats": ["proxy metric"],
-      "k_shot": 4
-    },
-    {
-      "registry": {
-        "tile_id": "miic_sem_w12__x1536_y1024_s0512",
-        "wafer_id": "MIIC-lot7-w12",
-        "source_id": "MIIC",
-        "source_file": "raw/MIIC/miic_sem_w12__x1536_y1024_s0512.tif",
-        "modality": "SEM",
-        "image_path": "datasets/workbench/miic_sem/test/anomaly/miic_sem_w12__x1536_y1024_s0512.png",
-        "source_image_path": "raw/MIIC/miic_sem_w12__x1536_y1024_s0512.tif",
-        "split": "demo",
-        "source_label": "proxy_anomaly",
-        "mask_path": "datasets/workbench/miic_sem/ground_truth/anomaly/miic_sem_w12__x1536_y1024_s0512_mask.png",
-        "license_status": "verified",
-        "demo_allowed": true,
-        "tile_x": 1536,
-        "tile_y": 1024,
-        "tile_size": 512,
-        "preprocess": "rgb_repeat"
-      },
-      "result": {
-        "tile_id": "miic_sem_w12__x1536_y1024_s0512",
-        "model": "subspacead",
-        "model_config_path": "runs/example_subspacead_miic_sem/config.yaml",
-        "anomaly_score": 0.86,
-        "heatmap_path": "runs/example_subspacead_miic_sem/heatmaps/miic_sem_w12__x1536_y1024_s0512.png",
-        "overlay_path": "runs/example_subspacead_miic_sem/overlays/miic_sem_w12__x1536_y1024_s0512.png",
-        "region_tag": "high-area anomaly",
-        "semantic_hint": "pattern collapse (hint)",
-        "novelty_flag": true,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448",
         "verdict": "HOLD"
       },
-      "title": "Pattern collapse",
-      "caption": "Clustered structural break with high-area deviation from the support set.",
-      "evidence_class": "verified",
-      "caveats": ["proxy metric"],
-      "k_shot": 4
+      "title": "Recovered anomaly 01"
     },
     {
+      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
       "registry": {
-        "tile_id": "sic_pl_w03__x0512_y0512_s0512",
-        "wafer_id": "SiC-4H-w03",
-        "source_id": "Zenodo-SiC",
-        "source_file": "raw/Zenodo-SiC/sic_pl_w03__x0512_y0512_s0512.tif",
-        "modality": "PL",
-        "image_path": "datasets/workbench/sic_pl/test/anomaly/sic_pl_w03__x0512_y0512_s0512.png",
-        "source_image_path": "raw/Zenodo-SiC/sic_pl_w03__x0512_y0512_s0512.tif",
-        "split": "demo",
-        "source_label": "unknown",
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00002.jpg",
+        "license_status": "unknown",
         "mask_path": null,
-        "license_status": "verified",
-        "demo_allowed": true,
-        "tile_x": 512,
-        "tile_y": 512,
-        "tile_size": 512,
-        "preprocess": "rgb_repeat+clahe_v1"
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00002.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00002.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
       },
       "result": {
-        "tile_id": "sic_pl_w03__x0512_y0512_s0512",
-        "model": "subspacead",
-        "model_config_path": "runs/example_subspacead_sic_pl/config.yaml",
-        "anomaly_score": 0.61,
-        "heatmap_path": "runs/example_subspacead_sic_pl/heatmaps/sic_pl_w03__x0512_y0512_s0512.png",
-        "overlay_path": "runs/example_subspacead_sic_pl/overlays/sic_pl_w03__x0512_y0512_s0512.png",
-        "region_tag": "localized anomaly",
-        "semantic_hint": "BPD-like (qualitative)",
+        "anomaly_score": 1.0,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
         "novelty_flag": true,
-        "verdict": "REVIEW"
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 99.7%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448",
+        "verdict": "HOLD"
       },
-      "title": "BPD candidate",
-      "caption": "Low-contrast linear feature consistent with a basal-plane dislocation. Qualitative transfer.",
-      "evidence_class": "qualitative",
-      "caveats": ["SiC qualitative"],
-      "k_shot": 2
+      "title": "Recovered anomaly 02"
+    },
+    {
+      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00009.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00009.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00009.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 1.0,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 100.0%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "Recovered anomaly 03"
+    },
+    {
+      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00015.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00015.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00015.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 1.0,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 99.9%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "Recovered anomaly 04"
+    },
+    {
+      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00017.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00017.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00017.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 1.0,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 99.9%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "Recovered anomaly 05"
+    },
+    {
+      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00018.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00018.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00018.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 1.0,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 100.0%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "Recovered anomaly 06"
+    },
+    {
+      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00022.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00022.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00022_190dd270",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00022.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00022_190dd270__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 1.0,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00022_190dd270__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00022_190dd270__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 100.0%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00022_190dd270__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "Recovered anomaly 07"
+    },
+    {
+      "caption": "Recovered MIIC SEM anomaly tile scored 1.000; the heatmap shows where frozen DINOv2 features leave the 8-shot PCA normal subspace.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00025.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_abnormal_00025.jpg",
+        "source_id": "miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/anomaly/test_abnormal_00025.jpg",
+        "source_label": "anomaly",
+        "split": "test",
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 1.0,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": true,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448.png",
+        "region_tag": "1 residual region \u00b7 area 100.0%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      "title": "Recovered anomaly 08"
+    },
+    {
+      "caption": "Recovered MIIC SEM normal tile scored 0.003; included as a low-risk reference for visual calibration.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00163.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_normal_00163.jpg",
+        "source_id": "miic_partial_normal_normal_test_normal_00163_08e48147",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00163.jpg",
+        "source_label": "good",
+        "split": "test",
+        "tile_id": "miic_partial_normal_normal_test_normal_00163_08e48147__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.00289,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_normal_normal_test_normal_00163_08e48147__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": false,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_normal_normal_test_normal_00163_08e48147__x00000_y00000_s00448.png",
+        "region_tag": "19 residual regions \u00b7 area 2.4%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_normal_normal_test_normal_00163_08e48147__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      "title": "Quiet normal 09"
+    },
+    {
+      "caption": "Recovered MIIC SEM normal tile scored 0.003; included as a low-risk reference for visual calibration.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00372.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_normal_00372.jpg",
+        "source_id": "miic_partial_normal_normal_test_normal_00372_c24992e6",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00372.jpg",
+        "source_label": "good",
+        "split": "test",
+        "tile_id": "miic_partial_normal_normal_test_normal_00372_c24992e6__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.00289,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_normal_normal_test_normal_00372_c24992e6__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": false,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_normal_normal_test_normal_00372_c24992e6__x00000_y00000_s00448.png",
+        "region_tag": "13 residual regions \u00b7 area 2.1%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_normal_normal_test_normal_00372_c24992e6__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      "title": "Quiet normal 10"
+    },
+    {
+      "caption": "Recovered MIIC SEM normal tile scored 0.003; included as a low-risk reference for visual calibration.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00852.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_normal_00852.jpg",
+        "source_id": "miic_partial_normal_normal_test_normal_00852_d70fcae5",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00852.jpg",
+        "source_label": "good",
+        "split": "test",
+        "tile_id": "miic_partial_normal_normal_test_normal_00852_d70fcae5__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.00289,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_normal_normal_test_normal_00852_d70fcae5__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": false,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_normal_normal_test_normal_00852_d70fcae5__x00000_y00000_s00448.png",
+        "region_tag": "21 residual regions \u00b7 area 3.1%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_normal_normal_test_normal_00852_d70fcae5__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      "title": "Quiet normal 11"
+    },
+    {
+      "caption": "Recovered MIIC SEM normal tile scored 0.006; included as a low-risk reference for visual calibration.",
+      "caveats": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "evidence_class": "verified",
+      "k_shot": 8,
+      "registry": {
+        "demo_allowed": false,
+        "image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00847.jpg",
+        "license_status": "unknown",
+        "mask_path": null,
+        "modality": "SEM",
+        "preprocess": "rgb_repeat_v1",
+        "source_file": "test_normal_00847.jpg",
+        "source_id": "miic_partial_normal_normal_test_normal_00847_dd8eccc9",
+        "source_image_path": "/Users/jakobfriedrich/code/projects/eurotech-hack/data/raw/miic_partial/normal/test_normal_00847.jpg",
+        "source_label": "good",
+        "split": "test",
+        "tile_id": "miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448",
+        "tile_size": 448,
+        "tile_x": 0,
+        "tile_y": 0,
+        "wafer_id": "miic-partial-recovered"
+      },
+      "result": {
+        "anomaly_score": 0.00578,
+        "heatmap_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/heatmaps/miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448.png",
+        "model": "dinov2_pca_baseline_v1",
+        "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+        "novelty_flag": false,
+        "overlay_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/overlays/miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448.png",
+        "region_tag": "12 residual regions \u00b7 area 2.8%",
+        "semantic_hint": null,
+        "tile_id": "miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      "title": "Quiet normal 12"
+    }
+  ],
+  "generated_at": "2026-06-06T19:42:28Z",
+  "metrics": {
+    "dataset": "MIIC partial recovery (SEM proxy)",
+    "framing": "Recovered partial MIIC SEM archive: image labels support image-level metrics; aligned masks were not present in the partial download, so pixel metrics remain gated.",
+    "image_res": 448,
+    "k_shot": 8,
+    "metrics": [
+      {
+        "available": true,
+        "evidence_class": "verified",
+        "format": "auroc",
+        "name": "Image AUROC",
+        "note": "Recovered MIIC partial test split \u00b7 source-level labels",
+        "requires": "labels",
+        "value": 0.866268
+      },
+      {
+        "available": true,
+        "evidence_class": "verified",
+        "format": "auroc",
+        "name": "Image AUPR",
+        "note": "Anomaly class is positive",
+        "requires": "labels",
+        "value": 0.796814
+      },
+      {
+        "available": false,
+        "evidence_class": "verified",
+        "format": "auroc",
+        "name": "Pixel AUROC",
+        "note": "Aligned masks unavailable in recovered partial archive",
+        "requires": "masks",
+        "value": null
+      },
+      {
+        "available": true,
+        "evidence_class": "verified",
+        "format": "raw",
+        "name": "Test images",
+        "note": "346 HOLD \u00b7 117 PASS on the test split",
+        "requires": "none",
+        "value": 463
+      }
+    ],
+    "model": "dinov2_pca_baseline_v1",
+    "model_config_path": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17/config.resolved.json",
+    "run_dir": "runs/20260606T193628Z_dinov2_pca_baseline_v1_k8_seed17",
+    "split": "test"
+  },
+  "model": "dinov2_pca_baseline_v1",
+  "research": [
+    {
+      "badges": [
+        "proxy metric"
+      ],
+      "body": [
+        "This run uses frozen DINOv2 patch tokens and PCA residual scoring, then calibrates normalized scores from held-out normal validation images.",
+        "It is a local baseline inspired by SubspaceAD-style evidence, not a claim that the upstream SubspaceAD repository was executed."
+      ],
+      "id": "subspacead",
+      "status": "executable baseline",
+      "tagline": "8 normal SEM support tiles define the normal subspace.",
+      "title": "Frozen DINOv2 + PCA residual baseline"
+    },
+    {
+      "badges": [
+        "proxy metric",
+        "restricted source"
+      ],
+      "body": [
+        "The recovered ZIP yielded 1,501 readable SEM JPEGs: 1,385 normal and 116 anomaly images. One truncated normal file was excluded.",
+        "Image-level labels are enough for AUROC/AUPR; pixel metrics are intentionally withheld because masks were not recovered."
+      ],
+      "id": "domain-gap",
+      "status": "research headline",
+      "tagline": "The partial archive gives SEM proxy evidence but no aligned masks.",
+      "title": "Recovered MIIC partial evidence"
+    },
+    {
+      "badges": [
+        "proxy metric"
+      ],
+      "body": [
+        "FoundAD remains a later comparison after the baseline evidence is stable on the same split and support protocol."
+      ],
+      "id": "foundad",
+      "status": "open caveat",
+      "tagline": "Still a controlled follow-up, not part of this frozen run.",
+      "title": "FoundAD comparison"
     }
   ],
   "risk_map": {
+    "cols": 24,
     "provenance": "stitched field",
-    "wafer_id": "MIIC-lot7-w12",
-    "cols": 4,
-    "rows": 4,
-    "threshold_review": 0.35,
-    "threshold_hold": 0.7,
-    "tiles": [
-      {"tile_id": "miic_sem_w12__x0000_y0000_s0512", "col": 0, "row": 0, "in_wafer": true, "anomaly_score": 0.08, "verdict": "PASS", "has_result": true},
-      {"tile_id": "w12__c1_r0", "col": 1, "row": 0, "in_wafer": true, "anomaly_score": 0.12, "verdict": "PASS", "has_result": false},
-      {"tile_id": "w12__c2_r0", "col": 2, "row": 0, "in_wafer": true, "anomaly_score": 0.41, "verdict": "REVIEW", "has_result": false},
-      {"tile_id": "w12__c3_r0", "col": 3, "row": 0, "in_wafer": true, "anomaly_score": 0.2, "verdict": "PASS", "has_result": false},
-      {"tile_id": "w12__c0_r1", "col": 0, "row": 1, "in_wafer": true, "anomaly_score": 0.18, "verdict": "PASS", "has_result": false},
-      {"tile_id": "miic_sem_w12__x1024_y0512_s0512", "col": 1, "row": 1, "in_wafer": true, "anomaly_score": 0.52, "verdict": "REVIEW", "has_result": true},
-      {"tile_id": "miic_sem_w12__x1536_y1024_s0512", "col": 2, "row": 1, "in_wafer": true, "anomaly_score": 0.86, "verdict": "HOLD", "has_result": true},
-      {"tile_id": "w12__c3_r1", "col": 3, "row": 1, "in_wafer": true, "anomaly_score": 0.49, "verdict": "REVIEW", "has_result": false},
-      {"tile_id": "w12__c0_r2", "col": 0, "row": 2, "in_wafer": true, "anomaly_score": 0.11, "verdict": "PASS", "has_result": false},
-      {"tile_id": "w12__c1_r2", "col": 1, "row": 2, "in_wafer": true, "anomaly_score": 0.22, "verdict": "PASS", "has_result": false},
-      {"tile_id": "w12__c2_r2", "col": 2, "row": 2, "in_wafer": true, "anomaly_score": 0.79, "verdict": "HOLD", "has_result": false},
-      {"tile_id": "w12__c3_r2", "col": 3, "row": 2, "in_wafer": true, "anomaly_score": 0.29, "verdict": "PASS", "has_result": false},
-      {"tile_id": "w12__c0_r3", "col": 0, "row": 3, "in_wafer": true, "anomaly_score": 0.19, "verdict": "PASS", "has_result": false},
-      {"tile_id": "sic_pl_w03__x0512_y0512_s0512", "col": 1, "row": 3, "in_wafer": true, "anomaly_score": 0.61, "verdict": "REVIEW", "has_result": true},
-      {"tile_id": "w12__c2_r3", "col": 2, "row": 3, "in_wafer": true, "anomaly_score": 0.24, "verdict": "PASS", "has_result": false},
-      {"tile_id": "w12__c3_r3", "col": 3, "row": 3, "in_wafer": true, "anomaly_score": 0.15, "verdict": "PASS", "has_result": false}
-    ],
+    "rows": 20,
     "summary": {
-      "pass": 10,
-      "review": 4,
-      "hold": 2,
-      "inspected": 16
-    }
-  },
-  "metrics": {
-    "run_dir": "runs/example_subspacead_miic_sem",
-    "model": "subspacead",
-    "model_config_path": "runs/example_subspacead_miic_sem/config.yaml",
-    "dataset": "MIIC (SEM proxy)",
-    "split": "test",
-    "k_shot": 4,
-    "image_res": 512,
-    "framing": "Image metrics below are proxy-validated on MIIC SEM with real labels. Pixel PRO and SiC image AUROC are withheld (null) because aligned masks and labeled SiC data are not available - those remain qualitative.",
-    "metrics": [
-      {"name": "Image AUROC", "value": 0.942, "requires": "labels", "available": true, "format": "auroc", "evidence_class": "verified", "note": "MIIC test split - 4-shot support"},
-      {"name": "Image AUPR", "value": 0.911, "requires": "labels", "available": true, "format": "auroc", "evidence_class": "verified", "note": "Precision-recall area, anomaly = positive"},
-      {"name": "Pixel AUROC", "value": 0.876, "requires": "masks", "available": true, "format": "auroc", "evidence_class": "verified", "note": "2 annotated masks - localization sanity only"},
-      {"name": "Pixel PRO", "value": null, "requires": "masks", "available": false, "format": "auroc", "evidence_class": "verified", "note": "Needs aligned masks - 2/6 anomalies annotated"},
-      {"name": "SiC Image AUROC", "value": null, "requires": "labels", "available": false, "format": "auroc", "evidence_class": "qualitative", "note": "No labeled SiC data - qualitative transfer only"}
-    ]
-  },
-  "research": [
-    {
-      "id": "subspacead",
-      "title": "SubspaceAD",
-      "status": "executable baseline",
-      "tagline": "Training-free - frozen DINOv2 + PCA residual scoring",
-      "body": [
-        "The executable path for this demo. SubspaceAD needs no training: it extracts frozen DINOv2 patch features from a handful of normal tiles, fits a PCA subspace over them, and scores each test patch by its residual outside that subspace.",
-        "Because there is no fit-to-failure step, it works from scarce normal examples - exactly the few-shot regime semiconductor inspection lives in. Every heatmap in this workbench comes from this path."
-      ],
-      "badges": ["proxy metric"],
-      "source_ref": "P9 - 2602.23013v3 section 3.2-3.4 - R2 README"
+      "hold": 346,
+      "inspected": 463,
+      "pass": 117,
+      "review": 0
     },
-    {
-      "id": "foundad",
-      "title": "FoundAD",
-      "status": "research headline",
-      "tagline": "Foundation-encoder anomaly detection - DINOv3 projectors",
-      "body": [
-        "The research headline. FoundAD fits the foundation-encoder thesis and reports strong MVTec-AD / VisA numbers, but the quick path depends on DINOv3 rights and downloaded projector assets.",
-        "It stays optional: shown as a comparison only if it runs by mid-week, otherwise framed as the direction-of-travel. The demo never risks itself on FoundAD."
-      ],
-      "badges": [],
-      "source_ref": "P8 - 2510.01934v1 Tables 1-5 - R1 README Quick Start"
-    },
-    {
-      "id": "domain-gap",
-      "title": "Proxy to SiC domain gap",
-      "status": "open caveat",
-      "tagline": "What transfers from SEM proxy, and what still needs SiC labels",
-      "body": [
-        "Metrics are proxy-validated on MIIC SEM, which the source explicitly warns carries a natural-image-pretraining domain gap. SiC PL / etch-pit tiles are shown qualitatively only.",
-        "PL dislocation signatures are low-contrast and their labels typically depend on destructive etch validation. We separate proxy-validated evidence from qualitative SiC transfer everywhere in the UI rather than overclaiming."
-      ],
-      "badges": ["SiC qualitative", "restricted source"],
-      "source_ref": "P7 sections 3.1, 4.1-4.2 - P1 - P11"
-    }
-  ]
+    "threshold_hold": 0.999,
+    "threshold_review": 0.99,
+    "tiles": [
+      {
+        "anomaly_score": 1.0,
+        "col": 0,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00001_b5c1aaf0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 1,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00002_8ae02fa7__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.910405,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00003_678c5625__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.763006,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00004_933e69dd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00005_81e6679a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00006_318fc967__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.910405,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00007_48029c7b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00008_a970f98c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 8,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00009_53d14415__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00010_8cce067b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00011_10c63880__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00012_3875e5d4__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.846821,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00013_719cbcd8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.309249,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00014_47fac6f6__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 14,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00015_4dfa96ea__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.991329,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00016_f41a448d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 16,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00017_8ce641f2__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 17,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00018_1e3dc273__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.254335,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00019_9170f1d9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.991329,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00020_457844cd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00021_a8186664__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 21,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00022_190dd270__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.82948,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00023_6c8d9671__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.817919,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 0,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00024_8e7b33c0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 0,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00025_a39ae9df__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.936416,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00026_c97b0bbe__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.985549,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00027_0cf6f337__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00028_8736f220__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00029_6b23a140__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.956647,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00030_93f60af2__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.924855,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00031_4e74ac9e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.124277,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00032_e3f0c698__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.722543,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00033_ce2db8d1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.973988,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00034_16f67816__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.991329,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00035_c589a0a2__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.884393,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00036_8b4d5b94__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.800578,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00037_03907e1b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00038_50cc86f6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.705202,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00039_00d19c9b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00040_e0f44e7d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00041_d22729b5__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00042_a8d1abd3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.991329,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00043_32aa541d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.265896,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00044_a1390f3f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00045_00377890__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00046_427b3258__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.566474,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00047_ce03bed4__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 1,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00048_367c9549__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.965318,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00049_d8fc9f35__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00050_d68b7912__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00051_8740131d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.927746,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00052_69d90e24__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.66185,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00053_21267ecc__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.589595,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00054_68491df8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00055_6fea0d47__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.991329,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00056_a341daf3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00057_d3a4d7ac__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.656069,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00058_5fe11dd5__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.679191,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00059_6045f5ca__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.991329,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00060_8f759bce__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00061_54c27719__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00062_adf5721a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.991329,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00063_30857c13__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00064_fd5d5355__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.83237,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00065_d73a1531__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.901734,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00066_8091e403__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.118497,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00067_38eb0cf7__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00068_9b0a6f91__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.419075,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00069_038de5aa__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.887283,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00070_7e7d6c08__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.375723,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00071_e2bc3736__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.043353,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 2,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00072_ea457dc3__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.846821,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00073_5f18f7c9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.771676,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00074_bd6681fd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00075_5ae1ecf7__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.523121,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00076_c2920d5a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.982659,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00077_6f212c17__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.982659,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00078_61d7beb8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00079_985b6518__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00080_3fced46f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.748555,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00081_b71ed3d8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00082_0934c9b0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00083_c7e7bd60__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00084_55e43fe9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00085_63d60ca6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.933526,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00086_e89c29fd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00087_6e3c7d41__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.878613,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00088_37e96567__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.971098,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00089_ac0982bd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00090_1be51025__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.968208,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00091_c23345f9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00092_1f7befaa__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.621387,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00093_af4bce37__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.861272,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00094_56497eaf__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00095_bed02e7e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.719653,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 3,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00096_ba8c4507__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.395954,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00097_1faaf5d9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00098_eaf4c601__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.919075,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00099_a101ac65__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.563584,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00100_ff25c2fc__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.976879,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00101_2512ad64__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.852601,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00102_07e259e7__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00103_a6a89746__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.774566,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00104_44d038fa__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00105_806422ff__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.774566,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00106_d01514dc__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00107_46e826d1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00108_1f6db731__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.843931,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00109_140d36b6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.222543,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00110_8696ec38__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00111_4a3d01c9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.991329,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00112_5dfefce7__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99422,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00113_1d31ec4c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 1.0,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00114_e3de0e34__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.725434,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00115_02908c46__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.557803,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_anomaly_anomaly_test_abnormal_00116_025a860c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.572254,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_normal_normal_test_normal_00004_e71c692c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.794798,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_normal_normal_test_normal_00011_64da91d3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.872832,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_normal_normal_test_normal_00015_9646f2b5__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.289017,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 4,
+        "tile_id": "miic_partial_normal_normal_test_normal_00021_c781da63__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.066474,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00028_9fd9c637__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.026012,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00030_9b8ffb3f__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.144509,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00034_390935bc__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00037_996cce3f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.078035,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00038_cd9e3f32__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.789017,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00040_4789eb0d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.101156,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00042_bd44996c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00043_27503f21__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.83526,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00047_407b362e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.442197,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00055_7607b686__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.575145,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00057_bc436b05__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.606936,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00063_880bf49a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.459538,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00066_116b82d1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00067_58d66dc6__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.066474,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00074_06cd5a30__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.349711,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00077_65004410__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.028902,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00100_3a1657f8__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.15896,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00101_1b40bf27__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.523121,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00103_de42c131__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.745665,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00108_abe450f6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.395954,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00118_a61744c4__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.898844,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00122_34235dcc__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.459538,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00129_59ef0fc4__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.199422,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 5,
+        "tile_id": "miic_partial_normal_normal_test_normal_00135_52b47ecd__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.491329,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00136_8772052e__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.424855,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00149_9fcbb8db__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.459538,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00150_c5455fc0__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.849711,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00155_d1f7b856__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.00289,
+        "col": 4,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00163_08e48147__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.268786,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00164_f0309fb3__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.040462,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00165_c01d228f__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.734104,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00168_49a5d8dd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.028902,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00170_11c2a760__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.121387,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00176_5299d0be__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.713873,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00183_013842e0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.780347,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00187_af487da9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.66185,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00188_5f7f8422__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.456647,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00196_e1d1b0bd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.820809,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00197_e95ef6f8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.450867,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00199_a1ffdd61__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.008671,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00207_824fffeb__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.742775,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00214_7c1114ac__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.303468,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00215_c52230e0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.763006,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00233_6f0f7b76__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.534682,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00239_30eca1ec__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.511561,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00250_e0bfc800__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.491329,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00251_d21814ad__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.15896,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 6,
+        "tile_id": "miic_partial_normal_normal_test_normal_00253_703741f4__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.927746,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00262_244f6bae__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.263006,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00266_5d2eb26d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.867052,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00268_48a3d146__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.976879,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00270_d7f7f14d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.815029,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00272_74c35c08__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.144509,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00274_92d60c19__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.303468,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00275_64507647__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00284_9a9dcba7__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.419075,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00285_6c726ee3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.760116,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00289_7a4660b8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.297688,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00290_8032ff2b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.419075,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00298_aa781d08__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.465318,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00299_780b240e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.921965,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00308_19cce004__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.904624,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00315_c9669947__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.072254,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00317_253899c9__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.528902,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00318_ae66ac4c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.144509,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00323_1077133e__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.066474,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00328_1647b967__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.942197,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00329_1b198c29__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.554913,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00334_18b2acf1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.589595,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00335_bae13690__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.225434,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00336_8e1b99d0__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.780347,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 7,
+        "tile_id": "miic_partial_normal_normal_test_normal_00340_702145f0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.742775,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00353_c4789dc1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.725434,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00357_9fbc876e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.286127,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00358_3e205b2f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.066474,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00371_688427c5__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.00289,
+        "col": 4,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00372_c24992e6__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.488439,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00373_c03f93b4__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.445087,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00385_f500a592__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.179191,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00391_d228cab1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.118497,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00392_4da5f95e__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.563584,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00395_bfc8fd4d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.063584,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00400_d6920779__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.641618,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00405_9aa0df28__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.367052,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00406_1eddcc9a__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.586705,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00407_689cc72e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.011561,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00411_6f1f9c9d__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.575145,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00413_29d07d2f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.410405,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00417_f21f1230__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.317919,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00419_95937e3c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.514451,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00423_59d7c2f0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.823699,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00426_08fc3803__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.317919,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00427_43b58fcd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.936416,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00430_18ca0200__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.933526,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00436_9dd6d4e9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.644509,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 8,
+        "tile_id": "miic_partial_normal_normal_test_normal_00437_0ac4d5d6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.656069,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00441_0ace9953__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.682081,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00450_baab0482__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.066474,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00453_334a8aa6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.291908,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00457_4d0754b1__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.780347,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00459_f76fe3ab__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.84104,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00463_0c7411b9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.887283,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00475_51b6529c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.040462,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00487_3958bff7__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.910405,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00488_475a6228__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.763006,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00490_8580c40a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.919075,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00498_f0ba5e92__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.898844,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00503_df531168__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.491329,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00506_5b96ef7e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.052023,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00511_072d1240__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.800578,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00519_6c073c51__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.713873,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00524_aa8769e3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.820809,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00532_99c7bbe7__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.268786,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00534_70ee3281__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.138728,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00535_6d2c6140__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.843931,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00538_7edf7ec1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.043353,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00540_a8beee1c__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.32948,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00559_08cd3d6b__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.722543,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00565_4619f491__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.459538,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 9,
+        "tile_id": "miic_partial_normal_normal_test_normal_00566_1c65b00e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.023121,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00568_28c602ba__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.33237,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00574_4d9416a6__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.713873,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00576_c5abc4e3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.627168,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00577_6dcbf2f0__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.112717,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00578_6f31c040__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.699422,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00583_69fd58dd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.471098,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00584_a5ae17ff__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.916185,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00585_27579f7a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.196532,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00588_566c129d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.916185,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00590_7019725f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.578035,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00595_75b081f5__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.82948,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00598_d1710054__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.817919,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00601_70f4a901__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.17052,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00602_04962a8d__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.297688,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00608_068b30dd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.50578,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00609_0f29d3d5__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.135838,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00610_4aefd1b0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.947977,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00617_ee97d313__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.520231,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00619_a13dedad__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.893064,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00622_d4fe7c59__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.528902,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00632_9ff8ea5b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.531792,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00646_3f9c2b52__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.676301,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00651_f77a9921__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.693642,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 10,
+        "tile_id": "miic_partial_normal_normal_test_normal_00663_6624f123__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.228324,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00673_12b8ee2e__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.520231,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00675_7f3190b5__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.242775,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00679_99ca4e11__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.511561,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00683_d99f3f58__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.092486,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00684_8733403a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.225434,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00687_00125d76__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.375723,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00690_6f084642__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.592486,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00691_47b25aa2__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.378613,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00693_9a5f4649__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.982659,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00702_7494fa41__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.933526,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00722_c0377d17__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.945087,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00724_c83c1b78__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.627168,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00727_ad29f78d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.303468,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00730_7a58ff19__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.794798,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00735_a9f20b06__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.67341,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00738_958d6d7c__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.901734,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00739_8fbefe96__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.592486,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00742_415e7bcd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.060694,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00743_cab8e8fa__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.375723,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00744_8f05acff__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.265896,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00748_dc71b631__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.956647,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00762_39685a6f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.604046,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00763_fcaf06c0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.144509,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 11,
+        "tile_id": "miic_partial_normal_normal_test_normal_00765_1878f3ef__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.820809,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00766_5e731cc6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.699422,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00767_66f05f15__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.072254,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00770_0e7f99b9__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.33815,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00780_954c68bf__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.115607,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00785_067eab10__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.67052,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00786_9aae44f5__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.109827,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00791_871e69e5__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.343931,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00792_3fa6fe59__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.095376,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00795_49cb7e28__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.459538,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00796_4c7e998d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.817919,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00804_860980f9__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.144509,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00805_1693f46a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.898844,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00811_773ef70a__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.225434,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00814_7df0637b__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.794798,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00815_21dcf678__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00821_cae24c80__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.060694,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00822_2baa8068__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.676301,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00826_e5ae0f95__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.540462,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00827_784e8f98__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.303468,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00832_6a6d68e2__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.118497,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00835_af315457__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.50578,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00836_adec1a7b__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.358382,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00838_59566229__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.101156,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 12,
+        "tile_id": "miic_partial_normal_normal_test_normal_00842_d5aa01d8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.50578,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00843_3d8c9724__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.595376,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00845_ef8a5c12__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.00578,
+        "col": 2,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00847_dd8eccc9__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.641618,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00850_b77ea8cb__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.598266,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00851_7b6224ae__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.00289,
+        "col": 5,
+        "has_result": true,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00852_d70fcae5__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.679191,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00858_d4b9c5b1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.595376,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00863_7570d64e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.549133,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00867_bc73f5ea__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.135838,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00868_c4037ff8__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.199422,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00870_3a9b00db__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.028902,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00873_97ba6690__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.933526,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00880_f32c3e88__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.846821,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00881_b850e69c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.300578,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00888_50a13669__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.898844,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00890_43254b3b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.791908,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00894_2699b34d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.83526,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00899_f9e25214__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.595376,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00902_1418b5c4__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.008671,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00904_aec1a3d4__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.676301,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00906_edc2481d__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.971098,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00909_807b94ca__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.225434,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00912_3e2ab7fd__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.583815,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 13,
+        "tile_id": "miic_partial_normal_normal_test_normal_00919_d99a674b__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.118497,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00924_e176b9c1__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.534682,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00929_3fd0c1d3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.210983,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00931_ef974235__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.387283,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00935_d3452418__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.109827,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00937_c109fd7d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.817919,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00939_1330b31b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.095376,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00940_6c552c0a__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.927746,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00943_78be28da__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.557803,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00944_99c739ee__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.052023,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00951_30ce2ce2__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.482659,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00952_0b7cf8b3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.199422,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00955_0587fef7__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.144509,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00957_7d2b748c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.225434,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00969_e46f74a3__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.358382,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00971_69ff09f3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.50578,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00978_0092af0c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.676301,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00980_401b1c06__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.800578,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00982_b2c2b4cd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.361272,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00984_a3f8de96__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.101156,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00985_7f284eae__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.312139,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00990_22c77333__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.557803,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_00999_f53e3240__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.794798,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_01002_f9f07843__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.395954,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 14,
+        "tile_id": "miic_partial_normal_normal_test_normal_01005_6cb68e39__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.82659,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01009_cbfe7f92__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.317919,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01012_2279d0dd__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.780347,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01014_16cf8121__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.763006,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01015_26cf4201__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.358382,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01017_f12d954c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.722543,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01022_d94bc8ba__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.421965,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01027_a799b50d__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.210983,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01033_3f2b74f8__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.294798,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01036_33dda995__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.878613,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01039_3b481d98__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.138728,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01043_d0cbea5f__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.008671,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01046_e79b962d__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.742775,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01048_20b6dd4c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.82659,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01067_9e22d900__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.627168,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01068_274d8a36__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.592486,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01073_e1cc64b0__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.83526,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01074_1e33c00e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.274566,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01078_09824c0f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.008671,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01081_86e62001__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.257225,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01083_c860f3f8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.693642,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01086_3c66f1a2__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.690751,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01087_d5e7907b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.144509,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01089_9a9f8824__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.32659,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 15,
+        "tile_id": "miic_partial_normal_normal_test_normal_01090_b447b56e__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.930636,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01091_641a8d48__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.517341,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01093_28235bad__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01095_9a50181b__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.395954,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01100_961788c1__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.679191,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01101_c090d582__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.135838,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01104_da57be79__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.066474,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01105_530bf058__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.855491,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01109_4b0ed0a8__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.566474,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01111_f6d74f4e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.101156,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01116_fb60e622__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.277457,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01125_ef7d1dbe__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.916185,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01126_d80d1d95__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.589595,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01132_71d902f7__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.598266,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01137_e73a8895__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.523121,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01145_d15f609d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.228324,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01148_0ce4f972__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.684971,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01149_c6b9b0c6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.690751,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01151_603f1b5c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.50578,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01153_2e33207f__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.878613,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01157_9f2037fa__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.286127,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01160_1e1ded1e__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.450867,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01163_43ac2c37__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.751445,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01165_36db5841__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.962428,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 16,
+        "tile_id": "miic_partial_normal_normal_test_normal_01167_8034d43d__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.066474,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01168_77bedd71__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.699422,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01173_73d06178__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.702312,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01175_1a3965a6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01178_be87611d__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01182_0dd7cfdd__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.121387,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01184_af5540eb__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.037572,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01185_2c33f220__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01188_d0c43bda__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.875723,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01191_1d558378__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.008671,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01193_fc06d5cd__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.846821,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01197_02145404__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.375723,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01200_ef8e78f2__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.971098,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01202_8618570c__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.387283,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01203_0bcef72a__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.800578,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01206_a620c938__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.33526,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01210_7a77a6ee__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.916185,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01215_609ff604__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.205202,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01217_016bdcaa__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.040462,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01218_4c97312e__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.936416,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01222_0c2ac4c5__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.578035,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01231_53d88e60__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.780347,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01241_ccebe928__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.043353,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01243_3034dbb7__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.381503,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 17,
+        "tile_id": "miic_partial_normal_normal_test_normal_01244_8b525627__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.604046,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_test_normal_01254_bd6df3b9__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.583815,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_test_normal_01256_9a157e78__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.765896,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_test_normal_01259_9c828575__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.378613,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_test_normal_01260_9668a2b6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.202312,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_test_normal_01266_e801cd73__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.037572,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_test_normal_01269_c12ad9e6__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.965318,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00001_e598e709__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.104046,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00002_e390f737__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.33815,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00005_e1e08304__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.916185,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00012_e4b9c9d6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.517341,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00020_267f5863__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.187861,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00021_d82e7b1e__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.32659,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00037_c0df4518__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.962428,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00039_af64a8bd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.99711,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00044_9d4c6dc3__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.491329,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00049_1a779475__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.520231,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00066_8a791d8b__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.763006,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00071_60b535e4__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.887283,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00077_ed2a076d__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.933526,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00083_6cc132fd__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.395954,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00086_bdef8d25__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.794798,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00087_ff10a7b7__x00000_y00000_s00448",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0.843931,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00091_5d3dec59__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.930636,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 18,
+        "tile_id": "miic_partial_normal_normal_train_normal_00093_fbf7ee48__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.676301,
+        "col": 0,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 19,
+        "tile_id": "miic_partial_normal_normal_train_normal_00094_54b65b63__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.768786,
+        "col": 1,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 19,
+        "tile_id": "miic_partial_normal_normal_train_normal_00096_804ed788__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.774566,
+        "col": 2,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 19,
+        "tile_id": "miic_partial_normal_normal_train_normal_00098_41085181__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.459538,
+        "col": 3,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 19,
+        "tile_id": "miic_partial_normal_normal_train_normal_00106_8a4b4fd6__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.852601,
+        "col": 4,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 19,
+        "tile_id": "miic_partial_normal_normal_train_normal_00108_90829827__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.008671,
+        "col": 5,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 19,
+        "tile_id": "miic_partial_normal_normal_train_normal_00109_d47d2176__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0.514451,
+        "col": 6,
+        "has_result": false,
+        "in_wafer": true,
+        "row": 19,
+        "tile_id": "miic_partial_normal_normal_train_normal_00111_e50d3c55__x00000_y00000_s00448",
+        "verdict": "HOLD"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 7,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_463",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 8,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_464",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 9,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_465",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 10,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_466",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 11,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_467",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 12,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_468",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 13,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_469",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 14,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_470",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 15,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_471",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 16,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_472",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 17,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_473",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 18,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_474",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 19,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_475",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 20,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_476",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 21,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_477",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 22,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_478",
+        "verdict": "PASS"
+      },
+      {
+        "anomaly_score": 0,
+        "col": 23,
+        "has_result": false,
+        "in_wafer": false,
+        "row": 19,
+        "tile_id": "empty_479",
+        "verdict": "PASS"
+      }
+    ],
+    "wafer_id": "miic-partial-recovered"
+  },
+  "threshold_hold": 0.999,
+  "threshold_review": 0.99,
+  "version": "0.2.0-miic-partial"
 }

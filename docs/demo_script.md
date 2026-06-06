@@ -15,6 +15,10 @@ Open:
 http://localhost:3000/workbench
 ```
 
+The curated raw images, heatmaps, and overlays used by the manifest are checked
+in under `demo/artifacts/miic_partial/`, so the live demo does not depend on
+machine-specific `/Users/...` paths.
+
 Backup route:
 
 ```text

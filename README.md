@@ -2,7 +2,9 @@
 
 Monorepo for the SiC wafer anomaly/defect-detection hackathon. See
 [`planning/implementation_plan.md`](planning/implementation_plan.md)
-for the full demo plan.
+for the full demo plan, and
+[`docs/research_findings.md`](docs/research_findings.md) for results, dataset
+availability, and methodological findings.
 
 ## Layout
 

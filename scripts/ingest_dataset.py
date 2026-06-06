@@ -20,9 +20,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
-from src.common import SCHEMA_VERSION, relpath, repo_path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from src.common import SCHEMA_VERSION, relpath, repo_path  # noqa: E402
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".JPG", ".PNG"}
 MODALITIES = {"SEM", "PL", "etch", "optical", "wafer_map", "synthetic", "other"}

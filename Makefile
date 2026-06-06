@@ -1,4 +1,4 @@
-.PHONY: doctor sanity lint format test validate-registry build-stub run-stub calibrate-stub evaluate-stub render-stub freeze-stub demo smoke
+.PHONY: doctor sanity lint format test validate-registry build-stub run-stub calibrate-stub evaluate-stub render-stub freeze-stub demo mcp mcp-smoke smoke
 
 doctor:
 	uv run python scripts/doctor.py --config configs/demo.yaml
@@ -37,6 +37,12 @@ freeze-stub:
 
 demo:
 	uv run python -m src.packaging.build_demo --config configs/demo.yaml
+
+mcp:
+	uv run python -m src.mcp_server
+
+mcp-smoke:
+	uv run pytest tests/test_mcp_server.py
 
 smoke: build-stub
 	@RUN=$$(uv run python -m src.models.run --config configs/models/subspacead.yaml --split data/splits/stub_v0.csv --shots 1 --seed 17 --plain | tail -n 1); \

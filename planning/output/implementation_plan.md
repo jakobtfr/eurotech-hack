@@ -11,8 +11,8 @@ Control documents:
 - `planning/AGENTS.md`: planning artifact only, use local sources, keep outputs
   under `planning/output/`, and separate verified claims, assumptions, pitch
   framing, and open questions.
-- `planning/prompt.md` (`BRIEF`): thesis, methods, datasets, repos, and initial
-  hackathon sketch.
+- `planning/prompt.md` (`BRIEF`): thesis, methods, datasets, repos, and
+  week-long execution summary.
 - `planning/sources/manifest.md`: source IDs and local file paths.
 
 ## 1. Demo Objective
@@ -57,6 +57,7 @@ Must ship:
 - `demo/manifest.json` pointing to all pre-rendered demo artifacts.
 - A dashboard app, preferably Gradio as suggested in the brief, with preloaded
   examples and no network dependency.
+- A manifest/path validator for the final demo artifact set.
 - `docs/claim_table.md` and `docs/run_summary.md`.
 
 Should ship if stable:
@@ -236,7 +237,7 @@ Wafer map provenance labels:
 
 ## 6. Week-Long Execution Plan
 
-### Day 1 - Lock Demo Scope and Prove One Heatmap
+### Day 1 - Lock Demo Scope and Prove One End-to-End Artifact
 
 Owner focus:
 - Research lead: claim boundaries and source rules.
@@ -249,6 +250,8 @@ Tasks:
 - Create `docs/claim_table.md` with verified claims, assumptions, pitch framing,
   and open questions.
 - Create the initial artifact directories.
+- Create a minimal dashboard shell that can load `demo/manifest.json`.
+- Create a placeholder `demo/manifest.json` for the first sanity example.
 - Install SubspaceAD from `planning/sources/repos/SubspaceAD/`.
 - Run one known MVTec/VisA sanity category if data is available.
 - If no benchmark data is ready, run the smallest available workbench category.
@@ -280,6 +283,8 @@ python main.py \
 
 Day 1 exit gate:
 - One heatmap exists, even if only on a benchmark category.
+- One example can be traced through source registry or placeholder provenance,
+  model output, overlay path, `demo/manifest.json`, and dashboard display.
 - If no heatmap exists, Day 2 starts with environment/debug only. Do not start
   FoundAD or extra baselines.
 
@@ -431,6 +436,7 @@ Day 6 exit gate:
 Tasks:
 - Final smoke test from a clean shell.
 - Verify every path in `demo/manifest.json` exists.
+- Run the manifest/path validator.
 - Verify `docs/claim_table.md` and `docs/run_summary.md` match the demo.
 - Record final backup video.
 - Prepare final one-slide fallback with static risk map and heatmap overlays.

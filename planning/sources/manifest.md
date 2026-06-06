@@ -4,7 +4,7 @@
 
 - ID: BRIEF
 - File: `prompt.md`
-- Role: primary project context, thesis, candidate methods, datasets, and 24-hour execution plan.
+- Role: primary project context, thesis, candidate methods, datasets, and week-long execution plan.
 
 ## Converted Papers
 

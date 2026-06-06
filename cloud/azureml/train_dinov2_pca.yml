@@ -1,0 +1,27 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: eurotech-hack-dinov2-pca
+experiment_name: eurotech-hack
+code: ../..
+command: >-
+  bash cloud/azureml/train_from_asset.sh
+  --split "${{inputs.datasets}}/splits/combined_no_miic.csv"
+  --data-root "${{inputs.datasets}}"
+  --shots ${{inputs.shots}}
+  --seed ${{inputs.seed}}
+  --output-dir "${{outputs.runs}}"
+environment: azureml://registries/azureml/environments/acpt-pytorch-2.8-cuda12.6/versions/9
+compute: azureml:gpu-training
+resources:
+  instance_count: 1
+inputs:
+  datasets:
+    type: uri_folder
+    path: azureml:eurotech-hack-datasets-ready@latest
+    mode: ro_mount
+  shots: 8
+  seed: 17
+outputs:
+  runs:
+    type: uri_folder
+    mode: rw_mount

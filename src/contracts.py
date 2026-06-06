@@ -116,7 +116,7 @@ def validate_registry(path: str | Path) -> list[dict[str, Any]]:
     return rows
 
 
-def validate_split(path: str | Path) -> list[dict[str, str]]:
+def validate_split(path: str | Path, check_files: bool = True) -> list[dict[str, str]]:
     rows = read_csv(path)
     with repo_path(path).open("r", encoding="utf-8", newline="") as handle:
         header = handle.readline().strip().split(",") if handle.tell() >= 0 else []
@@ -152,8 +152,9 @@ def validate_split(path: str | Path) -> list[dict[str, str]]:
                 raise ContractError(f"{context}: wafer_id {wafer_key!r} crosses splits")
         if _as_bool(row["support_eligible"]) and (row["split"] != "train" or row["label"] != "good"):
             raise ContractError(f"{context}: support_eligible rows must be train/good")
-        _path_exists_when_set(row["image_path"], context)
-        _path_exists_when_set(row["mask_path"], context)
+        if check_files:
+            _path_exists_when_set(row["image_path"], context)
+            _path_exists_when_set(row["mask_path"], context)
     return rows
 
 
@@ -186,7 +187,7 @@ def validate_run(run_path: str | Path, require_frozen: bool = True) -> dict[str,
     for key in ["config_path", "support_set_path", "predictions_path"]:
         _path_exists_when_set(manifest[key], relpath(manifest_path))
     if repo_path(manifest["dataset_split_path"]).exists():
-        validate_split(manifest["dataset_split_path"])
+        validate_split(manifest["dataset_split_path"], check_files=False)
     validate_predictions(manifest["predictions_path"], require_rendered_paths=manifest["status"] == "frozen")
     return manifest
 

@@ -1,4 +1,4 @@
-.PHONY: doctor sanity lint format test validate-registry build-stub run-stub calibrate-stub evaluate-stub render-stub freeze-stub demo mcp mcp-smoke smoke
+.PHONY: doctor sanity lint format test validate-registry build-stub run-stub calibrate-stub evaluate-stub render-stub freeze-stub demo prepare-training-dataset train-dinov2 mcp mcp-smoke smoke
 
 doctor:
 	uv run python scripts/doctor.py --config configs/demo.yaml
@@ -37,6 +37,12 @@ freeze-stub:
 
 demo:
 	uv run python -m src.packaging.build_demo --config configs/demo.yaml
+
+prepare-training-dataset:
+	uv run python scripts/prepare_training_dataset.py --dataset-root "$${DATASET_ROOT:?set DATASET_ROOT=/path/to/datasets_ready}" --min-rows "$${MIN_ROWS:-1}"
+
+train-dinov2:
+	./scripts/train_dinov2_pca.sh --split "$${SPLIT:?set SPLIT=/path/to/combined_no_miic.csv}" --data-root "$${DATA_ROOT:?set DATA_ROOT=/path/to/datasets_ready}" --shots "$${SHOTS:-1}" --seed "$${SEED:-17}"
 
 mcp:
 	uv run python -m src.mcp_server

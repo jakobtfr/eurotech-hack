@@ -15,6 +15,7 @@ from src.common import (
     git_commit,
     iso_now,
     load_yaml,
+    read_csv,
     relpath,
     repo_path,
     save_json,
@@ -26,14 +27,21 @@ from src.contracts import SPLIT_FIELDS, validate_split
 from src.models.adapters import get_adapter
 
 
-def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed: int) -> str:
+def run_model(
+    config_path: str | Path,
+    split_path: str | Path,
+    shots: int,
+    seed: int,
+    data_root: str | Path | None = None,
+) -> str:
     config = load_yaml(config_path)
-    split_rows = validate_split(split_path)
     started_at = iso_now()
     model_name = config["model_name"]
     run_id = f"{started_at.replace(':', '').replace('-', '')}_{model_name}_k{shots}_seed{seed}"
     run_dir = repo_path("runs") / run_id
     run_dir.mkdir(parents=True, exist_ok=False)
+    effective_split_path = _prepare_split(split_path, run_dir, data_root)
+    split_rows = validate_split(effective_split_path)
 
     support_candidates = [
         row
@@ -108,7 +116,9 @@ def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed:
             "schema_version": SCHEMA_VERSION,
             "config_path": relpath(config_path),
             "model_config": config,
-            "split_path": relpath(split_path),
+            "split_path": relpath(effective_split_path),
+            "input_split_path": relpath(split_path),
+            "data_root": str(data_root) if data_root is not None else None,
             "shots": shots,
             "seed": seed,
             "model_evidence": asdict(fit_info) if fit_info is not None else None,
@@ -125,7 +135,7 @@ def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed:
             "git_commit": git_commit(),
             "model_name": model_name,
             "model_source_commit": config.get("model_source_commit") or config.get("inspiration_commit"),
-            "dataset_split_path": relpath(split_path),
+            "dataset_split_path": relpath(effective_split_path),
             "config_path": relpath(run_dir / "config.resolved.json"),
             "support_set_path": relpath(run_dir / "support_set.csv"),
             "predictions_path": relpath(run_dir / "predictions.jsonl"),
@@ -138,6 +148,31 @@ def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed:
         },
     )
     return relpath(run_dir)
+
+
+def _prepare_split(split_path: str | Path, run_dir: Path, data_root: str | Path | None) -> str | Path:
+    if data_root is None:
+        return split_path
+
+    root = repo_path(data_root).resolve()
+    rows = []
+    for row in read_csv(split_path):
+        resolved = dict(row)
+        resolved["image_path"] = _resolve_data_path(root, row["image_path"])
+        resolved["mask_path"] = _resolve_data_path(root, row["mask_path"])
+        rows.append(resolved)
+    resolved_path = run_dir / "split.resolved.csv"
+    write_csv(resolved_path, rows, SPLIT_FIELDS)
+    return resolved_path
+
+
+def _resolve_data_path(data_root: Path, value: str) -> str:
+    if value == "":
+        return ""
+    path = Path(value)
+    if path.is_absolute():
+        return str(path)
+    return str(data_root / path)
 
 
 def _tile_ref(row: dict[str, Any]) -> dict[str, Any]:
@@ -168,8 +203,12 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--split", required=True, help="Split CSV path.")
     parser.add_argument("--shots", required=True, type=int, help="Normal support examples to record.")
     parser.add_argument("--seed", required=True, type=int, help="Support-set seed.")
+    parser.add_argument(
+        "--data-root",
+        help="Dataset mount/root used to resolve relative image_path and mask_path values from the split CSV.",
+    )
     add_common_flags(parser)
-    run_cli(parser, lambda args: run_model(args.config, args.split, args.shots, args.seed), argv)
+    run_cli(parser, lambda args: run_model(args.config, args.split, args.shots, args.seed, args.data_root), argv)
 
 
 if __name__ == "__main__":

@@ -43,9 +43,9 @@ pnpm --filter web dev
 
 ## Backend Scaffold
 
-The backend currently implements the artifact contracts and stable command
-surface while datasets and upstream model integration are pending. The model
-runner produces deterministic placeholder scores only; do not report them as
+The backend implements the artifact contracts and stable command surface. Use
+`pixel_pca.yaml` for dependency-light smoke tests and `dinov2_pca.yaml` for the
+GPU training/scoring path. Do not report either local baseline as upstream
 SubspaceAD or FoundAD evidence.
 
 ```bash
@@ -53,7 +53,7 @@ uv run python scripts/doctor.py --config configs/demo.yaml
 uv run python scripts/validate_registry.py data/registry/sources.jsonl
 uv run python -m src.data.build --config configs/data/stub.yaml
 uv run python -m src.models.run \
-  --config configs/models/subspacead.yaml \
+  --config configs/models/pixel_pca.yaml \
   --split data/splits/stub_v0.csv \
   --shots 1 \
   --seed 17
@@ -67,11 +67,34 @@ make format     # Ruff format
 make test       # pytest
 make smoke      # empty scaffold run through freeze + validation
 make sanity     # doctor + registry validation + lint + tests
+make prepare-training-dataset DATASET_ROOT=/path/to/datasets_ready
+make train-dinov2 DATA_ROOT=/path/to/datasets_ready SPLIT=/path/to/datasets_ready/splits/combined_no_miic.csv
 ```
 
 Backend-generated raw data, split CSVs, run folders, and demo manifests are
 gitignored. Source-controlled files define the contracts, configs, and command
 implementations.
+
+## Training Handoff
+
+MIIC is not part of the current training setup. On the machine that has the
+ready datasets:
+
+```bash
+uv sync --extra dinov2
+uv run python scripts/prepare_training_dataset.py \
+  --dataset-root /path/to/datasets_ready \
+  --min-rows 100
+
+./scripts/train_dinov2_pca.sh \
+  --split /path/to/datasets_ready/splits/combined_no_miic.csv \
+  --data-root /path/to/datasets_ready \
+  --shots 1 \
+  --seed 17
+```
+
+For Azure ML, use `cloud/azureml/prepare_dataset_asset.sh` from the dataset
+machine, then submit `cloud/azureml/train_dinov2_pca.yml`.
 
 ## MCP Server
 

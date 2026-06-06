@@ -1,4 +1,7 @@
-import { requireExampleWithVerdict } from "@/lib/mock/selectors";
+import {
+  firstExampleWithVerdict,
+  requireExampleWithVerdict,
+} from "@/lib/mock/selectors";
 import type { DemoManifest } from "@/lib/types";
 
 export type DemoView = "intro" | "risk-map" | "inspect" | "evidence" | "research";
@@ -16,8 +19,9 @@ export interface DemoStep {
 
 export function buildDemoSteps(manifest: DemoManifest): DemoStep[] {
   const pass = requireExampleWithVerdict(manifest, "PASS").registry.tile_id;
-  const review = requireExampleWithVerdict(manifest, "REVIEW").registry.tile_id;
   const hold = requireExampleWithVerdict(manifest, "HOLD").registry.tile_id;
+  const reviewOrEscalation =
+    firstExampleWithVerdict(manifest, "REVIEW")?.registry.tile_id ?? hold;
 
   return [
     {
@@ -52,11 +56,11 @@ export function buildDemoSteps(manifest: DemoManifest): DemoStep[] {
     {
       id: "inspect-review",
       kicker: "04 · Anomaly",
-      title: "A tile that needs review",
+      title: "A tile that escalates",
       narration:
-        "A particle residue breaks the lattice. The heatmap localises it, a contour rings the region, the score crosses the review line — and the tile is routed to a human as REVIEW with a semantic hint.",
+        "A recovered anomaly breaks the normal SEM pattern. The heatmap localises the residual field, the score crosses the escalation threshold, and the tile is routed to a human rather than treated as an unsupported production rejection.",
       view: "inspect",
-      focusExampleId: review,
+      focusExampleId: reviewOrEscalation,
       dwellMs: 12000,
     },
     {

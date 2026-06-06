@@ -3,6 +3,7 @@
 import { ImageIcon, LayersIcon, ScanIcon } from "lucide-react";
 import { useState } from "react";
 import { OverlayCompositor } from "@/components/viz/overlay-compositor";
+import { artifactUrl } from "@/lib/artifact-url";
 import type { DemoExample } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -54,6 +55,8 @@ export function TileViewer({
         overlayOpacity={showHeatmap ? opacity : 0}
         showHeatmap={showHeatmap}
         showContour={showContour}
+        rawSrc={artifactUrl(example.registry.image_path)}
+        overlaySrc={artifactUrl(example.result?.heatmap_path)}
       />
 
       <div className="flex flex-wrap items-center gap-3">

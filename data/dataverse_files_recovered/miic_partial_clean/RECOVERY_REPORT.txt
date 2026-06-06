@@ -1,0 +1,7 @@
+Recovered from partial ~/Downloads/dataverse_files.zip
+Original ZIP central directory was missing; salvaged Anomaly_train.rar from first ZIP entry.
+normal=1385
+anomaly=116
+bad=1
+skipped=0
+bad_files=train_normal_00114.jpg

@@ -1,0 +1,18 @@
+schema_version: "1.0"
+demo_id: scaffold
+status: scaffold
+allow_empty: true
+manifest_path: demo/manifest.json
+registry_path: data/registry/sources.jsonl
+dataset_configs:
+  - configs/data/stub.yaml
+model_configs:
+  - configs/models/subspacead.yaml
+  - configs/models/foundad.yaml
+runs: []
+featured_examples: []
+risk_maps: []
+metrics: []
+caveats:
+  - Datasets are pending.
+  - The model runner is a deterministic scaffold until an upstream adapter is wired in.

@@ -2,8 +2,12 @@
 
 # dependencies
 node_modules/
+.venv/
 .pnp.*
 .pnpm-store/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
 
 # builds
 .next/
@@ -19,6 +23,14 @@ next-env.d.ts
 # env
 .env
 .env*.local
+
+# backend artifacts
+data/raw/
+data/splits/*.csv
+datasets/workbench/
+demo/manifest.json
+demo/prerendered/
+runs/
 
 # misc
 .DS_Store

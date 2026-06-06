@@ -1,0 +1,14 @@
+schema_version: "1.0"
+model_name: subspacead_scaffold
+model_family: subspacead
+adapter_status: scaffold
+upstream_repository: https://github.com/CLendering/SubspaceAD
+upstream_commit: 4190506772884efa711512b7aeadd3b4e7928c52
+prediction_mode: deterministic_placeholder
+review_threshold: 0.99
+hold_threshold: 0.999
+area_hold_threshold: 0.15
+heatmap_percentile: 0.95
+notes:
+  - This config preserves the local artifact contract before datasets and upstream model code are available.
+  - Do not report results from this scaffold as SubspaceAD metrics.

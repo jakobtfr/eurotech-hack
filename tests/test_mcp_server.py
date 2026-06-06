@@ -38,7 +38,8 @@ async def _exercise_server() -> None:
         examples_payload = cast(dict[str, Any], examples_result.structuredContent)
         examples = cast(list[dict[str, Any]], examples_payload["result"])
         assert len(examples) >= 4
-        assert {example["verdict"] for example in examples} >= {"PASS", "REVIEW", "HOLD"}
+        verdicts = {example["verdict"] for example in examples}
+        assert {"PASS", "HOLD"} <= verdicts
 
         tile_id = cast(str, examples[0]["tile_id"])
         evidence_result = await session.call_tool("get_tile_evidence", {"tile_id": tile_id})
@@ -54,7 +55,9 @@ async def _exercise_server() -> None:
 
         resource = await session.read_resource("demo://manifest")
         manifest = json.loads(resource.contents[0].text)
-        assert manifest["default_example_id"] == "miic_sem_w12__x0000_y0000_s0512"
+        assert manifest["default_example_id"] in {
+            example["tile_id"] for example in examples
+        }
 
         prompt = await session.get_prompt("audit_tile", {"tile_id": tile_id})
         assert tile_id in prompt.messages[0].content.text

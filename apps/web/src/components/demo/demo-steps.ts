@@ -77,7 +77,7 @@ export function buildDemoSteps(manifest: DemoManifest): DemoStep[] {
       kicker: "06 · Honesty",
       title: "What transfers, and what doesn't",
       narration:
-        "SubspaceAD is the executable baseline, FoundAD the research headline, and the SEM→SiC domain gap is stated plainly. We show what transfers from proxy data and what still needs labelled SiC.",
+        "The executable baseline is frozen DINOv2 plus PCA residual scoring; FoundAD remains the next comparison. The SEM-to-SiC domain gap is stated plainly: we show what transfers from proxy data and what still needs labelled SiC.",
       view: "research",
       dwellMs: 10000,
     },

@@ -77,8 +77,9 @@ implementations.
 
 ## Training Handoff
 
-MIIC is not part of the current training setup. On the machine that has the
-ready datasets:
+For new datasets, use the dataset-machine workflow below. The recovered partial
+MIIC SEM archive is already staged for the demo; full MIIC remains gated by
+access and license status.
 
 ```bash
 uv sync --extra dinov2

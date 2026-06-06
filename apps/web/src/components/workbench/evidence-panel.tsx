@@ -59,7 +59,11 @@ export function EvidencePanel({
 
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-2 gap-3">
-          <StatCard label="model" value="SubspaceAD" sublabel="training-free" />
+          <StatCard
+            label="model"
+            value="DINOv2/PCA"
+            sublabel="training-free"
+          />
           <StatCard
             label="support"
             value={`${metrics.k_shot}-shot`}

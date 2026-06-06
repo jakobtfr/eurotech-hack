@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 from pathlib import Path
+from typing import Any
+
+import numpy as np
 
 from src.cli import add_common_flags, run_cli
 from src.common import (
@@ -19,6 +23,7 @@ from src.common import (
     write_jsonl,
 )
 from src.contracts import SPLIT_FIELDS, validate_split
+from src.models.adapters import get_adapter
 
 
 def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed: int) -> str:
@@ -40,24 +45,56 @@ def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed:
         raise ContractError(f"requested {shots} support tile(s), found {len(support_set)} train/good eligible tile(s)")
     write_csv(run_dir / "support_set.csv", support_set, SPLIT_FIELDS)
 
+    # Empty smoke path: no tiles -> no model is loaded, no predictions emitted.
+    fit_info = None
+    patch_index: dict[str, Any] = {}
+    if split_rows:
+        adapter = get_adapter(config)
+        fit_info = adapter.fit([_tile_ref(row) for row in support_set])
+        patch_dir = run_dir / "patch_scores"
+        patch_dir.mkdir(parents=True, exist_ok=True)
+        all_scores: list[np.ndarray] = []
+        scored_by_tile: dict[str, Any] = {}
+        for row in split_rows:
+            scored = adapter.score(_tile_ref(row))
+            tile_slug = _safe_filename(row["tile_id"])
+            npy_path = patch_dir / f"{tile_slug}.npy"
+            np.save(npy_path, scored.patch_scores)
+            scored_by_tile[row["tile_id"]] = scored
+            all_scores.append(scored.patch_scores.ravel())
+            patch_index[row["tile_id"]] = {
+                "npy_path": relpath(npy_path),
+                "patch_grid": list(scored.patch_scores.shape),
+            }
+        stacked = np.concatenate(all_scores) if all_scores else np.zeros(1, dtype=np.float32)
+        save_json(
+            patch_dir / "index.json",
+            {
+                "schema_version": SCHEMA_VERSION,
+                "run_id": run_id,
+                "score_min": round(float(stacked.min()), 6),
+                "score_max": round(float(stacked.max()), 6),
+                "tiles": patch_index,
+            },
+        )
+
     predictions = []
     for row in split_rows:
-        score = round(stable_unit_interval(f"{seed}:{row['tile_id']}:{model_name}") * 100.0, 6)
-        area = round(stable_unit_interval(f"{row['tile_id']}:area") * 0.2, 6)
+        scored = scored_by_tile[row["tile_id"]]
         tile_slug = _safe_filename(row["tile_id"])
         predictions.append(
             {
                 "schema_version": SCHEMA_VERSION,
                 "run_id": run_id,
                 "tile_id": row["tile_id"],
-                "raw_anomaly_score": score,
+                "raw_anomaly_score": round(float(scored.raw_anomaly_score), 6),
                 "normalized_anomaly_score": None,
                 "decision": "PASS",
-                "decision_reason": "uncalibrated_placeholder",
-                "anomalous_area_fraction": area,
-                "region_count": int(area > 0.05),
-                "heatmap_path": f"runs/{run_id}/heatmaps/{tile_slug}.svg",
-                "overlay_path": f"runs/{run_id}/overlays/{tile_slug}.svg",
+                "decision_reason": "uncalibrated",
+                "anomalous_area_fraction": round(float(scored.anomalous_area_fraction), 6),
+                "region_count": int(scored.region_count),
+                "heatmap_path": f"runs/{run_id}/heatmaps/{tile_slug}.png",
+                "overlay_path": f"runs/{run_id}/overlays/{tile_slug}.png",
                 "semantic_hint": None,
                 "semantic_similarity": None,
                 "novelty_status": "not_evaluated",
@@ -74,7 +111,8 @@ def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed:
             "split_path": relpath(split_path),
             "shots": shots,
             "seed": seed,
-            "scaffold_warning": "Deterministic placeholder scores; not model evidence.",
+            "model_evidence": asdict(fit_info) if fit_info is not None else None,
+            "patch_scores_index": relpath(run_dir / "patch_scores" / "index.json") if split_rows else None,
         },
     )
     (run_dir / "environment.txt").write_text(environment_snapshot(), encoding="utf-8")
@@ -86,7 +124,7 @@ def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed:
             "status": "open",
             "git_commit": git_commit(),
             "model_name": model_name,
-            "model_source_commit": config.get("upstream_commit"),
+            "model_source_commit": config.get("model_source_commit") or config.get("inspiration_commit"),
             "dataset_split_path": relpath(split_path),
             "config_path": relpath(run_dir / "config.resolved.json"),
             "support_set_path": relpath(run_dir / "support_set.csv"),
@@ -102,6 +140,18 @@ def run_model(config_path: str | Path, split_path: str | Path, shots: int, seed:
     return relpath(run_dir)
 
 
+def _tile_ref(row: dict[str, Any]) -> dict[str, Any]:
+    """Resolve a split row into the geometry an adapter needs to load the tile."""
+
+    return {
+        "image_path": str(repo_path(row["image_path"])),
+        "tile_x": row.get("tile_x", 0),
+        "tile_y": row.get("tile_y", 0),
+        "tile_size": row.get("tile_size", 0),
+        "preprocess_id": row.get("preprocess_id"),
+    }
+
+
 def _safe_filename(value: str) -> str:
     return "".join(char if char.isalnum() or char in {"-", "_"} else "_" for char in value)
 
@@ -113,7 +163,7 @@ def _as_bool(value: object) -> bool:
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description="Create a run artifact directory from a split manifest.")
+    parser = argparse.ArgumentParser(description="Fit on a support set and score a split into a run artifact.")
     parser.add_argument("--config", required=True, help="Model YAML config.")
     parser.add_argument("--split", required=True, help="Split CSV path.")
     parser.add_argument("--shots", required=True, type=int, help="Normal support examples to record.")

@@ -5,6 +5,17 @@ description = "Backend artifact pipeline scaffolding for the SiC anomaly workben
 requires-python = ">=3.12"
 dependencies = [
   "pyyaml>=6.0.2",
+  "numpy>=2.0",
+  "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# The DINOv2 encoder path. torch is intentionally NOT a core dependency: it has
+# no wheel for some interpreters (e.g. CPython 3.14) and is only needed on the
+# GPU box that runs the real DINOv2 feature extractor. The pixel-grid encoder
+# (numpy/pillow only) exercises the identical scoring/render code without it.
+dinov2 = [
+  "torch>=2.2",
 ]
 
 [dependency-groups]

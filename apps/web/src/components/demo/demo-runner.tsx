@@ -1,42 +1,46 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import { ArrowRightIcon } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+import { VerdictBadge } from "@/components/ui/verdict-badge";
+import { OverlayCompositor } from "@/components/viz/overlay-compositor";
+import { EvidencePanel } from "@/components/workbench/evidence-panel";
+import { InspectPanel } from "@/components/workbench/inspect-panel";
+import { ResearchPanel } from "@/components/workbench/research-panel";
+import { RiskMapPanel } from "@/components/workbench/risk-map-panel";
+import { useDemoStepper } from "@/hooks/use-demo-stepper";
 import { demoManifest } from "@/lib/mock/manifest";
 import {
   getExampleOrDefault,
-  firstExampleWithVerdict,
+  requireExampleWithVerdict,
   scoreDistribution,
 } from "@/lib/mock/selectors";
-import { useDemoStepper } from "@/hooks/use-demo-stepper";
-import { StepperRail } from "./stepper-rail";
 import { DemoNarration } from "./demo-narration";
-import { InspectPanel } from "@/components/workbench/inspect-panel";
-import { RiskMapPanel } from "@/components/workbench/risk-map-panel";
-import { EvidencePanel } from "@/components/workbench/evidence-panel";
-import { ResearchPanel } from "@/components/workbench/research-panel";
-import { OverlayCompositor } from "@/components/viz/overlay-compositor";
-import { VerdictBadge } from "@/components/ui/verdict-badge";
+import { StepperRail } from "./stepper-rail";
 
 const REVIEW_STEP = 3; // index of the inspect-review step
+const INTRO_POINTS = [
+  "Scan the wafer risk map for hot clusters.",
+  "Inspect a clean tile, then an anomalous one.",
+  "Check the evidence — and what stays qualitative.",
+] as const;
 
 function IntroView() {
-  const reject = firstExampleWithVerdict("REJECT")!;
+  const hold = requireExampleWithVerdict("HOLD");
   return (
     <div className="grid items-center gap-8 rounded-xl border border-border bg-card p-7 shadow-[var(--shadow-soft)] lg:grid-cols-[1fr_20rem]">
       <div>
         <p className="font-display text-xl font-semibold leading-snug text-foreground">
-          From a handful of known-good tiles to a defect map, a wafer risk
-          overview, and a verdict you can defend.
+          From a handful of known-good tiles to a defect map, a wafer risk overview, and
+          a review decision you can defend.
         </p>
         <ol className="mt-6 flex flex-col gap-3">
-          {[
-            "Scan the wafer risk map for hot clusters.",
-            "Inspect a clean tile, then an anomalous one.",
-            "Check the evidence — and what stays qualitative.",
-          ].map((t, i) => (
-            <li key={i} className="flex items-center gap-3 text-sm text-muted-foreground">
+          {INTRO_POINTS.map((t, i) => (
+            <li
+              key={t}
+              className="flex items-center gap-3 text-sm text-muted-foreground"
+            >
               <span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary/10 font-mono text-[0.7rem] text-primary">
                 {i + 1}
               </span>
@@ -46,12 +50,12 @@ function IntroView() {
         </ol>
       </div>
       <div className="relative mx-auto w-full max-w-[18rem]">
-        <OverlayCompositor example={reject} />
+        <OverlayCompositor example={hold} />
         <div className="absolute -bottom-4 -left-3 flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 shadow-[var(--shadow-card)]">
           <span className="font-display text-lg font-bold tabular-nums text-foreground">
-            {(reject.result?.anomaly_score ?? 0).toFixed(2)}
+            {(hold.result?.anomaly_score ?? 0).toFixed(2)}
           </span>
-          <VerdictBadge verdict={reject.result?.verdict ?? "REJECT"} />
+          <VerdictBadge verdict={hold.result?.verdict ?? "HOLD"} />
         </div>
       </div>
     </div>
@@ -82,7 +86,7 @@ export function DemoRunner() {
           <InspectPanel
             example={getExampleOrDefault(step.focusExampleId)}
             reviewAt={demoManifest.threshold_review}
-            rejectAt={demoManifest.threshold_reject}
+            holdAt={demoManifest.threshold_hold}
           />
         );
       case "evidence":
@@ -106,8 +110,8 @@ export function DemoRunner() {
           The four-minute path
         </h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
-          A scripted walk through the workbench — press play to auto-advance, or
-          step through it yourself.
+          A scripted walk through the workbench — press play to auto-advance, or step
+          through it yourself.
         </p>
       </div>
 

@@ -16,7 +16,7 @@ interface WaferRiskMapProps {
 const VERDICT_RING: Record<string, string> = {
   PASS: "var(--verdict-pass)",
   REVIEW: "var(--verdict-review)",
-  REJECT: "var(--verdict-reject)",
+  HOLD: "var(--verdict-hold)",
 };
 
 export function WaferRiskMap({
@@ -40,9 +40,10 @@ export function WaferRiskMap({
         <svg
           viewBox={`-0.5 -0.5 ${cols + 1} ${rows + 1}`}
           className="size-full"
-          role="group"
+          role="img"
           aria-label="Wafer risk map"
         >
+          <title>Wafer risk map</title>
           <defs>
             <radialGradient id="wafer-sheen" cx="40%" cy="32%" r="80%">
               <stop offset="0%" stopColor="oklch(0.4 0.02 255 / 0.25)" />
@@ -84,22 +85,13 @@ export function WaferRiskMap({
                         : "oklch(0 0 0 / 0.25)"
                   }
                   strokeWidth={isSelected ? 0.09 : t.has_result ? 0.05 : 0.02}
-                  className={cn(
-                    "transition-[opacity,transform] duration-150",
-                    t.has_result && "cursor-pointer",
-                  )}
+                  className={cn("transition-[opacity,transform] duration-150")}
                   style={{
                     filter: hot
                       ? `drop-shadow(0 0 ${0.12 + t.anomaly_score * 0.3}px ${heatColor(t.anomaly_score)})`
                       : undefined,
-                    opacity:
-                      active && active !== t && active.in_wafer ? 0.55 : 1,
+                    opacity: active && active !== t && active.in_wafer ? 0.55 : 1,
                   }}
-                  onMouseEnter={() => setHovered(t)}
-                  onMouseLeave={() => setHovered(null)}
-                  onClick={() =>
-                    t.has_result && onSelectTile?.(t.tile_id)
-                  }
                 />
                 {t.has_result && (
                   <circle
@@ -129,6 +121,38 @@ export function WaferRiskMap({
             );
           })}
         </svg>
+        <div className="absolute inset-0">
+          {tiles.map((t) => {
+            if (!t.in_wafer) return null;
+            const left = ((t.col + 0.08 + 0.5) / (cols + 1)) * 100;
+            const top = ((t.row + 0.08 + 0.5) / (rows + 1)) * 100;
+            const size = (0.84 / (cols + 1)) * 100;
+            return (
+              <button
+                key={`${t.col}-${t.row}`}
+                type="button"
+                tabIndex={t.has_result ? 0 : -1}
+                aria-disabled={!t.has_result}
+                aria-label={`cell c${t.col} r${t.row}, score ${t.anomaly_score.toFixed(2)}, ${t.verdict}`}
+                className={cn(
+                  "absolute rounded-[3px] bg-transparent",
+                  t.has_result && "cursor-pointer",
+                )}
+                style={{
+                  left: `${left}%`,
+                  top: `${top}%`,
+                  width: `${size}%`,
+                  height: `${size}%`,
+                }}
+                onMouseEnter={() => setHovered(t)}
+                onMouseLeave={() => setHovered(null)}
+                onFocus={() => setHovered(t)}
+                onBlur={() => setHovered(null)}
+                onClick={() => t.has_result && onSelectTile?.(t.tile_id)}
+              />
+            );
+          })}
+        </div>
       </div>
 
       {/* hover / legend readout */}
@@ -148,8 +172,7 @@ export function WaferRiskMap({
           </span>
         ) : (
           <span>
-            {riskMap.summary.inspected} tiles · hover to probe · ◷ marked = full
-            result
+            {riskMap.summary.inspected} tiles · hover to probe · ◷ marked = full result
           </span>
         )}
         <span className="flex items-center gap-1.5">

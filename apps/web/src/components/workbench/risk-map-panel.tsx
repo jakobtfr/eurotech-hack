@@ -1,14 +1,14 @@
 import { ArrowRightIcon } from "lucide-react";
-import type { RiskMap } from "@/lib/types";
-import { cn } from "@/lib/utils";
-import { Card, CardContent } from "@/components/ui/card";
-import { StatCard } from "@/components/ui/stat-card";
 import { Button } from "@/components/ui/button";
-import { ProvenanceTag } from "@/components/ui/provenance-tag";
-import { VerdictBadge } from "@/components/ui/verdict-badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { ModalityTag } from "@/components/ui/modality-tag";
+import { ProvenanceTag } from "@/components/ui/provenance-tag";
+import { StatCard } from "@/components/ui/stat-card";
+import { VerdictBadge } from "@/components/ui/verdict-badge";
 import { WaferRiskMap } from "@/components/viz/wafer-risk-map";
 import { getExample } from "@/lib/mock/selectors";
+import type { RiskMap } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface RiskMapPanelProps {
   riskMap: RiskMap;
@@ -54,21 +54,13 @@ export function RiskMapPanel({
 
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-3 gap-3">
-          <StatCard
-            label="pass"
-            value={summary.pass}
-            accent="var(--verdict-pass)"
-          />
+          <StatCard label="pass" value={summary.pass} accent="var(--verdict-pass)" />
           <StatCard
             label="review"
             value={summary.review}
             accent="var(--verdict-review)"
           />
-          <StatCard
-            label="reject"
-            value={summary.reject}
-            accent="var(--verdict-reject)"
-          />
+          <StatCard label="hold" value={summary.hold} accent="var(--verdict-hold)" />
         </div>
 
         <Card size="sm">
@@ -76,8 +68,8 @@ export function RiskMapPanel({
             <span className="eyebrow">provenance note</span>
             <p>
               Tiles are a <span className="text-foreground">stitched field</span>{" "}
-              assembled from related crops — not true wafer coordinates. Colour
-              encodes the per-tile anomaly score.
+              assembled from related crops — not true wafer coordinates. Colour encodes
+              the per-tile anomaly score.
             </p>
           </CardContent>
         </Card>
@@ -89,9 +81,7 @@ export function RiskMapPanel({
                 <span className="eyebrow">selected tile</span>
                 <ModalityTag modality={focused.registry.modality} />
               </div>
-              <p className="text-sm font-medium text-foreground">
-                {focused.title}
-              </p>
+              <p className="text-sm font-medium text-foreground">{focused.title}</p>
               <div className="flex items-center justify-between">
                 <VerdictBadge verdict={focused.result.verdict} />
                 <span className="font-mono text-sm tabular-nums text-foreground">
@@ -112,7 +102,7 @@ export function RiskMapPanel({
         ) : (
           <Card size="sm">
             <CardContent className="text-[0.8rem] text-muted-foreground">
-              Select a marked tile (◷) to inspect its heatmap and verdict.
+              Select a marked tile (◷) to inspect its heatmap and decision.
             </CardContent>
           </Card>
         )}

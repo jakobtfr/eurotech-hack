@@ -1,8 +1,8 @@
 import { CheckCircleIcon, CircleDashedIcon } from "lucide-react";
+import { CaveatBadge } from "@/components/ui/caveat-badge";
 import type { CaveatKind } from "@/lib/types";
 import { Reveal } from "./reveal";
 import { SectionIntro } from "./section-intro";
-import { CaveatBadge } from "@/components/ui/caveat-badge";
 
 const CAVEATS: { kind: CaveatKind; note: string }[] = [
   { kind: "proxy metric", note: "Validated on SEM proxy data with real labels." },

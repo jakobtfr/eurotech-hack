@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { anomalyBlobs } from "@/lib/viz/anomaly-field";
@@ -48,13 +49,17 @@ export function AnomalyHeatmap({ tileId, score, className, src }: AnomalyHeatmap
 
   if (src) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={src}
-        alt=""
-        className={cn("size-full object-cover", className)}
-        draggable={false}
-      />
+      <div className={cn("relative size-full", className)}>
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes="512px"
+          className="object-cover"
+          draggable={false}
+          unoptimized
+        />
+      </div>
     );
   }
 

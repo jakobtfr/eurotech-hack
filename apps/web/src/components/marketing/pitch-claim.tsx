@@ -12,10 +12,10 @@ export function PitchClaim() {
             &ldquo;
           </span>
           <blockquote className="relative font-display text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-[2rem]">
-            We built an open, few-shot semiconductor anomaly workbench that
-            produces heatmaps and review decisions from scarce normal examples —
-            while explicitly separating{" "}
-            <span className="text-primary">proxy-validated evidence</span> from{" "}
+            We built an open, few-shot semiconductor anomaly workbench that produces
+            heatmaps and review decisions from scarce normal examples — while explicitly
+            separating <span className="text-primary">proxy-validated evidence</span>{" "}
+            from{" "}
             <span className="underline decoration-border decoration-2 underline-offset-4">
               qualitative SiC transfer
             </span>

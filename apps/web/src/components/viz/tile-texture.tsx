@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Modality } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { hashSeed, mulberry32 } from "@/lib/viz/seeded-random";
@@ -14,9 +15,12 @@ const MODALITY_TINT: Record<Modality, { base: string; tint: string }> = {
   SEM: { base: "oklch(0.28 0.006 255)", tint: "oklch(0.55 0.01 255 / 0)" },
   PL: { base: "oklch(0.24 0.05 250)", tint: "oklch(0.5 0.12 250 / 0.18)" },
   etch: { base: "oklch(0.27 0.03 70)", tint: "oklch(0.55 0.08 60 / 0.16)" },
+  optical: { base: "oklch(0.29 0.025 210)", tint: "oklch(0.55 0.06 210 / 0.12)" },
   wafer_map: { base: "oklch(0.26 0.01 255)", tint: "oklch(0.5 0.02 255 / 0)" },
   synthetic: { base: "oklch(0.25 0.02 290)", tint: "oklch(0.5 0.08 300 / 0.14)" },
+  other: { base: "oklch(0.27 0.01 255)", tint: "oklch(0.5 0.01 255 / 0.08)" },
 };
+const GRID_OFFSETS = [64, 128, 192, 256, 320, 384, 448] as const;
 
 function sanitize(id: string): string {
   return id.replace(/[^a-zA-Z0-9_-]/g, "");
@@ -25,13 +29,17 @@ function sanitize(id: string): string {
 export function TileTexture({ tileId, modality, className, src }: TileTextureProps) {
   if (src) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={src}
-        alt=""
-        className={cn("size-full object-cover", className)}
-        draggable={false}
-      />
+      <div className={cn("relative size-full", className)}>
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes="512px"
+          className="object-cover"
+          draggable={false}
+          unoptimized
+        />
+      </div>
     );
   }
 
@@ -51,19 +59,32 @@ export function TileTexture({ tileId, modality, className, src }: TileTexturePro
           : 0.05 + rng() * 0.04; // SEM = fine grain
 
   // Decorative deterministic features.
-  const grainLines = Array.from({ length: modality === "SEM" ? 6 : 3 }, () => ({
-    x1: rng() * 512,
-    y1: rng() * 512,
-    x2: rng() * 512,
-    y2: rng() * 512,
-  }));
+  const grainLines = Array.from({ length: modality === "SEM" ? 6 : 3 }, () => {
+    const x1 = rng() * 512;
+    const y1 = rng() * 512;
+    const x2 = rng() * 512;
+    const y2 = rng() * 512;
+    return {
+      id: `${x1.toFixed(1)}-${y1.toFixed(1)}-${x2.toFixed(1)}-${y2.toFixed(1)}`,
+      x1,
+      y1,
+      x2,
+      y2,
+    };
+  });
   const pits =
     modality === "etch"
-      ? Array.from({ length: 26 }, () => ({
-          cx: rng() * 512,
-          cy: rng() * 512,
-          r: 2 + rng() * 5,
-        }))
+      ? Array.from({ length: 26 }, () => {
+          const cx = rng() * 512;
+          const cy = rng() * 512;
+          const r = 2 + rng() * 5;
+          return {
+            id: `${cx.toFixed(1)}-${cy.toFixed(1)}-${r.toFixed(1)}`,
+            cx,
+            cy,
+            r,
+          };
+        })
       : [];
 
   return (
@@ -71,8 +92,10 @@ export function TileTexture({ tileId, modality, className, src }: TileTexturePro
       viewBox="0 0 512 512"
       preserveAspectRatio="none"
       className={cn("size-full", className)}
-      aria-hidden
+      role="img"
+      aria-label={`${modality} tile texture`}
     >
+      <title>{`${modality} tile texture`}</title>
       <defs>
         <filter id={`${uid}-grain`} x="0" y="0" width="100%" height="100%">
           <feTurbulence
@@ -106,9 +129,9 @@ export function TileTexture({ tileId, modality, className, src }: TileTexturePro
       <rect width="512" height="512" fill={tint.tint} />
 
       {modality === "SEM" &&
-        grainLines.map((l, i) => (
+        grainLines.map((l) => (
           <line
-            key={i}
+            key={l.id}
             x1={l.x1}
             y1={l.y1}
             x2={l.x2}
@@ -118,9 +141,9 @@ export function TileTexture({ tileId, modality, className, src }: TileTexturePro
           />
         ))}
 
-      {pits.map((p, i) => (
+      {pits.map((p) => (
         <circle
-          key={i}
+          key={p.id}
           cx={p.cx}
           cy={p.cy}
           r={p.r}
@@ -132,11 +155,11 @@ export function TileTexture({ tileId, modality, className, src }: TileTexturePro
 
       {modality === "synthetic" && (
         <g stroke="oklch(0.6 0.02 290 / 0.14)" strokeWidth="1" fill="none">
-          {Array.from({ length: 7 }, (_, i) => (
-            <line key={`v${i}`} x1={(i + 1) * 64} y1={0} x2={(i + 1) * 64} y2={512} />
+          {GRID_OFFSETS.map((offset) => (
+            <line key={`v${offset}`} x1={offset} y1={0} x2={offset} y2={512} />
           ))}
-          {Array.from({ length: 7 }, (_, i) => (
-            <line key={`h${i}`} x1={0} y1={(i + 1) * 64} x2={512} y2={(i + 1) * 64} />
+          {GRID_OFFSETS.map((offset) => (
+            <line key={`h${offset}`} x1={0} y1={offset} x2={512} y2={offset} />
           ))}
         </g>
       )}

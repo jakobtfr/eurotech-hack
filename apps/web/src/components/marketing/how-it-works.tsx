@@ -15,7 +15,7 @@ const STEPS = [
   {
     n: "03",
     title: "Map & route",
-    body: "Localise the residual into a heatmap, threshold the score, and route the tile: PASS, REVIEW, or REJECT.",
+    body: "Localise the residual into a heatmap, threshold the score, and route the tile: PASS, REVIEW, or HOLD.",
   },
 ];
 

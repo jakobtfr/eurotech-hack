@@ -1,31 +1,23 @@
-import type { DemoExample } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import { CardContent } from "@/components/ui/card";
-import { GlowPanel } from "@/components/ui/glow-panel";
-import { VerdictBadge } from "@/components/ui/verdict-badge";
 import { CaveatBadge } from "@/components/ui/caveat-badge";
+import { GlowPanel } from "@/components/ui/glow-panel";
 import { ModalityTag } from "@/components/ui/modality-tag";
 import { LicenseTag } from "@/components/ui/provenance-tag";
+import { VerdictBadge } from "@/components/ui/verdict-badge";
 import { ScoreGauge } from "@/components/viz/score-gauge";
+import type { DemoExample } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
-const GLOW = { PASS: "pass", REVIEW: "review", REJECT: "reject" } as const;
+const GLOW = { PASS: "pass", REVIEW: "review", HOLD: "hold" } as const;
 
 interface ReadoutPanelProps {
   example: DemoExample;
   reviewAt: number;
-  rejectAt: number;
+  holdAt: number;
   className?: string;
 }
 
-function Fact({
-  label,
-  value,
-  tone,
-}: {
-  label: string;
-  value: string;
-  tone?: string;
-}) {
+function Fact({ label, value, tone }: { label: string; value: string; tone?: string }) {
   return (
     <div className="flex min-w-0 flex-col gap-0.5">
       <dt className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted-foreground">
@@ -44,7 +36,7 @@ function Fact({
 export function ReadoutPanel({
   example,
   reviewAt,
-  rejectAt,
+  holdAt,
   className,
 }: ReadoutPanelProps) {
   const { registry, result } = example;
@@ -57,7 +49,7 @@ export function ReadoutPanel({
         {/* header */}
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="eyebrow">verdict</p>
+            <p className="eyebrow">decision</p>
             <h3 className="mt-1 font-display text-lg font-semibold leading-tight">
               {example.title}
             </h3>
@@ -71,14 +63,9 @@ export function ReadoutPanel({
         {/* gauge + key facts */}
         <div className="flex items-center gap-5">
           <div className="flex flex-col items-center gap-1.5">
-            <ScoreGauge
-              score={score}
-              reviewAt={reviewAt}
-              rejectAt={rejectAt}
-              size={132}
-            />
+            <ScoreGauge score={score} reviewAt={reviewAt} holdAt={holdAt} size={132} />
             <span className="font-mono text-[0.6rem] text-muted-foreground">
-              review {reviewAt.toFixed(2)} · reject {rejectAt.toFixed(2)}
+              review {reviewAt.toFixed(2)} · hold {holdAt.toFixed(2)}
             </span>
           </div>
           <dl className="flex flex-1 flex-col gap-3">
@@ -86,18 +73,12 @@ export function ReadoutPanel({
               label="novelty"
               value={result?.novelty_flag ? "flagged" : "clear"}
               tone={
-                result?.novelty_flag
-                  ? "var(--verdict-review)"
-                  : "var(--verdict-pass)"
+                result?.novelty_flag ? "var(--verdict-review)" : "var(--verdict-pass)"
               }
             />
             <Fact label="region" value={result?.region_tag ?? "none localized"} />
             {result?.semantic_hint && (
-              <Fact
-                label="hint"
-                value={result.semantic_hint}
-                tone="var(--chart-2)"
-              />
+              <Fact label="hint" value={result.semantic_hint} tone="var(--chart-2)" />
             )}
           </dl>
         </div>

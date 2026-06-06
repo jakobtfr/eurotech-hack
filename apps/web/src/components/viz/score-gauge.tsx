@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
-import { clamp } from "@/lib/viz/seeded-random";
 import { heatColor } from "@/lib/viz/heat-ramp";
+import { clamp } from "@/lib/viz/seeded-random";
 
 interface ScoreGaugeProps {
   score: number;
   reviewAt: number;
-  rejectAt: number;
+  holdAt: number;
   size?: number;
   label?: string;
   className?: string;
@@ -29,7 +29,7 @@ function arc(cx: number, cy: number, r: number, a0: number, a1: number) {
 export function ScoreGauge({
   score,
   reviewAt,
-  rejectAt,
+  holdAt,
   size = 150,
   label = "anomaly score",
   className,
@@ -48,11 +48,20 @@ export function ScoreGauge({
     const b = polar(cx, cy, r - stroke / 2, ang);
     return { a, b };
   };
-  const marks = [notch(reviewAt), notch(rejectAt)];
+  const marks = [
+    { id: "review", ...notch(reviewAt) },
+    { id: "hold", ...notch(holdAt) },
+  ];
 
   return (
     <div className={cn("relative", className)} style={{ width: size, height: size }}>
-      <svg viewBox={`0 0 ${size} ${size}`} className="size-full">
+      <svg
+        viewBox={`0 0 ${size} ${size}`}
+        className="size-full"
+        role="img"
+        aria-label={`${label}: ${f.toFixed(2)}`}
+      >
+        <title>{`${label}: ${f.toFixed(2)}`}</title>
         {/* track */}
         <path
           d={arc(cx, cy, r, START, START + SWEEP)}
@@ -70,9 +79,9 @@ export function ScoreGauge({
           strokeLinecap="round"
         />
         {/* threshold notches */}
-        {marks.map((m, i) => (
+        {marks.map((m) => (
           <line
-            key={i}
+            key={m.id}
             x1={m.a.x}
             y1={m.a.y}
             x2={m.b.x}

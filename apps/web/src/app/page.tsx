@@ -1,9 +1,9 @@
 import { Hero } from "@/components/marketing/hero";
-import { ScarceLabelProblem } from "@/components/marketing/scarce-label-problem";
-import { HowItWorks } from "@/components/marketing/how-it-works";
 import { HonestFraming } from "@/components/marketing/honest-framing";
-import { PitchClaim } from "@/components/marketing/pitch-claim";
+import { HowItWorks } from "@/components/marketing/how-it-works";
 import { LandingCta } from "@/components/marketing/landing-cta";
+import { PitchClaim } from "@/components/marketing/pitch-claim";
+import { ScarceLabelProblem } from "@/components/marketing/scarce-label-problem";
 
 export default function Home() {
   return (

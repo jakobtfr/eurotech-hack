@@ -1,11 +1,11 @@
 import { InfoIcon } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { KeyValue } from "@/components/ui/key-value";
+import { MetricRow } from "@/components/ui/metric-row";
+import { StatCard } from "@/components/ui/stat-card";
+import { Sparkline } from "@/components/viz/sparkline";
 import type { MetricsManifest } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Card, CardContent } from "@/components/ui/card";
-import { StatCard } from "@/components/ui/stat-card";
-import { MetricRow } from "@/components/ui/metric-row";
-import { KeyValue } from "@/components/ui/key-value";
-import { Sparkline } from "@/components/viz/sparkline";
 
 interface EvidencePanelProps {
   metrics: MetricsManifest;
@@ -41,25 +41,30 @@ export function EvidencePanel({
             <p>{metrics.framing}</p>
           </div>
 
-          <div role="table" className="flex flex-col">
-            <div
-              role="row"
-              className="grid grid-cols-[1fr_auto] border-b border-border pb-2 font-mono text-[0.66rem] uppercase tracking-wider text-muted-foreground"
-            >
-              <span>metric</span>
-              <span>value</span>
-            </div>
-            {metrics.metrics.map((m) => (
-              <MetricRow key={m.name} metric={m} />
-            ))}
-          </div>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b border-border font-mono text-[0.66rem] uppercase tracking-wider text-muted-foreground">
+                <th className="pb-2 text-left font-medium">metric</th>
+                <th className="pb-2 text-right font-medium">value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {metrics.metrics.map((m) => (
+                <MetricRow key={m.name} metric={m} />
+              ))}
+            </tbody>
+          </table>
         </CardContent>
       </Card>
 
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-2 gap-3">
           <StatCard label="model" value="SubspaceAD" sublabel="training-free" />
-          <StatCard label="support" value={`${metrics.k_shot}-shot`} sublabel="normal tiles" />
+          <StatCard
+            label="support"
+            value={`${metrics.k_shot}-shot`}
+            sublabel="normal tiles"
+          />
         </div>
 
         <Card size="sm">

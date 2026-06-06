@@ -21,6 +21,14 @@ export function firstExampleWithVerdict(verdict: Verdict): DemoExample | undefin
   return demoManifest.examples.find((e) => e.result?.verdict === verdict);
 }
 
+export function requireExampleWithVerdict(verdict: Verdict): DemoExample {
+  const example = firstExampleWithVerdict(verdict);
+  if (!example) {
+    throw new Error(`Missing demo example with ${verdict} decision`);
+  }
+  return example;
+}
+
 /** Distribution of anomaly scores across all demo examples (for sparklines). */
 export function scoreDistribution(): number[] {
   return demoManifest.examples
@@ -30,7 +38,7 @@ export function scoreDistribution(): number[] {
 
 export const VERDICT_META: Record<
   Verdict,
-  { label: string; tone: "pass" | "review" | "reject"; blurb: string }
+  { label: string; tone: "pass" | "review" | "hold"; blurb: string }
 > = {
   PASS: {
     label: "Pass",
@@ -42,9 +50,9 @@ export const VERDICT_META: Record<
     tone: "review",
     blurb: "Localized anomaly or high-uncertainty flag — route to a human.",
   },
-  REJECT: {
-    label: "Reject",
-    tone: "reject",
-    blurb: "High-area anomaly or clustered hot tiles.",
+  HOLD: {
+    label: "Hold",
+    tone: "hold",
+    blurb: "High-area anomaly or clustered hot tiles — escalate inspection.",
   },
 };

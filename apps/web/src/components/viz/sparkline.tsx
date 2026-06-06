@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { clamp } from "@/lib/viz/seeded-random";
 import { heatColor } from "@/lib/viz/heat-ramp";
+import { clamp } from "@/lib/viz/seeded-random";
 
 interface SparklineProps {
   values: number[]; // 0..1
@@ -25,8 +25,17 @@ export function Sparkline({
   const x = (i: number) => pad + (i / Math.max(n - 1, 1)) * (width - pad * 2);
   const y = (v: number) => height - pad - clamp(v) * (height - pad * 2);
 
-  const linePts = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  const linePts = values
+    .map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`)
+    .join(" ");
   const areaPts = `${pad},${height - pad} ${linePts} ${width - pad},${height - pad}`;
+  const points = values.map((v, i) => ({
+    id: `${x(i).toFixed(1)}-${y(v).toFixed(1)}-${v.toFixed(4)}`,
+    value: v,
+    x: x(i),
+    y: y(v),
+    isMarker: i === marker,
+  }));
 
   return (
     <svg
@@ -36,6 +45,7 @@ export function Sparkline({
       role="img"
       aria-label="score distribution"
     >
+      <title>Score distribution</title>
       <defs>
         <linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.28" />
@@ -63,15 +73,15 @@ export function Sparkline({
         strokeLinejoin="round"
         strokeLinecap="round"
       />
-      {values.map((v, i) => (
+      {points.map((point) => (
         <circle
-          key={i}
-          cx={x(i)}
-          cy={y(v)}
-          r={i === marker ? 3 : 1.8}
-          fill={heatColor(v)}
-          stroke={i === marker ? "var(--foreground)" : "none"}
-          strokeWidth={i === marker ? 1 : 0}
+          key={point.id}
+          cx={point.x}
+          cy={point.y}
+          r={point.isMarker ? 3 : 1.8}
+          fill={heatColor(point.value)}
+          stroke={point.isMarker ? "var(--foreground)" : "none"}
+          strokeWidth={point.isMarker ? 1 : 0}
         />
       ))}
     </svg>

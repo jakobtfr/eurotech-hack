@@ -1,10 +1,10 @@
 "use client";
 
+import { ImageIcon, LayersIcon, ScanIcon } from "lucide-react";
 import { useState } from "react";
-import { LayersIcon, ScanIcon, ImageIcon } from "lucide-react";
+import { OverlayCompositor } from "@/components/viz/overlay-compositor";
 import type { DemoExample } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { OverlayCompositor } from "@/components/viz/overlay-compositor";
 
 interface TileViewerProps {
   example: DemoExample;

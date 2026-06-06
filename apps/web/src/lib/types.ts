@@ -1,9 +1,16 @@
 // Shared domain types for the SiC Anomaly Workbench.
-// Mirrors the artifact contracts in planning/output/implementation_plan.md.
+// Mirrors the artifact contracts in planning/implementation_plan.md.
 
-export type Verdict = "PASS" | "REVIEW" | "REJECT";
+export type Verdict = "PASS" | "REVIEW" | "HOLD";
 
-export type Modality = "SEM" | "PL" | "etch" | "wafer_map" | "synthetic";
+export type Modality =
+  | "SEM"
+  | "PL"
+  | "etch"
+  | "optical"
+  | "wafer_map"
+  | "synthetic"
+  | "other";
 
 export type WaferMapProvenance =
   | "real spatial"
@@ -92,12 +99,12 @@ export interface RiskMap {
   cols: number;
   rows: number;
   threshold_review: number;
-  threshold_reject: number;
+  threshold_hold: number;
   tiles: RiskTile[];
   summary: {
     pass: number;
     review: number;
-    reject: number;
+    hold: number;
     inspected: number;
   };
 }
@@ -153,7 +160,7 @@ export interface DemoManifest {
   model: string;
   default_example_id: string;
   threshold_review: number;
-  threshold_reject: number;
+  threshold_hold: number;
   examples: DemoExample[];
   risk_map: RiskMap;
   metrics: MetricsManifest;

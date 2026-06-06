@@ -53,11 +53,7 @@ export function anomalyBlobs(tileId: string, score: number): Blob[] {
 }
 
 /** A wobbly closed contour (SVG path) around the focal region, scaled by score. */
-export function contourPath(
-  tileId: string,
-  score: number,
-  size: number,
-): string {
+export function contourPath(tileId: string, score: number, size: number): string {
   const rng = rngFor(tileId, "contour");
   const focal = focalPoint(tileId);
   const cx = focal.x * size;
@@ -83,5 +79,5 @@ export function contourPath(
     const c2y = p2[1] - (p3[1] - p1[1]) / 6;
     d += `C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${p2[0].toFixed(1)} ${p2[1].toFixed(1)} `;
   }
-  return d + "Z";
+  return `${d}Z`;
 }

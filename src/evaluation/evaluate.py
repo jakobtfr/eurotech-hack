@@ -22,23 +22,21 @@ def evaluate_run(run_path: str | Path) -> str:
         validate_split(manifest["dataset_split_path"]) if repo_path(manifest["dataset_split_path"]).exists() else []
     )
     split_by_tile = {row["tile_id"]: row for row in split_rows}
-    labeled = [
-        (
-            float(row["normalized_anomaly_score"] or 0.0),
-            1 if split_by_tile.get(row["tile_id"], {}).get("label") == "anomaly" else 0,
-        )
-        for row in predictions
-        if split_by_tile.get(row["tile_id"], {}).get("split") == "test"
-    ]
+    # Image-level scoring aggregates tiles to their source image (max over tiles),
+    # then labels per source. Scoring per tile would mislabel the normal-looking
+    # tiles of a localized-defect image as anomalies (tiling bias).
+    labeled = _source_level_scores(predictions, split_by_tile)
     positives = sum(label for _, label in labeled)
     negatives = len(labeled) - positives
     has_image_labels = positives > 0 and negatives > 0
     pixel_auroc, pixel_reason = _pixel_auroc(run_dir, predictions, split_by_tile)
+    test_tiles = sum(1 for row in predictions if split_by_tile.get(row["tile_id"], {}).get("split") == "test")
     metrics = {
         "schema_version": SCHEMA_VERSION,
         "run_id": manifest["run_id"],
         "tile_count": len(predictions),
-        "test_tile_count": len(labeled),
+        "test_tile_count": test_tiles,
+        "test_image_count": len(labeled),
         "image_auroc": _auroc(labeled) if has_image_labels else None,
         "image_aupr": _aupr(labeled) if has_image_labels else None,
         "pixel_auroc": pixel_auroc,
@@ -116,6 +114,25 @@ def _aupr(rows: list[tuple[float, int]]) -> float:
         area += (recall - previous_recall) * precision
         previous_recall = recall
     return round(area, 6)
+
+
+def _source_level_scores(
+    predictions: list[dict[str, Any]], split_by_tile: dict[str, dict[str, Any]]
+) -> list[tuple[float, int]]:
+    """Aggregate test tiles to one (score, label) per source image (max over tiles)."""
+
+    by_source: dict[str, tuple[float, int]] = {}
+    for row in predictions:
+        split_row = split_by_tile.get(row["tile_id"])
+        if not split_row or split_row.get("split") != "test":
+            continue
+        source_id = split_row["source_image_id"]
+        score = float(row["normalized_anomaly_score"] or 0.0)
+        label = 1 if split_row.get("label") == "anomaly" else 0
+        current = by_source.get(source_id)
+        if current is None or score > current[0]:
+            by_source[source_id] = (score, label)
+    return list(by_source.values())
 
 
 def _pixel_auroc(

@@ -11,8 +11,14 @@ blocked on data access (qualitative path ready).
   heatmaps, calibrated `PASS/REVIEW/HOLD` decisions, and a risk map.
 - On a real labeled benchmark (**VisA `pcb1`**) it produces a genuine
   **Pixel AUROC 0.794** and source-level **Image AUROC 0.553** with the crude
-  torch-free encoder; the semantic DINOv2 encoder is expected to be materially
-  higher.
+  torch-free encoder.
+  - **Update (2026-06-06):** the semantic `dinov2_vits14` encoder has now been
+    run end-to-end (see [`docs/run_summary.md`](run_summary.md)). It is
+    **materially higher at pixel localization** (Pixel AUROC up to **0.949** at
+    4 shots) but, contrary to the earlier expectation, **below chance at
+    source-level Image AUROC** (0.072–0.397) — the `max`-over-tiles aggregation
+    is anti-correlated with the image label on PCB1. Strong localization, weak
+    image ranking; treated as an open domain-gap finding, not a headline win.
 - **The SiC data itself is not publicly available** — the reference dataset is
   "available upon request" and there is no public mirror. This is the real
   bottleneck; SiC remains a *qualitative* track and a concrete pilot-data ask.

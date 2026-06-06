@@ -1,0 +1,21 @@
+schema_version: "1.0"
+model_name: dinov2_pca_baseline_v1
+model_family: dinov2_pca_residual
+adapter_status: local_baseline
+encoder: dinov2_vits14
+feature_layer: last
+input_resolution: 448
+pca_variance_retained: 0.90
+area_zscore: 2.0
+review_threshold: 0.99
+hold_threshold: 0.999
+area_hold_threshold: 0.15
+heatmap_percentile: 0.95
+# Recorded as model_source_commit; SubspaceAD is inspiration only, not a claim.
+inspiration_repository: https://github.com/CLendering/SubspaceAD
+inspiration_commit: 4190506772884efa711512b7aeadd3b4e7928c52
+model_source_commit: 4190506772884efa711512b7aeadd3b4e7928c52
+notes:
+  - Frozen DINOv2 patch features + PCA-residual scoring. Requires the optional
+    'dinov2' extra (torch) and is intended for the GPU box.
+  - This is a local baseline named accurately; do not report it as SubspaceAD.

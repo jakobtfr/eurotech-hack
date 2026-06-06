@@ -1,0 +1,18 @@
+schema_version: "1.0"
+model_name: pixel_pca_baseline_v1
+model_family: pixel_pca_residual
+adapter_status: local_baseline
+encoder: pixel_grid_v1
+patch_grid: 28
+input_resolution: 224
+pca_variance_retained: 0.90
+area_zscore: 2.0
+review_threshold: 0.99
+hold_threshold: 0.999
+area_hold_threshold: 0.15
+heatmap_percentile: 0.95
+notes:
+  - Dependency-light encoder (numpy/pillow only, no torch) using local pixel
+    statistics per grid cell. Exercises the identical PCA-residual pipeline as
+    the DINOv2 path so it can be verified offline.
+  - Not a DINOv2 result; use only for pipeline validation and smoke runs.

@@ -96,6 +96,19 @@ uv run python scripts/prepare_training_dataset.py \
 For Azure ML, use `cloud/azureml/prepare_dataset_asset.sh` from the dataset
 machine, then submit `cloud/azureml/train_dinov2_pca.yml`.
 
+### Reproduce the VisA `pcb1` DINOv2 runs
+
+A complete, copy-pasteable walkthrough (env, dataset restore, build, run,
+evaluate, freeze, validate) lives in [`docs/EXECUTION.md`](docs/EXECUTION.md),
+and the honest results — few-shot localization scaling (Pixel AUROC
+0.76 → 0.95) plus the below-chance image-AUROC domain-gap finding — are written
+up in [`docs/run_summary.md`](docs/run_summary.md).
+
+This baseline is **training-free**: there is no checkpoint to save. The only
+weights are the frozen DINOv2 encoder (cached by torch); the PCA "normal
+subspace" is re-fit at run time from the recorded `support_set.csv`. Run
+artifacts under `runs/` are gitignored and immutable once frozen.
+
 ## MCP Server
 
 The local MCP server exposes the demo manifest, tile evidence, source tracing,

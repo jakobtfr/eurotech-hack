@@ -166,3 +166,9 @@ Before real datasets arrive, use `data/registry/sources.example.jsonl` as a
 source registry template. The registry validator checks row shape and uniqueness
 by default; add `--check-files` to verify that source, mask, and license paths
 exist once files are staged.
+
+
+## Video Links
+
+Business Demo: https://youtu.be/urum2LN9YxE
+Tech Demo: https://youtu.be/mw7K8vWHtUk

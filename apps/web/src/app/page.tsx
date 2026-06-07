@@ -23,13 +23,13 @@ const teamMembers = [
     name: "Jakob Friedrich",
     photo: "/team/Jakob.jpg",
     degree: "Computer Science",
-    title: "Amazon engineer, TUM.ai software engineering lead",
+    title: "Amazon SWE, TUM.ai software engineering lead",
   },
   {
     name: "Justin Lanfermann",
     photo: "/team/Justin.jpg",
     degree: "Computer Science",
-    title: "TUM.ai software engineering lead",
+    title: "TUM.ai software engineering lead, experienced fullstack and AI Dev",
   },
 ];
 

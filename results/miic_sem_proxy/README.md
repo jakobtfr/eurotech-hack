@@ -1,4 +1,4 @@
-# MIIC — Resultados de detección de anomalías (DINOv2 + PCA)
+# MIIC Semiconductor SEM Proxy Results
 
 Resultados visibles del run `runs/20260606T193603Z_dinov2_pca_baseline_v1_k16_seed17`
 (la carpeta `runs/` está en `.gitignore`, por eso estos resultados se exportan aquí).
@@ -35,4 +35,13 @@ el defecto real, pero a veces resalta una estructura de layout poco frecuente qu
 estaba entre los 16 tiles de soporte. Para afinar: más shots (k=64+), normalización
 por imagen en el overlay, o CLAHE en el preprocess.
 
-Regenerar: `uv run python scripts/export_miic_results.py`
+## Additional model comparisons
+
+- `cfa/`: CFA metrics and representative heatmaps. CFA is the strongest MIIC
+  image-level model in this result package.
+- `draem/`: DRAEM metrics and representative heatmaps.
+- `../judge_evidence/miic_reliability_evidence.png`: confusion matrix,
+  precision-recall curve, score separation, and review-policy evidence.
+
+Regenerate the DINOv2/PCA examples with:
+`uv run python scripts/export_miic_results.py`

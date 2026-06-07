@@ -6,6 +6,17 @@ large intermediate checkpoints.
 
 ## Experiments
 
+### `judge_evidence/`
+
+The recommended entry point for reviewers and judges:
+
+- `sic_performance_and_integrity.png`: real 4H-SiC model comparison,
+  per-class reliability, training stability, and split audit
+- `miic_reliability_evidence.png`: score separation, confusion matrix,
+  precision-recall trade-off, and uncertainty-review behavior
+- `evidence_metrics.json`: underlying metrics and bootstrap confidence intervals
+- `README.md`: presentation order and defensible claim boundaries
+
 ### `sic_4h_yolo11s_obb/`
 
 The primary result: oriented-box detection of threading dislocations (TD) and
@@ -39,7 +50,8 @@ semiconductor anomaly research but is not a SiC dataset.
 
 - DINOv2 + PCA-residual: image AUROC `0.879`
 - CFA: image AUROC `0.922`
-- Includes metrics, a top-anomaly gallery, and representative examples
+- DRAEM: additional reconstruction-based comparison
+- Includes metrics, a top-anomaly gallery, and representative CFA/DRAEM heatmaps
 
 ### `wm811k_silicon_proxy/`
 

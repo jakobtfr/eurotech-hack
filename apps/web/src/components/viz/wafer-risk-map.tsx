@@ -34,11 +34,18 @@ export function WaferRiskMap({
   const [hovered, setHovered] = useState<RiskTile | null>(null);
 
   // The die field is a cols×rows grid (cells span 0..cols, 0..rows). The wafer
-  // disc is sized to sit *around* that field with margin so no die ever spills
-  // past the edge, then the viewBox is fit to the disc (+ room for the notch).
+  // disc hugs the actual in-wafer die field: radius = farthest die-center from
+  // the grid center + one cell half-diagonal (~0.71) and a thin margin, so the
+  // squares fill the disc edge-to-edge instead of floating in an empty ring.
   const cx = cols / 2;
   const cy = rows / 2;
-  const r = Math.SQRT2 * (Math.max(cols, rows) / 2 - 0.08) + 0.6;
+  const dieReach = tiles.reduce((max, t) => {
+    if (!t.in_wafer) return max;
+    const dx = t.col + 0.5 - cx;
+    const dy = t.row + 0.5 - cy;
+    return Math.max(max, Math.hypot(dx, dy));
+  }, 0);
+  const r = dieReach + 0.85;
   const vbX = cx - r - 0.25;
   const vbY = cy - r - 0.25;
   const vbW = 2 * r + 0.5;
@@ -46,8 +53,8 @@ export function WaferRiskMap({
   const notch = 0.42;
 
   const active = hovered;
-  const inspectedCount = tiles.filter((t) => t.has_result).length;
-  const fieldCount = tiles.filter((t) => t.in_wafer && !t.has_result).length;
+  const inspectedCount = tiles.filter((t) => t.in_wafer).length;
+  const flaggedCount = riskMap.summary.review + riskMap.summary.hold;
 
   // Map grid/SVG coordinates to container-relative percentages for the click overlay.
   const pctX = (sx: number) => ((sx - vbX) / vbW) * 100;
@@ -88,10 +95,9 @@ export function WaferRiskMap({
           {tiles.map((t) => {
             if (!t.in_wafer) return null;
             const inspected = t.has_result;
-            const dim = emphasizeInspected && !inspected;
             const isSelected = inspected && t.tile_id === selectedTileId;
             const isHighlight = inspected && t.tile_id === highlightTileId;
-            const isDimmed = active && active !== t && active.in_wafer && !dim;
+            const isDimmed = active && active !== t && active.in_wafer;
             return (
               <g key={`${t.col}-${t.row}`}>
                 <rect
@@ -100,21 +106,23 @@ export function WaferRiskMap({
                   width={0.82}
                   height={0.82}
                   rx={0.07}
-                  fill={dim ? "none" : heatColor(t.anomaly_score, 0.85)}
+                  fill={
+                    t.verdict === "PASS"
+                      ? "oklch(0.34 0.028 248 / 0.9)"
+                      : heatColor(t.anomaly_score, 0.9)
+                  }
                   stroke={
                     isSelected
                       ? "oklch(1 0 0 / 0.95)"
                       : inspected
                         ? "oklch(0.97 0 0 / 0.55)"
-                        : dim
-                          ? "oklch(0.92 0.01 255 / 0.22)"
-                          : "oklch(0 0 0 / 0.22)"
+                        : "oklch(0 0 0 / 0.22)"
                   }
                   strokeWidth={isSelected ? 0.07 : inspected ? 0.045 : 0.032}
                   className="transition-opacity duration-150"
                   style={{ opacity: isDimmed ? 0.45 : 1 }}
                 />
-                {!emphasizeInspected && inspected && (
+                {inspected && (
                   <circle
                     cx={t.col + 0.5}
                     cy={t.row + 0.5}
@@ -192,7 +200,7 @@ export function WaferRiskMap({
         ) : (
           <span>
             {emphasizeInspected
-              ? `${inspectedCount} inspected · ${fieldCount} not yet inspected`
+              ? `${inspectedCount} dies inspected · ${flaggedCount} flagged for review`
               : `${riskMap.summary.inspected} tiles · hover to probe · ◷ marked = full result`}
           </span>
         )}

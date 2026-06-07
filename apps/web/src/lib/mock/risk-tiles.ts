@@ -7,26 +7,34 @@ import {
   verdictForScore,
 } from "./examples";
 
-const COLS = 14;
-const ROWS = 14;
+const COLS = 24;
+const ROWS = 24;
 const CX = (COLS - 1) / 2;
 const CY = (ROWS - 1) / 2;
-const RADIUS = 6.7;
+const RADIUS = 11.3;
 
-// Deterministic anomaly hot-spots across the wafer field.
-const HOT_SPOTS = [
-  { cx: 10, cy: 3.5, amp: 0.96, sigma: 1.7 }, // hold cluster
-  { cx: 3.5, cy: 9, amp: 0.58, sigma: 1.9 }, // review cluster
-  { cx: 8.6, cy: 10, amp: 0.36, sigma: 1.5 }, // minor warm
+// Marked dies: the whole wafer reads as inspected, but only these cells carry a
+// full result (◷ marked + clickable into Inspect). A handful are anomalies; the
+// rest of the field is nominal/PASS. Each links to a real DEMO_EXAMPLE so the
+// drill-in shows an actual heatmap + decision. `example` is an index into
+// DEMO_EXAMPLES (a few are reused to seed extra anomaly dies).
+const MARKED: { col: number; row: number; example: number }[] = [
+  { col: 6, row: 6, example: 0 }, // nominal die (PASS)
+  { col: 17, row: 7, example: 1 }, // nominal · field edge (PASS)
+  { col: 9, row: 17, example: 4 }, // clean epi (PASS)
+  { col: 15, row: 5, example: 2 }, // particle residue (REVIEW)
+  { col: 18, row: 10, example: 3 }, // pattern collapse (HOLD)
+  { col: 5, row: 13, example: 5 }, // BPD candidate (REVIEW)
+  { col: 11, row: 19, example: 6 }, // etch-pit cluster (REVIEW)
+  { col: 7, row: 9, example: 7 }, // montage · hot field (HOLD)
+  { col: 13, row: 14, example: 3 }, // pattern collapse (HOLD)
+  { col: 19, row: 16, example: 7 }, // montage · hot field (HOLD)
 ];
 
-// Map specific grid cells to demo examples so the map drills into Inspect.
-const LINKS: Record<string, string> = {
-  "10:3": DEMO_EXAMPLES[3].registry.tile_id, // pattern collapse (HOLD)
-  "4:9": DEMO_EXAMPLES[2].registry.tile_id, // particle residue (REVIEW)
-  "3:3": DEMO_EXAMPLES[0].registry.tile_id, // nominal die (PASS)
-  "11:11": DEMO_EXAMPLES[1].registry.tile_id, // nominal edge (PASS)
-};
+function markedAt(col: number, row: number) {
+  const m = MARKED.find((x) => x.col === col && x.row === row);
+  return m ? DEMO_EXAMPLES[m.example] : undefined;
+}
 
 function inWafer(col: number, row: number): boolean {
   const dx = col - CX;
@@ -34,19 +42,8 @@ function inWafer(col: number, row: number): boolean {
   const d = Math.sqrt(dx * dx + dy * dy);
   if (d > RADIUS) return false;
   // bottom-center flat / notch
-  if (row >= ROWS - 1 && Math.abs(dx) < 1.4) return false;
+  if (row >= ROWS - 1 && Math.abs(dx) < 2.0) return false;
   return true;
-}
-
-function fieldScore(col: number, row: number, noise: number): number {
-  let s = noise * 0.16;
-  for (const spot of HOT_SPOTS) {
-    const dx = col - spot.cx;
-    const dy = row - spot.cy;
-    const d2 = dx * dx + dy * dy;
-    s += spot.amp * Math.exp(-d2 / (2 * spot.sigma * spot.sigma));
-  }
-  return clamp(s, 0, 0.97);
 }
 
 function buildRiskMap(): RiskMap {
@@ -61,14 +58,12 @@ function buildRiskMap(): RiskMap {
     for (let col = 0; col < COLS; col++) {
       const noise = rng();
       const present = inWafer(col, row);
-      const key = `${col}:${row}`;
-      const linkId = LINKS[key];
-      const linked = linkId
-        ? DEMO_EXAMPLES.find((e) => e.registry.tile_id === linkId)
-        : undefined;
+      const marked = present ? markedAt(col, row) : undefined;
 
-      let score = present ? fieldScore(col, row, noise) : 0;
-      if (linked?.result) score = linked.result.anomaly_score;
+      // Whole wafer is inspected: every in-wafer die gets a nominal PASS field
+      // score; marked dies override with their real result score.
+      let score = present ? clamp(noise * 0.15, 0, 0.97) : 0;
+      if (marked?.result) score = marked.result.anomaly_score;
 
       const verdict = verdictForScore(score);
       if (present) {
@@ -79,13 +74,13 @@ function buildRiskMap(): RiskMap {
       }
 
       tiles.push({
-        tile_id: linkId ?? `w12__c${col}_r${row}`,
+        tile_id: marked?.registry.tile_id ?? `w12__c${col}_r${row}`,
         col,
         row,
         in_wafer: present,
         anomaly_score: score,
         verdict,
-        has_result: Boolean(linked),
+        has_result: Boolean(marked),
       });
     }
   }

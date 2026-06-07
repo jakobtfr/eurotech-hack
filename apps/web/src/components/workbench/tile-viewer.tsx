@@ -11,6 +11,8 @@ interface TileViewerProps {
   example: DemoExample;
   className?: string;
   initialOpacity?: number;
+  /** Optional caption rendered as a labeled "evidence" header above the plate. */
+  caption?: string;
 }
 
 function Toggle({
@@ -43,6 +45,7 @@ export function TileViewer({
   example,
   className,
   initialOpacity = 0.72,
+  caption,
 }: TileViewerProps) {
   const [opacity, setOpacity] = useState(initialOpacity);
   const [showHeatmap, setShowHeatmap] = useState(true);
@@ -50,6 +53,12 @@ export function TileViewer({
 
   return (
     <div className={cn("flex flex-col gap-3", className)}>
+      {caption && (
+        <div className="flex flex-col gap-1">
+          <span className="eyebrow">evidence</span>
+          <p className="text-sm text-muted-foreground">{caption}</p>
+        </div>
+      )}
       <OverlayCompositor
         example={example}
         overlayOpacity={showHeatmap ? opacity : 0}

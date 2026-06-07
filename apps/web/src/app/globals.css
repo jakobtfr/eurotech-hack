@@ -166,6 +166,25 @@
   }
 }
 
+@keyframes team-rail {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.team-logo-rail {
+  animation: team-rail 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-logo-rail {
+    animation: none !important;
+  }
+}
+
 /* refined scrollbars */
 @layer base {
   * {

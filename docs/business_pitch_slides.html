@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SiC Anomaly Workbench - Business Pitch Slides</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #091016;
+        --panel: #101a22;
+        --text: #f3f7f8;
+        --muted: #9fb0b6;
+        --line: #263842;
+        --cyan: #4fd1c5;
+        --amber: #f5b14c;
+        --green: #7bd88f;
+        --red: #ff6b6b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      main {
+        scroll-snap-type: y mandatory;
+        height: 100vh;
+        overflow-y: scroll;
+      }
+
+      section {
+        min-height: 100vh;
+        scroll-snap-align: start;
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+        gap: 42px;
+        padding: 56px 70px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(79, 209, 197, 0.07), transparent 45%),
+          radial-gradient(circle at 84% 24%, rgba(245, 177, 76, 0.10), transparent 28%);
+        pointer-events: none;
+      }
+
+      .copy,
+      .visual {
+        position: relative;
+        z-index: 1;
+      }
+
+      .copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 920px;
+      }
+
+      .eyebrow {
+        color: var(--cyan);
+        font-size: 17px;
+        font-weight: 750;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 20px;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        font-size: clamp(54px, 7vw, 104px);
+      }
+
+      h2 {
+        font-size: clamp(44px, 5.3vw, 78px);
+      }
+
+      p {
+        font-size: 26px;
+        line-height: 1.28;
+        color: var(--muted);
+        max-width: 850px;
+      }
+
+      strong {
+        color: var(--text);
+      }
+
+      .metric-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .metric {
+        border: 1px solid var(--line);
+        background: rgba(16, 26, 34, 0.78);
+        padding: 18px;
+        border-radius: 8px;
+      }
+
+      .metric b {
+        display: block;
+        font-size: 34px;
+        color: var(--green);
+        margin-bottom: 6px;
+      }
+
+      .metric span {
+        display: block;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.25;
+      }
+
+      .visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .shot {
+        width: 100%;
+        max-height: 78vh;
+        object-fit: contain;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #081014;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      }
+
+      .visual-panel {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 26, 34, 0.82);
+        padding: 28px;
+      }
+
+      .wafer {
+        aspect-ratio: 1;
+        border-radius: 999px;
+        border: 1px solid #38515f;
+        background:
+          repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 32px),
+          repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 32px),
+          radial-gradient(circle at 42% 35%, rgba(255, 107, 107, 0.95) 0 12px, transparent 13px),
+          radial-gradient(circle at 62% 62%, rgba(245, 177, 76, 0.95) 0 18px, transparent 19px),
+          radial-gradient(circle at 54% 42%, rgba(79, 209, 197, 0.85) 0 9px, transparent 10px),
+          linear-gradient(135deg, #1b2a35, #0c151b);
+        box-shadow: inset 0 0 60px rgba(79, 209, 197, 0.16);
+      }
+
+      .stack {
+        display: grid;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .step {
+        border: 1px solid var(--line);
+        border-left: 5px solid var(--cyan);
+        background: rgba(16, 26, 34, 0.82);
+        padding: 18px 20px;
+        border-radius: 8px;
+        font-size: 22px;
+      }
+
+      .step small {
+        display: block;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+
+      .source {
+        position: absolute;
+        left: 70px;
+        bottom: 28px;
+        z-index: 2;
+        color: #78909a;
+        font-size: 13px;
+      }
+
+      a {
+        color: var(--cyan);
+      }
+
+      @media (max-width: 900px) {
+        section {
+          grid-template-columns: 1fr;
+          padding: 40px 28px;
+        }
+
+        .metric-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="copy">
+          <div class="eyebrow">Semiconductor inspection</div>
+          <h1>Audit-ready anomaly triage for scarce defect data</h1>
+          <p>
+            Rare defects, expensive labels, and high-stakes review decisions are
+            a bad combination. We turn a small reference set into heatmaps,
+            scores, review decisions, and evidence trails.
+          </p>
+        </div>
+        <div class="visual">
+          <div class="visual-panel">
+            <div class="wafer"></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="copy">
+          <div class="eyebrow">Product</div>
+          <h2>Not a black box. A review queue engineers can audit.</h2>
+          <p>
+            The workbench shows the source image, highlighted region, score,
+            verdict, support-shot count, and caveats. It escalates inspection
+            risk; it does not pretend to be automatic wafer rejection.
+          </p>
+        </div>
+        <div class="visual">
+          <img
+            class="shot"
+            src="../results/miic_sem_proxy/gallery_top_anomalies.png"
+            alt="MIIC semiconductor anomaly gallery"
+          />
+        </div>
+      </section>
+
+      <section>
+        <div class="copy">
+          <div class="eyebrow">Real SiC evidence</div>
+          <h2>Improved oriented-box detection on 4H-SiC photoluminescence</h2>
+          <p>
+            The improved YOLO11s-OBB model raises precision and localization
+            quality on the same acquisition-session-disjoint validation split.
+          </p>
+          <div class="metric-row">
+            <div class="metric"><b>0.585 -> 0.669</b><span>Precision</span></div>
+            <div class="metric"><b>0.596 -> 0.621</b><span>mAP50</span></div>
+            <div class="metric"><b>0.362 -> 0.399</b><span>mAP50-95</span></div>
+          </div>
+        </div>
+        <div class="visual">
+          <img
+            class="shot"
+            src="../results/judge_evidence/sic_performance_and_integrity.png"
+            alt="SiC performance and integrity evidence"
+          />
+        </div>
+      </section>
+
+      <section>
+        <div class="copy">
+          <div class="eyebrow">Reliability discipline</div>
+          <h2>Proxy evidence with explicit failure counts</h2>
+          <p>
+            MIIC is a semiconductor SEM proxy, not a SiC claim. It shows the
+            anomaly-triage workflow with calibrated thresholds, uncertainty
+            review, and visible false positives and false negatives.
+          </p>
+          <div class="metric-row">
+            <div class="metric"><b>0.905</b><span>MIIC proxy AUROC</span></div>
+            <div class="metric"><b>0.897</b><span>MIIC proxy AUPR</span></div>
+            <div class="metric"><b>98 / 327</b><span>TP / TN at threshold</span></div>
+          </div>
+        </div>
+        <div class="visual">
+          <img
+            class="shot"
+            src="../results/judge_evidence/miic_reliability_evidence.png"
+            alt="MIIC reliability evidence"
+          />
+        </div>
+      </section>
+
+      <section>
+        <div class="copy">
+          <div class="eyebrow">Market and Hong Kong fit</div>
+          <h2>A focused AI layer for a large inspection market</h2>
+          <p>
+            Semiconductor metrology and inspection equipment is estimated around
+            USD 9B today and forecast into the mid-teens by the early 2030s.
+            Silicon carbide is also a multi-billion-dollar, growing material
+            market. Hong Kong's microelectronics and advanced-manufacturing push
+            makes it a natural pilot ecosystem.
+          </p>
+        </div>
+        <div class="visual">
+          <div class="stack">
+            <div class="step">
+              TAM
+              <small>Global semiconductor inspection/metrology and SiC inspection demand.</small>
+            </div>
+            <div class="step">
+              SAM
+              <small>Fabs, OSATs, labs, inspection vendors, and power-device teams.</small>
+            </div>
+            <div class="step">
+              SOM
+              <small>First pilots with Hong Kong and Greater Bay Area partners.</small>
+            </div>
+          </div>
+        </div>
+        <div class="source">
+          Sources: Grand View Research market estimates; HKPC/HKSTP microelectronics initiatives.
+        </div>
+      </section>
+
+      <section>
+        <div class="copy">
+          <div class="eyebrow">Team and ask</div>
+          <h2>TUM team with AI delivery, CS, quantum systems, and research depth</h2>
+          <p>
+            Sparsh brings applied AI and business delivery. Jakob and Justin
+            bring CS and TUM.ai software engineering leadership. Damia brings
+            quantum systems depth, Fraunhofer experience, and research exposure
+            with UPenn and Cambridge. Sparsh and Damia are EuroTech fellows;
+            Damia is also a TUM Venture Labs fellow.
+          </p>
+          <p>
+            Our ask: a licensed paired SiC pilot dataset and an inspection
+            partner to measure review-time reduction, failure modes, and operator
+            workflow fit.
+          </p>
+        </div>
+        <div class="visual">
+          <div class="stack">
+            <div class="step">Pilot first <small>Licensed SiC PL / SEM / etch imagery.</small></div>
+            <div class="step">Measure value <small>Review-time reduction and failure boundaries.</small></div>
+            <div class="step">Integrate <small>Inspection workflow, audit trail, and model adaptation.</small></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

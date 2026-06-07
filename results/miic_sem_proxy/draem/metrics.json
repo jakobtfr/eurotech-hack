@@ -1,0 +1,16 @@
+{
+  "model": "draem",
+  "epochs": 15,
+  "image_size": 256,
+  "accelerator": "mps",
+  "split": "miic_partial (692 train-good / 347 test-good / 116 anomaly)",
+  "metrics": {
+    "image_auroc": 0.701828480572394,
+    "image_aupr": 0.35571855773572236,
+    "n_test": 463,
+    "n_anomaly": 116,
+    "n_normal": 347
+  },
+  "metric_source": "sklearn roc_auc_score / average_precision_score on image-level anomaly scores",
+  "note": "image-level only; MIIC has no GT masks"
+}

@@ -1,0 +1,129 @@
+{
+  "miic": {
+    "bootstrap_95pct_intervals": {
+      "accuracy": [
+        0.8920086393088553,
+        0.9416846652267818
+      ],
+      "aupr": [
+        0.8503850147970002,
+        0.9377557838482209
+      ],
+      "auroc": [
+        0.8583722000878745,
+        0.9484037464982359
+      ],
+      "balanced_accuracy": [
+        0.8575230990440286,
+        0.9276775159685691
+      ]
+    },
+    "confusion_matrix": {
+      "fn": 18,
+      "fp": 20,
+      "tn": 327,
+      "tp": 98
+    },
+    "limitations": [
+      "MIIC is a semiconductor SEM proxy, not SiC.",
+      "No aligned ground-truth masks."
+    ],
+    "metrics": {
+      "accuracy": 0.91792656587473,
+      "aupr": 0.8971549791135827,
+      "auroc": 0.9054705356255589,
+      "balanced_accuracy": 0.8935953492994138
+    },
+    "model": "CFA anomaly maps + compact classical one-class decision head",
+    "test_anomaly": 116,
+    "test_images": 463,
+    "test_normal": 347,
+    "threshold_source": "normal validation p95"
+  },
+  "sic": {
+    "baseline": {
+      "fitness": 0.36154480507013104,
+      "metrics/mAP50(B)": 0.5961766219770065,
+      "metrics/mAP50-95(B)": 0.36154480507013104,
+      "metrics/precision(B)": 0.5849896778921544,
+      "metrics/recall(B)": 0.6486417915496769,
+      "per_class": {
+        "BPD": {
+          "mAP50": 0.3585011937085245,
+          "mAP50-95": 0.16665402829297843,
+          "precision": 0.44098435662387164,
+          "recall": 0.4854368932038835
+        },
+        "TD": {
+          "mAP50": 0.8338520502454885,
+          "mAP50-95": 0.5564355818472838,
+          "precision": 0.7289949991604371,
+          "recall": 0.8118466898954704
+        }
+      }
+    },
+    "dataset": "SiC_Dislocation_Detection_DB / CBMS-Dataset",
+    "evaluation": "acquisition-session-disjoint validation; original images only",
+    "improved": {
+      "fitness": 0.3988471670611366,
+      "metrics/mAP50(B)": 0.6206449547512809,
+      "metrics/mAP50-95(B)": 0.3988471670611366,
+      "metrics/precision(B)": 0.6693001060581285,
+      "metrics/recall(B)": 0.6099280000067677,
+      "per_class": {
+        "BPD": {
+          "mAP50": 0.3828080994693349,
+          "mAP50-95": 0.1955200098060419,
+          "precision": 0.5944248864466081,
+          "recall": 0.3557445017556958
+        },
+        "TD": {
+          "mAP50": 0.858481810033227,
+          "mAP50-95": 0.6021743243162314,
+          "precision": 0.744175325669649,
+          "recall": 0.8641114982578397
+        }
+      }
+    },
+    "limitations": [
+      "No independent held-out test set.",
+      "Only TD and BPD classes.",
+      "BPD recall remains the main weakness."
+    ],
+    "material": "4H-SiC",
+    "modality": "photoluminescence",
+    "split_statistics": {
+      "session_overlap": [],
+      "splits": {
+        "train": {
+          "class_objects": {
+            "BPD": 1111,
+            "TD": 2834
+          },
+          "images": 2054,
+          "objects": 3945,
+          "sessions": 45
+        },
+        "val": {
+          "class_objects": {
+            "BPD": 206,
+            "TD": 287
+          },
+          "images": 211,
+          "objects": 493,
+          "sessions": 8
+        }
+      },
+      "validation_sessions": [
+        "20241009test1",
+        "20241011test3",
+        "20241104test3",
+        "20250117test6",
+        "20250117test7",
+        "20250120test1",
+        "20250120test2",
+        "20250123test5"
+      ]
+    }
+  }
+}

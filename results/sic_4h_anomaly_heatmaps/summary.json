@@ -1,0 +1,208 @@
+{
+  "run": "runs/20260606T225256Z_dinov2_pca_baseline_v1_k16_seed17",
+  "method": "DINOv2 (vits14, frozen) + PCA-residual, k=16 shots, CLAHE preprocess",
+  "note": "Unsupervised: no SiC labels used. pixel/image AUROC null (no GT anomaly labels).",
+  "n_test_images": 40,
+  "scores": [
+    {
+      "image": "sic4h_20241009test1_124",
+      "raw_anomaly_score": 23.992634,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_131",
+      "raw_anomaly_score": 23.621876,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_111",
+      "raw_anomaly_score": 21.986313,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_115",
+      "raw_anomaly_score": 21.339725,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_126",
+      "raw_anomaly_score": 21.187262,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_127",
+      "raw_anomaly_score": 21.165226,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_125",
+      "raw_anomaly_score": 21.081022,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_93",
+      "raw_anomaly_score": 21.026081,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_52",
+      "raw_anomaly_score": 20.251133,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_92",
+      "raw_anomaly_score": 20.197903,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_59",
+      "raw_anomaly_score": 20.147959,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_113",
+      "raw_anomaly_score": 19.808962,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_109",
+      "raw_anomaly_score": 19.614876,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_51",
+      "raw_anomaly_score": 19.40382,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_114",
+      "raw_anomaly_score": 19.31011,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_58",
+      "raw_anomaly_score": 18.769455,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_94",
+      "raw_anomaly_score": 18.556713,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_11",
+      "raw_anomaly_score": 18.444,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_10",
+      "raw_anomaly_score": 18.388161,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_108",
+      "raw_anomaly_score": 18.204889,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_74",
+      "raw_anomaly_score": 18.051256,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_75",
+      "raw_anomaly_score": 17.932775,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241009test1_73",
+      "raw_anomaly_score": 17.738125,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_66",
+      "raw_anomaly_score": 17.681967,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_12",
+      "raw_anomaly_score": 17.014557,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_14",
+      "raw_anomaly_score": 16.783489,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_23",
+      "raw_anomaly_score": 16.365646,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_117",
+      "raw_anomaly_score": 16.326382,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_27",
+      "raw_anomaly_score": 16.216564,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_110",
+      "raw_anomaly_score": 16.214619,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_6",
+      "raw_anomaly_score": 15.712848,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_138",
+      "raw_anomaly_score": 15.690542,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_137",
+      "raw_anomaly_score": 15.410841,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_67",
+      "raw_anomaly_score": 15.163462,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_37",
+      "raw_anomaly_score": 15.133128,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_50",
+      "raw_anomaly_score": 15.093712,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_118",
+      "raw_anomaly_score": 15.010538,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_160",
+      "raw_anomaly_score": 15.009786,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_28",
+      "raw_anomaly_score": 14.863927,
+      "decision": "PASS"
+    },
+    {
+      "image": "sic4h_20241011test3_116",
+      "raw_anomaly_score": 13.97661,
+      "decision": "PASS"
+    }
+  ]
+}

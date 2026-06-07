@@ -44,7 +44,7 @@ export function Hero({ manifest }: HeroProps) {
           >
             Few normal tiles in.
             <br />
-            Every anomaly
+            Every single anomaly
             <span className="relative whitespace-nowrap">
               {" "}
               mapped out

@@ -1,0 +1,156 @@
+{
+  "weights": "sic_results/yolo11n_obb_cbms_sic/weights/best.pt",
+  "conf_threshold": 0.25,
+  "legend": {
+    "TD": "green circle",
+    "BPD": "orange box"
+  },
+  "total_TD": 32,
+  "total_BPD": 1,
+  "images": [
+    {
+      "image": "20241009test1 (111).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (113).jpg",
+      "TD": 3,
+      "BPD": 0,
+      "detections": 3
+    },
+    {
+      "image": "20241009test1 (114).jpg",
+      "TD": 3,
+      "BPD": 0,
+      "detections": 3
+    },
+    {
+      "image": "20241009test1 (115).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (124).jpg",
+      "TD": 3,
+      "BPD": 0,
+      "detections": 3
+    },
+    {
+      "image": "20241009test1 (125).jpg",
+      "TD": 2,
+      "BPD": 0,
+      "detections": 2
+    },
+    {
+      "image": "20241009test1 (126).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (127).jpg",
+      "TD": 0,
+      "BPD": 0,
+      "detections": 0
+    },
+    {
+      "image": "20241009test1 (131).jpg",
+      "TD": 3,
+      "BPD": 0,
+      "detections": 3
+    },
+    {
+      "image": "20241009test1 (51).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (52).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (58).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (59).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (73).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (74).jpg",
+      "TD": 2,
+      "BPD": 0,
+      "detections": 2
+    },
+    {
+      "image": "20241009test1 (75).jpg",
+      "TD": 0,
+      "BPD": 0,
+      "detections": 0
+    },
+    {
+      "image": "20241009test1 (92).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (93).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241009test1 (94).jpg",
+      "TD": 2,
+      "BPD": 0,
+      "detections": 2
+    },
+    {
+      "image": "20241011test3 (10).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241011test3 (108).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241011test3 (109).jpg",
+      "TD": 1,
+      "BPD": 0,
+      "detections": 1
+    },
+    {
+      "image": "20241011test3 (11).jpg",
+      "TD": 1,
+      "BPD": 1,
+      "detections": 2
+    },
+    {
+      "image": "20241011test3 (110).jpg",
+      "TD": 0,
+      "BPD": 0,
+      "detections": 0
+    }
+  ]
+}

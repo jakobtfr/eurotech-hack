@@ -1,0 +1,25 @@
+{
+  "baseline": {
+    "model": "YOLO11n-OBB",
+    "image_size": 768,
+    "precision": 0.5849896778921544,
+    "recall": 0.6486417915496769,
+    "mAP50": 0.5961766219770065,
+    "mAP50-95": 0.36154480507013104
+  },
+  "improved": {
+    "model": "YOLO11s-OBB",
+    "image_size": 1024,
+    "precision": 0.6693001060581285,
+    "recall": 0.6099280000067677,
+    "mAP50": 0.6206449547512809,
+    "mAP50-95": 0.3988471670611366
+  },
+  "change": {
+    "precision": 0.0843104281659741,
+    "recall": -0.0387137915429092,
+    "mAP50": 0.0244683327742744,
+    "mAP50-95": 0.0373023619910056
+  },
+  "evaluation": "Same acquisition-session-disjoint 4H-SiC validation split"
+}

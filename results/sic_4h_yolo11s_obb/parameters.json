@@ -1,0 +1,22 @@
+{
+  "epochs": 25,
+  "patience": 6,
+  "image_size": 1024,
+  "batch_size": 8,
+  "seed": 17,
+  "device": "mps",
+  "model": "yolo11s-obb.pt",
+  "dataset": "SiC_Dislocation_Detection_DB / CBMS-Dataset",
+  "material": "4H-SiC",
+  "modality": "photoluminescence",
+  "data_config": "sic_results/sic_cbms_leakage_safe.yaml",
+  "split_policy": "Acquisition-session disjoint; augmented images excluded from validation",
+  "optimizer": "AdamW",
+  "learning_rate": 0.0005,
+  "weight_decay": 0.0005,
+  "cosine_learning_rate": true,
+  "amp": false,
+  "completed_epochs": 13,
+  "stopping_reason": "Validation plateau; stopped during epoch 14 after preserving the best checkpoint",
+  "checkpoint_selection": "Ultralytics validation fitness"
+}

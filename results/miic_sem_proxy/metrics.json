@@ -1,0 +1,15 @@
+{
+  "decision_counts": {
+    "HOLD": 786,
+    "PASS": 715,
+    "REVIEW": 0
+  },
+  "image_aupr": 0.76329,
+  "image_auroc": 0.879273,
+  "pixel_auroc": null,
+  "run_id": "20260606T193603Z_dinov2_pca_baseline_v1_k16_seed17",
+  "schema_version": "1.0",
+  "test_image_count": 463,
+  "test_tile_count": 463,
+  "tile_count": 1501
+}

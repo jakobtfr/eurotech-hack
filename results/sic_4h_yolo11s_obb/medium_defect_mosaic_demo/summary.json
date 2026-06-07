@@ -1,0 +1,41 @@
+{
+  "source_image": "datasets/sic_dislocation_detection_db/leakage_safe/images/val/20250117test6 (190).jpg",
+  "confidence_threshold": 0.18,
+  "expert_annotations": {
+    "TD": 3,
+    "BPD": 3,
+    "total": 6
+  },
+  "baseline_model": {
+    "detections": 7,
+    "TD": 0,
+    "BPD": 7,
+    "mean_confidence": 0.43642780610493254,
+    "median_confidence": 0.4130752384662628,
+    "max_confidence": 0.6307355165481567,
+    "confidences": [
+      0.6307355165481567,
+      0.6224024295806885,
+      0.47521573305130005,
+      0.4130752384662628,
+      0.41292473673820496,
+      0.27475878596305847,
+      0.22588220238685608
+    ]
+  },
+  "improved_model": {
+    "detections": 4,
+    "TD": 3,
+    "BPD": 1,
+    "mean_confidence": 0.5049400925636292,
+    "median_confidence": 0.46171092987060547,
+    "max_confidence": 0.7811826467514038,
+    "confidences": [
+      0.7811826467514038,
+      0.5311250686645508,
+      0.39229679107666016,
+      0.31515586376190186
+    ]
+  },
+  "warning": "Predictions are model hypotheses; confidence is not proof of a physical defect."
+}

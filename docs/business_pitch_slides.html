@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SiC Anomaly Workbench - Business Pitch Slides</title>
+    <title>SiC Anomaly Workbench - Recording Slides</title>
     <style>
       :root {
         color-scheme: dark;
@@ -193,6 +193,94 @@
         margin-top: 5px;
       }
 
+      .formula {
+        border: 1px solid var(--line);
+        background: rgba(16, 26, 34, 0.86);
+        border-radius: 8px;
+        padding: 22px 24px;
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 22px;
+        line-height: 1.55;
+        color: var(--text);
+        width: 100%;
+      }
+
+      .formula span {
+        color: var(--cyan);
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        width: 100%;
+      }
+
+      .node {
+        min-height: 112px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 26, 34, 0.88);
+        padding: 17px;
+        position: relative;
+      }
+
+      .node::after {
+        content: "->";
+        position: absolute;
+        right: -18px;
+        top: 44%;
+        color: var(--cyan);
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 20px;
+      }
+
+      .node:nth-child(3)::after,
+      .node:nth-child(6)::after {
+        content: "";
+      }
+
+      .node b {
+        display: block;
+        color: var(--text);
+        font-size: 21px;
+        margin-bottom: 8px;
+      }
+
+      .node small {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.35;
+      }
+
+      .math-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .math-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 26, 34, 0.9);
+        padding: 18px 20px;
+      }
+
+      .math-card b {
+        display: block;
+        color: var(--amber);
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .math-card code {
+        color: var(--text);
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 20px;
+        line-height: 1.5;
+      }
+
       .source {
         position: absolute;
         left: 70px;
@@ -222,13 +310,18 @@
     <main>
       <section>
         <div class="copy">
-          <div class="eyebrow">Semiconductor inspection</div>
-          <h1>Audit-ready anomaly triage for scarce defect data</h1>
+          <div class="eyebrow">Business · problem and market</div>
+          <h1>Semiconductor inspection has a scarce-defect bottleneck</h1>
           <p>
-            Rare defects, expensive labels, and high-stakes review decisions are
-            a bad combination. We turn a small reference set into heatmaps,
-            scores, review decisions, and evidence trails.
+            Defects are rare, expert labels are expensive, and inspection teams
+            still need fast, traceable review decisions. We target fabs, OSATs,
+            labs, inspection vendors, and SiC / power-device teams.
           </p>
+          <div class="metric-row">
+            <div class="metric"><b>~$9B</b><span>Semiconductor metrology and inspection equipment today</span></div>
+            <div class="metric"><b>SiC</b><span>Fast-growing power-semiconductor material market</span></div>
+            <div class="metric"><b>HK</b><span>Microelectronics, packaging, applied research, Greater Bay Area manufacturing</span></div>
+          </div>
         </div>
         <div class="visual">
           <div class="visual-panel">
@@ -239,13 +332,19 @@
 
       <section>
         <div class="copy">
-          <div class="eyebrow">Product</div>
-          <h2>Not a black box. A review queue engineers can audit.</h2>
+          <div class="eyebrow">Business · product and GTM</div>
+          <h2>An auditable AI review layer on existing inspection workflows</h2>
           <p>
             The workbench shows the source image, highlighted region, score,
-            verdict, support-shot count, and caveats. It escalates inspection
-            risk; it does not pretend to be automatic wafer rejection.
+            verdict, support-shot count, and caveats. Go-to-market is
+            pilot-first: licensed SiC data, measure review-time reduction, then
+            integrate with operator workflow.
           </p>
+          <div class="metric-row">
+            <div class="metric"><b>Pilot</b><span>Lab, OSAT, fab, or inspection vendor</span></div>
+            <div class="metric"><b>Measure</b><span>Review time, false alarms, missed defects</span></div>
+            <div class="metric"><b>Scale</b><span>Evidence management and model adaptation</span></div>
+          </div>
         </div>
         <div class="visual">
           <img
@@ -258,11 +357,74 @@
 
       <section>
         <div class="copy">
-          <div class="eyebrow">Real SiC evidence</div>
-          <h2>Improved oriented-box detection on 4H-SiC photoluminescence</h2>
+          <div class="eyebrow">Technical · architecture</div>
+          <h2>An end-to-end inspection evidence stack, not just a model demo</h2>
           <p>
-            The improved YOLO11s-OBB model raises precision and localization
-            quality on the same acquisition-session-disjoint validation split.
+            The repo contains a Next.js workbench, Python pipeline, dataset
+            registry, model configs, run freezing, manifest validation, MCP
+            evidence server, and curated judge-ready results. Every screen can
+            be traced back to a frozen run artifact.
+          </p>
+          <div class="metric-row">
+            <div class="metric"><b>App</b><span>Next.js workbench and guided demo</span></div>
+            <div class="metric"><b>Pipeline</b><span>Data, model, calibration, render, freeze</span></div>
+            <div class="metric"><b>Evidence</b><span>Metrics, plots, manifests, honesty boundaries</span></div>
+          </div>
+        </div>
+        <div class="visual">
+          <div class="flow">
+            <div class="node"><b>Registry</b><small>Source, modality, split, license, caveats.</small></div>
+            <div class="node"><b>Normal support</b><small>Few-shot references for scarce-label settings.</small></div>
+            <div class="node"><b>Feature model</b><small>Frozen DINOv2/PCA proxy + YOLO11s-OBB SiC detector.</small></div>
+            <div class="node"><b>Evidence maps</b><small>Residual heatmaps, overlays, oriented boxes.</small></div>
+            <div class="node"><b>Calibration</b><small>PASS / REVIEW / HOLD thresholds from validation data.</small></div>
+            <div class="node"><b>Workbench</b><small>Auditable UI, result figures, `HONESTY.md`.</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="copy">
+          <div class="eyebrow">Technical · core decision</div>
+          <h2>Few-shot anomaly scoring with explainable residual surfaces</h2>
+          <p>
+            For proxy anomaly triage, frozen DINOv2 features are compared to a
+            normal support subspace. High residual regions become heatmaps,
+            scores, and inspection decisions. This gives engineers a visible
+            reason to review an image, not just a label.
+          </p>
+        </div>
+        <div class="visual">
+          <div class="math-grid">
+            <div class="math-card">
+              <b>1. Encode the inspection tile</b>
+              <code>z = frozen_encoder(tile)</code>
+            </div>
+            <div class="math-card">
+              <b>2. Fit normal reference subspace</b>
+              <code>N = PCA(normal_support)</code>
+            </div>
+            <div class="math-card">
+              <b>3. Score what does not fit normal</b>
+              <code>residual = || z - project_N(z) ||</code>
+            </div>
+            <div class="math-card">
+              <b>4. Turn evidence into an operator decision</b>
+              <code>score -> calibration -> PASS / REVIEW / HOLD</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="copy">
+          <div class="eyebrow">Technical · real SiC result</div>
+          <h2>Real SiC localization evidence with leakage-safe validation</h2>
+          <p>
+            On real 4H-SiC imagery, the improved YOLO11s-OBB detector raises
+            precision and localization quality on the same
+            acquisition-session-disjoint validation split. The honest caveat:
+            recall drops, and BPD remains the hard class.
           </p>
           <div class="metric-row">
             <div class="metric"><b>0.585 -> 0.669</b><span>Precision</span></div>
@@ -281,12 +443,14 @@
 
       <section>
         <div class="copy">
-          <div class="eyebrow">Reliability discipline</div>
-          <h2>Proxy evidence with explicit failure counts</h2>
+          <div class="eyebrow">Technical · reliability and demo</div>
+          <h2>Reliability package: metrics, uncertainty, and failure visibility</h2>
           <p>
-            MIIC is a semiconductor SEM proxy, not a SiC claim. It shows the
-            anomaly-triage workflow with calibrated thresholds, uncertainty
-            review, and visible false positives and false negatives.
+            MIIC SEM is proxy evidence, not a SiC claim. It validates the
+            triage workflow: calibrated thresholds, score separation, confusion
+            matrix, precision-recall tradeoff, and visible false positives and
+            false negatives. The important part is that the system knows when to
+            show uncertainty instead of hiding it.
           </p>
           <div class="metric-row">
             <div class="metric"><b>0.905</b><span>MIIC proxy AUROC</span></div>
@@ -300,65 +464,6 @@
             src="../results/judge_evidence/miic_reliability_evidence.png"
             alt="MIIC reliability evidence"
           />
-        </div>
-      </section>
-
-      <section>
-        <div class="copy">
-          <div class="eyebrow">Market and Hong Kong fit</div>
-          <h2>A focused AI layer for a large inspection market</h2>
-          <p>
-            Semiconductor metrology and inspection equipment is estimated around
-            USD 9B today and forecast into the mid-teens by the early 2030s.
-            Silicon carbide is also a multi-billion-dollar, growing material
-            market. Hong Kong's microelectronics and advanced-manufacturing push
-            makes it a natural pilot ecosystem.
-          </p>
-        </div>
-        <div class="visual">
-          <div class="stack">
-            <div class="step">
-              TAM
-              <small>Global semiconductor inspection/metrology and SiC inspection demand.</small>
-            </div>
-            <div class="step">
-              SAM
-              <small>Fabs, OSATs, labs, inspection vendors, and power-device teams.</small>
-            </div>
-            <div class="step">
-              SOM
-              <small>First pilots with Hong Kong and Greater Bay Area partners.</small>
-            </div>
-          </div>
-        </div>
-        <div class="source">
-          Sources: Grand View Research market estimates; HKPC/HKSTP microelectronics initiatives.
-        </div>
-      </section>
-
-      <section>
-        <div class="copy">
-          <div class="eyebrow">Team and ask</div>
-          <h2>TUM team with AI delivery, CS, quantum systems, and research depth</h2>
-          <p>
-            Sparsh brings applied AI and business delivery. Jakob and Justin
-            bring CS and TUM.ai software engineering leadership. Damia brings
-            quantum systems depth, Fraunhofer experience, and research exposure
-            with UPenn and Cambridge. Sparsh and Damia are EuroTech fellows;
-            Damia is also a TUM Venture Labs fellow.
-          </p>
-          <p>
-            Our ask: a licensed paired SiC pilot dataset and an inspection
-            partner to measure review-time reduction, failure modes, and operator
-            workflow fit.
-          </p>
-        </div>
-        <div class="visual">
-          <div class="stack">
-            <div class="step">Pilot first <small>Licensed SiC PL / SEM / etch imagery.</small></div>
-            <div class="step">Measure value <small>Review-time reduction and failure boundaries.</small></div>
-            <div class="step">Integrate <small>Inspection workflow, audit trail, and model adaptation.</small></div>
-          </div>
         </div>
       </section>
     </main>

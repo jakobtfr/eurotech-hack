@@ -35,25 +35,29 @@ const teamMembers = [
 
 const logoRail = [
   {
+    alt: "BCG",
+    src: "/logos/BCG.png",
+  },
+  {
     alt: "TUM",
     src: "/logos/TUM.png",
     className: "max-h-12 max-w-36",
-  },
-  {
-    alt: "TUM.ai",
-    src: "/logos/tumai.png",
-  },
-  {
-    alt: "BCG",
-    src: "/logos/BCG.png",
   },
   {
     alt: "Amazon",
     src: "/logos/Amazon.png",
   },
   {
+    alt: "University of Cambridge",
+    src: "/logos/Cambridge.png",
+  },
+  {
     alt: "Fraunhofer",
     src: "/logos/Fraunhofer.png",
+  },
+  {
+    alt: "EuroTech Universities Alliance",
+    src: "/logos/Eurotech.png",
   },
   {
     alt: "Celonis",
@@ -64,12 +68,12 @@ const logoRail = [
     src: "/logos/Allianz.png",
   },
   {
-    alt: "University of Pennsylvania",
-    src: "/logos/UPenn.png",
+    alt: "TUM.ai",
+    src: "/logos/tumai.png",
   },
   {
-    alt: "University of Cambridge",
-    src: "/logos/Cambridge.png",
+    alt: "University of Pennsylvania",
+    src: "/logos/UPenn.png",
   },
   {
     alt: "TUM Venture Labs",

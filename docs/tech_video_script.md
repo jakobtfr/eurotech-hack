@@ -5,6 +5,8 @@ Target length: 2 minutes.
 Goal: show the running demo, explain what was built, cite technical results, and
 make the honesty boundaries obvious.
 
+Important claim: VisA `pcb1` proxy experiment reached imperfection Pixel AUROC `0.949`.
+
 ## Pre-Recording Checklist
 
 Run the web app:
@@ -75,6 +77,7 @@ evidence, and what still needs target-domain pilot validation.
 - Say: "Real SiC evidence is the 4H-SiC photoluminescence YOLO11s-OBB result."
 - Say: "Validation split is acquisition-session-disjoint."
 - Say: "BPD recall remains a weakness."
+- Say: "VisA proxy pixel localization reached 0.949 Pixel AUROC.
 - Do not say: "MIIC proves SiC performance."
 - Do not say: "Confidence is physical proof of a defect."
 - Do not say: "This is production rejection."

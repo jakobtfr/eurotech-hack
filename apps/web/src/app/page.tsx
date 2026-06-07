@@ -8,10 +8,10 @@ import { loadDemoManifest } from "@/lib/demo-manifest";
 
 const teamMembers = [
   {
-    name: "Justin Lanfermann",
-    photo: "/team/Justin.jpg",
-    degree: "Computer Science",
-    title: "TUM.ai software engineering lead",
+    name: "Sparsh Tyagi",
+    photo: "/team/Sparsh.jpg",
+    degree: "Management & Technology",
+    title: "BCG FDE, EuroTech fellow, applied AI operator",
   },
   {
     name: "Damia Vicens Ramis",
@@ -26,10 +26,10 @@ const teamMembers = [
     title: "Amazon engineer, TUM.ai software engineering lead",
   },
   {
-    name: "Sparsh Tyagi",
-    photo: "/team/Sparsh.jpg",
-    degree: "Management & Technology",
-    title: "BCG FDE, EuroTech fellow, applied AI operator",
+    name: "Justin Lanfermann",
+    photo: "/team/Justin.jpg",
+    degree: "Computer Science",
+    title: "TUM.ai software engineering lead",
   },
 ];
 
